@@ -1,128 +1,229 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-:root{
-  --primary-color: rgb(94, 64, 15);
-  --secondary-color: rgb(218, 186, 134);
-  --accent-color: rgb(194, 210, 73);
-  --danger-color: rgb(208, 64, 38);
+:root {
+    --primary-color: rgb(94, 64, 15);
+    --secondary-color: rgb(218, 186, 134);
+    --accent-color: rgb(194, 210, 73);
+    --danger-color: rgb(208, 64, 38);
 }
 
-body{
-  min-height: 100vh;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+body {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
 }
 
-footer, header{
-  display: flex;
-  justify-content: center;
+footer,
+header {
+    display: flex;
+    justify-content: center;
 }
 
-#inventory-container{
-  background-color: var(--primary-color);
-  display: flex;
-  margin: 8px 20%;
-  padding: 8px;
-  gap: 4px;
+#inventory-container {
+    background-color: var(--primary-color);
+    display: flex;
+    margin: 8px 20%;
+    padding: 8px;
+    gap: 4px;
 }
 
-  .item{
+.item {
     background-color: var(--secondary-color);
     border: 1px solid black;
     width: 100px;
-  }
+}
 
-  .item img{
+.item img {
     width: 100%;
-  }
+}
 
-  .img-container{
+.img-container {
     width: 100px;
-  }
+}
 
-    .img-container>img{
-      width: 100%;
-    }
+.img-container>img {
+    width: 100%;
+}
 
 /* --------------- CONTENIDO DE LAS ESCENAS --------------- */
 
-main{
-  margin: 64px;
+main {
+    margin: 64px;
 }
 
-main>div{
-  height: 100%;
+main>div {
+    height: 100%;
 }
 
-#scene-1, #scene-2{
-  display: flex;
-  justify-content: center;
+#scene-1,
+#scene-2 {
+    display: flex;
+    justify-content: center;
 }
 
-#scene-1-container, #scene-2-container{
-  width: 100%;
+#scene-1-container,
+#scene-2-container {
+    width: 100%;
 }
 
-.row-1, .row-2, .row-3{
-  padding: 32px;
-  background: var(--primary-color);
+.row-1,
+.row-2,
+.row-3 {
+    padding: 32px;
+    background: var(--primary-color);
 }
 
-#scene-1 .row-1{
-  height: 40%;
-  display: flex;
-  justify-content: space-between;
-  background: var(--secondary-color);
+#scene-1 .row-1 {
+    height: 40%;
+    display: flex;
+    justify-content: space-between;
+    background: var(--secondary-color);
 }
 
-#scene-1 .row-2{
-  height: 40%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 8px;
+#scene-1 .row-2 {
+    height: 40%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 8px;
 }
 
-  #scene-1 .row-2:nth-child(3), #scene-1 .row-2:nth-child(4){
+#scene-1 .row-2:nth-child(3),
+#scene-1 .row-2:nth-child(4) {
     grid-row-start: 2;
-  }
+}
 
-  #scene-1 .stats{
+#scene-1 .stats {
     background: var(--secondary-color);
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+}
 
-  #scene-1 .row-3{
+#scene-1 .row-3 {
     height: 20%;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+}
 
-  #scene-2 .row-1{
+#scene-2 .row-1 {
     height: 80%;
-  }
+}
 
-  #scene-2 .row-2{
+#scene-2 .row-2 {
     height: 20%;
-  }
+}
 
-  #scene-2 .row-1 .card{
+#scene-2 .row-1 .card {
     width: 100px;
     height: 100px;
     background: gray;
-  }
+}
+
+#card-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 8px;
+}
+
 
 
 
 @media (width < 640px) {
-  #inventory-container{
-    grid-template-columns: repeat(3, 1fr);
-  }
+    #inventory-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+
+/*----------------- ESCENA 3 -----------------------*/
+
+#scene-3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#contenedor-escena3 {
+
+    border: 3px solid green;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#scene-3 .fila1 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 16px;
+}
+
+/*#scene-3 .fila1*/
+.enemigos {
+    width: 300px;
+    height: 300px;
+    background: var(--secondary-color);
+    border: 4px solid var(--accent-color);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.foto {
+    background-color: white;
+    display: flex;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: 10px;
+    left: 10px;
+    border: 2px solid var(--accent-color);
+}
+
+.foto img {
+    object-fit: cover;
+}
+
+#titulo-e {
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    width: 150px;
+    height: 40px;
+    top: 10px;
+    right: 10px;
+    border: 2px solid var(--accent-color);
+}
+
+.stats {
+    display: flex;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 270px;
+    height: 160px;
+    border: 2px solid var(--accent-color);
+}
+
+button {
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: var(--highlight-color);
+    border: 4px solid var(--accent-color);
+    border-radius: 8px;
+    margin-top: 20px;
+    width: 140px;
+    height: 40px;
 }
