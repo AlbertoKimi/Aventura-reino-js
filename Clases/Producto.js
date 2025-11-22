@@ -19,9 +19,9 @@ export class Producto {
 
         let precioConDescuento = this.precio;
         if (clave === "rareza" && this.rareza == valor) {
-            precioConDescuento == this.precio * (1 - descuento / 100);
+            precioConDescuento = this.precio * (1 - descuento / 100);
         } else if (clave === "tipo" && this.tipo == valor) {
-            precioConDescuento == this.precio * (1 - descuento / 100);
+            precioConDescuento = this.precio * (1 - descuento / 100);
         }
 
         return Math.round(precioConDescuento);

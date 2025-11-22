@@ -33,7 +33,7 @@ export class Jugador {
         let ataqueTotal = 0;
 
         for (const item of this.inventario) {
-            if (item.tipo == "arma") {
+            if (item.tipo == "Arma") {
                 ataqueTotal += item.bonus;
             }
         }
@@ -45,7 +45,7 @@ export class Jugador {
         let defensaTotal = 0;
 
         for (const item of this.inventario) {
-            if (item.tipo == "armadura") {
+            if (item.tipo == "Armadura") {
                 defensaTotal += item.bonus;
             }
         }
@@ -57,7 +57,7 @@ export class Jugador {
         let vidaSumada = 0;
 
         for (const item of this.inventario) {
-            if (item.tipo == "consumible") {
+            if (item.tipo == "Consumible") {
                 vidaSumada += item.bonus;
             }
         }

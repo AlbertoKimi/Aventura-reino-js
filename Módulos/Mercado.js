@@ -24,6 +24,6 @@ export function buscarProducto(nombre) {
     const productos = clonarProductos();
     const nombreMinus = nombre.toLowerCase();
 
-    return productos.filter(producto => producto.nombre.toLowerCase().include(nombreMinus));
+    return productos.filter(producto => producto.nombre.toLowerCase().includes(nombreMinus));
 
 }
