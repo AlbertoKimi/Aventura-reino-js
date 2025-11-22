@@ -1,2 +1,85 @@
 <!--Para que la de la imagen de la izquierda  se vaya fuera tenemos que poner la posición en 100vw (el del ancho de pantalla) y la de la derecha ponemos -px y ya-->
 <!--Mirar el rendimiento de las animaciones porque lo va a mirar y va a penalizar mucho. Está en el notion de diseñoa-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aventura en el Reino de JS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1 id="title">Aventura en el Reino de JS</h1>
+  </header>
+
+  <main>
+    <div id="scene-1" class="scene">
+      <div id="scene-1-container">
+        <div class="row-1">
+          <div class="img-container">
+            <img src="./img/player.png" alt="jugador">
+          </div>
+          <p>Nombre personaje</p>
+        </div>
+        <div class="row-2">
+          <div class="stats">
+            <p>Ataque: 0</p>
+          </div>
+          <div class="stats">
+            <p>Defensa: 0</p>
+          </div>
+          <div class="stats">
+            <p>Vida: 100</p>
+          </div>
+          <div class="stats">
+            <p>Puntos: 0</p>
+          </div>
+        </div>
+        <div class="row-3">
+          <button>Continuar</button>
+        </div>
+      </div>
+    </div> 
+
+    <!--<div id="scene-2" class="scene">
+      <div id="scene-2-container">
+        <div class="row-1">
+          <div id="card-container">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+          </div>
+        </div>
+        <div class="row-2">
+          <button>Continuar</button>
+        </div>
+      </div>
+    </div>-->
+
+  </main>
+
+  <footer>
+    <div id="inventory-container">
+      <div class="item">
+        <img src="./img/apple.png" alt="">
+      </div>
+      <div class="item">
+        <img src="./img/armor.png" alt="">
+      </div>
+      <div class="item">
+        <img src="./img/axe.png" alt="">
+      </div>
+      <div class="item">
+        <img src="./img/hp.png" alt="">
+      </div>
+      <div class="item">
+        <img src="" alt="">
+      </div>
+      <div class="item">
+        <img src="" alt="">
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
