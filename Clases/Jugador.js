@@ -11,7 +11,7 @@ export class Jugador {
         this.vidaMaxima = vidaBase;
     }
 
-    anadirObjetoInvemtario(producto) {
+    anadirObjetoInventario(producto) {
 
         const productoClonado = new Producto(
             producto.nombre,

@@ -1,10 +1,7 @@
 import { puntosBaseVictoria } from '../Utilies-constantes/Constantes.js';
 import { Jefe } from '../Clases/Jefe.js';
-import { Enemigo } from '../Clases/Enemigo.js';
-
 
 export function combate(enemigo, jugador) {
-
     const enemigoBatalla = new enemigo.constructor(
         enemigo.nombre,
         enemigo.avatar,
@@ -17,17 +14,48 @@ export function combate(enemigo, jugador) {
 
     const ataqueJugador = jugador.obtenerAtaqueTotal();
     const defensaJugador = jugador.obtenerDefensaTotal();
-    let ataqueEnemigoReal = 0;
+    
+    const detallesTurnos = [];
+    let numeroTurno = 1;
 
     while (jugador.vida > 0 && enemigoBatalla.puntosVida > 0) {
+        const turnoInfo = {
+            numero: numeroTurno,
+            acciones: []
+        };
 
+        const vidaEnemigoAntes = enemigoBatalla.puntosVida;
         enemigoBatalla.recibirDano(ataqueJugador);
-        if (enemigoBatalla.puntosVida <= 0) break;
+        const danoRealizado = vidaEnemigoAntes - enemigoBatalla.puntosVida;
+        
+        turnoInfo.acciones.push({
+            atacante: jugador.nombre,
+            objetivo: enemigoBatalla.nombre,
+            dano: danoRealizado,
+            vidaRestante: enemigoBatalla.puntosVida
+        });
 
-        ataqueEnemigoReal = enemigoBatalla.obtenerDanoReal();
+        if (enemigoBatalla.puntosVida <= 0) {
+            detallesTurnos.push(turnoInfo);
+            break;
+        }
 
+        const ataqueEnemigoReal = enemigoBatalla.obtenerDanoReal();
         const danoRecibido = Math.max(0, ataqueEnemigoReal - defensaJugador);
+        /*const vidaJugadorAntes = jugador.vida;*/
         jugador.vida -= danoRecibido;
+        
+        turnoInfo.acciones.push({
+            atacante: enemigoBatalla.nombre,
+            objetivo: jugador.nombre,
+            dano: danoRecibido,
+            danoBase: ataqueEnemigoReal,
+            defensaAplicada: defensaJugador,
+            vidaRestante: Math.max(0, jugador.vida)
+        });
+
+        detallesTurnos.push(turnoInfo);
+        numeroTurno++;
     }
 
     if (jugador.vida > 0) {
@@ -36,16 +64,27 @@ export function combate(enemigo, jugador) {
 
         return {
             ganador: jugador.nombre,
-            puntosGanados: puntosGanados
+            victoria: true,
+            puntosGanados: puntosGanados,
+            detallesTurnos: detallesTurnos,
+            estadoFinal: {
+                vidaJugador: jugador.vida,
+                vidaEnemigo: 0
+            }
         };
     } else {
         return {
             ganador: enemigoBatalla.nombre,
-            puntosGanados: 0
+            victoria: false,
+            puntosGanados: 0,
+            detallesTurnos: detallesTurnos,
+            estadoFinal: {
+                vidaJugador: 0,
+                vidaEnemigo: enemigoBatalla.puntosVida
+            }
         };
     }
 }
-
 
 function calcularPuntos(enemigo) {
     let puntos = puntosBaseVictoria + enemigo.nivelAtaque;

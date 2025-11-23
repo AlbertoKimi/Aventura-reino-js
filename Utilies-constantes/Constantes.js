@@ -1,16 +1,14 @@
-import { Producto } from './Producto.js';
+import { Producto } from '../Clases/Producto.js';
 
 export const lista_Productos = [
 
-    new Producto("Manzana", "img/manzana.png", 400, "Común", "consumible", 10),
-    new Producto("Poción de vida", "img/poción.png", 1500, "Rara", "consumible", 30),
-
-    new Producto("Armadura de Cuero", "img/armadura_cuero.png", 900, "Común", "armadura", 5),
-    new Producto("Escudo de Acero", "img/escudo.png", 2500, "Rara", "armadura", 15),
-
-    new Producto("Daga Oxidada", "img/daga.png", 500, "Común", "Arma", 8),
-    new Producto("Hacha de Batalla", "img/hacha.png", 1800, "Rara", "Arma", 20),
-    new Producto("Espada Mística", "img/espada.png", 5000, "Épica", "Arma", 45),
+    new Producto("Manzana", "Imagenes/apple.png", 400, "Comun", "Consumible", 10),
+    new Producto("Poción de vida", "Imagenes/hp.png", 1500, "Rara", "Consumible", 30),
+    new Producto("Armadura de Cuero", "Imagenes/armor.png", 900, "Comun", "Armadura", 5),
+    new Producto("Casco acero", "Imagenes/helmets.png", 2500, "Rara", "Armadura", 15),
+    new Producto("Libro Mágico", "Imagenes/book.png", 500, "Comun", "Arma", 8),
+    new Producto("Hacha de Batalla", "Imagenes/axe.png", 1800, "Rara", "Arma", 20),
+    new Producto("ArcoMístico", "Imagenes/b_t_01.png", 5000, "Epica", "Arma", 45),
 ]
 
 export const puntosBaseVictoria = 100;
@@ -21,7 +19,7 @@ export const rarezas = {
     comun: "Comun",
     rara: "Rara",
     epica: "Epica",
-    legendaria: "legendaria"
+    legendaria: "Legendaria"
 }
 
 export const opcionesRarezas =[
