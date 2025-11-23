@@ -14,12 +14,13 @@
   </header>
 
   <main>
-    <!-- ESCENA 1: Estado inicial -->
+    <!-- ESCENA 1: Inicio -->
+
     <div id="scene-1" class="scene active">
       <div id="scene-1-container">
         <div class="row-1">
           <div class="img-container">
-            <img src="./Imagenes/Jugador.png" alt="jugador">
+            <img src="./Imagenes/player.png" alt="jugador">
           </div>
           <div class="info-jugador">
             <h2 class="nombre-jugador">Héroe</h2>
@@ -46,6 +47,7 @@
     </div>
 
     <!-- ESCENA 2: Mercado -->
+
     <div class="scene" id="scene-2">
       <div id="contenedor-escena2">
         <h2>Mercado</h2>
@@ -56,12 +58,13 @@
       </div>
     </div>
 
-    <!-- ESCENA 3: Actualizar datos jugador -->
+    <!-- ESCENA 3: Actualizar datos jugador-->
+
     <div id="scene-3" class="scene">
       <div id="scene-3-container">
         <div class="row-1">
           <div class="img-container">
-            <img src="./Imagenes/jugador.png" alt="jugador">
+            <img src="./Imagenes/player.png" alt="jugador">
           </div>
           <div class="info-jugador">
             <h2 class="nombre-jugador">Héroe</h2>
@@ -88,6 +91,7 @@
     </div>
 
     <!-- ESCENA 4: Enemigos -->
+
     <div id="scene-4" class="scene">
       <div id="scene-4-container">
         <h2>Tus enemigos</h2>
@@ -99,17 +103,49 @@
     </div>
 
     <!-- ESCENA 5: Batallas -->
+
     <div id="scene-5" class="scene">
       <div id="scene-5-container">
-        <h2>Batalla</h2>
-        <div class="resultado-batalla"></div>
+        <h2>Combates</h2>
+        <div class="resultado-batalla">
+          <div class="combatientes">
+            <div class="combatiente jugador-combate">
+              <img id="img-jugador-batalla" src="" alt="Jugador">
+              <p id="nombre-jugador-batalla" class="nombre-combatiente"></p>
+            </div>
+            <div class="vs-texto">VS</div>
+            <div class="combatiente enemigo-combate">
+              <img id="img-enemigo-batalla" src="" alt="Enemigo">
+              <p id="nombre-enemigo-batalla" class="nombre-combatiente"></p>
+            </div>
+          </div>
+
+          <div id="resultado-principal" class="resultado-principal">
+            <h2 id="texto-resultado"></h2>
+            <p id="puntos-ganados" class="puntos-batalla"></p>
+          </div>
+
+          <div id="resumen-combate" class="resumen-combate"></div>
+
+          <div class="btn-container">
+            <button id="btn-accion-batalla" class="btn-continuar">Continuar</button>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- ESCENA 6: Ranking -->
+
     <div id="scene-6" class="scene">
       <div id="scene-6-container">
-        <div class="contenedor-final"></div>
+        <div class="contenedor-final">
+          <h2>¡Aventura completada!</h2>
+          <div class="resultado-final">
+            <p id="puntos-finales" class="puntos-finales"></p>
+            <p id="rango-final" class="rango"></p>
+          </div>
+          <button class="btn-reiniciar" onclick="location.reload()">Jugar de nuevo</button>
+        </div>
       </div>
     </div>
   </main>
