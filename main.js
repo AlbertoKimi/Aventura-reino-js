@@ -1,5 +1,4 @@
 import { Jugador } from './Clases/Jugador.js';
-import { Producto } from './Clases/Producto.js';
 import { Enemigo } from './Clases/Enemigo.js';
 import { Jefe } from './Clases/Jefe.js';
 import { descuentoFijo, opcionesRarezas } from './Utilies-constantes/Constantes.js';
@@ -73,7 +72,7 @@ function inicializarMercado() {
     productos.forEach((producto, index) => {
        
         const precioFinal = producto.aplicarDescuento("rareza", rarezaAleatoria, descuentoFijo);
-        const tieneDescuento = producto.rareza === rarezaAleatoria;
+        const tieneDescuento = producto.rareza === rarezaAleatoria; //Esto es como un if: si rareza es igual a rarezaAleatoria es true, si no false 
         
         const productoDiv = document.createElement('div');
         productoDiv.className = 'productos';
@@ -89,8 +88,8 @@ function inicializarMercado() {
                 <p>Bonus: +${producto.bonus}</p>
                 <p>Rareza: ${producto.rareza}</p>
                 <p class="precio ${tieneDescuento ? 'con-descuento' : ''}">
-                    ${tieneDescuento ? `<span class="precio-tachado">${producto.formatearAtributos()}€</span> ` : ''}
-                    ${(precioFinal / 100).toFixed(2)}€
+                    ${tieneDescuento ? `<span class="precio-tachado">${producto.formatearAtributos(producto.precio)}€</span> ` : ''}
+                    ${producto.formatearAtributos(precioFinal)}€
                 </p>
             </div>
             <div>
@@ -180,7 +179,7 @@ function inicializarEnemigos() {
     const contenedorEnemigos = document.querySelector('#scene-4 .contenedor-enemigos');
     contenedorEnemigos.innerHTML = '';
     
-    enemigos.forEach((enemigo, index) => {
+    enemigos.forEach((enemigo) => {
         const enemigoDiv = document.createElement('div');
         enemigoDiv.className = 'enemigo-card';
         
@@ -341,11 +340,11 @@ function configurarEventListeners() {
 
 //Función para iniciar el juego: 
 
-function init() {
+function iniciar() {
     console.log('Inicializando juego...');
     inicializarJuego();
     configurarEventListeners();
     console.log('Juego inicializado correctamente');
 }
 
-init();
+iniciar();

@@ -42,7 +42,6 @@ export function combate(enemigo, jugador) {
 
         const ataqueEnemigoReal = enemigoBatalla.obtenerDanoReal();
         const danoRecibido = Math.max(0, ataqueEnemigoReal - defensaJugador);
-        /*const vidaJugadorAntes = jugador.vida;*/
         jugador.vida -= danoRecibido;
         
         turnoInfo.acciones.push({

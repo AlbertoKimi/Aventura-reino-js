@@ -1,7 +1,6 @@
 export class Producto {
 
-    constructor(nombre, imagen, precio, rareza, tipo, bonus) { //Tenemos que hacer que cada producto herede de producto, es decir
-        //espada heredda de producto y hace lo que sea,poción de producto,etc
+    constructor(nombre, imagen, precio, rareza, tipo, bonus) { 
         this.nombre = nombre;
         this.imagen = imagen;
         this.precio = precio;
@@ -10,9 +9,13 @@ export class Producto {
         this.bonus = bonus;
     }
 
-    formatearAtributos() {
+    /*formatearAtributos() {
         const precioFormateado = (this.precio / 100)
         return this.precio = precioFormateado;
+    }*/
+
+    formatearAtributos(precio){
+        return (precio/100);
     }
 
     aplicarDescuento(clave, valor, descuento) {
