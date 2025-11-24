@@ -18,7 +18,7 @@ let enemigoActual = 0;
 function inicializarJuego() {
 
     jugador = new Jugador("Nyxarius", "./Imagenes/Jugador-Batalla.png", 100);
-    
+
     // Crear enemigos
     enemigos = [
         new Enemigo("Guerrero", "./Imagenes/guerrero.png", 15, 50),
@@ -26,13 +26,13 @@ function inicializarJuego() {
         new Enemigo("Bruja", "./Imagenes/bruja.jpg", 40, 150, 1.5),
         new Jefe("Ángel Caído", "./Imagenes/angel.png", 40, 150, 1.5)
     ];
-    
+
     enemigoActual = 0;
     productosEnCesta = [];
-    
+
     mostrarEscena('scene-1');
     actualizarEstadoJugador();
-    
+
     limpiarInventario();
 }
 
@@ -40,7 +40,7 @@ function inicializarJuego() {
 
 function actualizarEstadoJugador() {
     const scenes = ['scene-1', 'scene-3'];
-    
+
     scenes.forEach(sceneId => {
         const scene = document.getElementById(sceneId);
         if (scene) {
@@ -49,7 +49,7 @@ function actualizarEstadoJugador() {
             const defensaElement = scene.querySelector('.stat-defensa');
             const vidaElement = scene.querySelector('.stat-vida');
             const puntosElement = scene.querySelector('.stat-puntos');
-            
+
             if (nombreElement) nombreElement.textContent = jugador.nombre;
             if (ataqueElement) ataqueElement.textContent = `Ataque: ${jugador.obtenerAtaqueTotal()}`;
             if (defensaElement) defensaElement.textContent = `Defensa: ${jugador.obtenerDefensaTotal()}`;
@@ -62,22 +62,22 @@ function actualizarEstadoJugador() {
 //Inicializamos el mercado
 
 function inicializarMercado() {
-    
+
     const rarezaAleatoria = obtenerElementoAleatorio(opcionesRarezas);
     const productos = clonarProductos();
-    
+
     const contenedorProductos = document.querySelector('#scene-2 .fila1');
     contenedorProductos.innerHTML = '';
-    
+
     productos.forEach((producto, index) => {
-       
+
         const precioFinal = producto.aplicarDescuento("rareza", rarezaAleatoria, descuentoFijo);
         const tieneDescuento = producto.rareza === rarezaAleatoria; //Esto es como un if: si rareza es igual a rarezaAleatoria es true, si no false 
-        
+
         const productoDiv = document.createElement('div');
         productoDiv.className = 'productos';
         productoDiv.dataset.index = index;
-        
+
         productoDiv.innerHTML = `
             <div class="foto">
                 <img src="${producto.imagen}" alt="${producto.nombre}">
@@ -96,16 +96,16 @@ function inicializarMercado() {
                 <button class="btn-comprar" data-index="${index}">Añadir</button>
             </div>
         `;
-        
+
         contenedorProductos.appendChild(productoDiv);
-        
-        
+
+
         const btnComprar = productoDiv.querySelector('.btn-comprar');
         btnComprar.addEventListener('click', () => alternarProducto(index, producto));
     });
-    
+
     if (rarezaAleatoria) {
-        
+
         const mensajeDescuento = document.createElement('p');
         mensajeDescuento.className = 'mensaje-descuento';
         mensajeDescuento.textContent = `¡${descuentoFijo}% de descuento en productos ${rarezaAleatoria}!`;
@@ -119,9 +119,9 @@ function inicializarMercado() {
 function alternarProducto(index, producto) {
     const productoDiv = document.querySelector(`.productos[data-index="${index}"]`);
     const btnComprar = productoDiv.querySelector('.btn-comprar');
-    
+
     const indexEnCesta = productosEnCesta.findIndex(p => p.index === index);
-    
+
     if (indexEnCesta === -1) {
         // Añadir a la cesta
         productosEnCesta.push({ index, producto });
@@ -135,7 +135,7 @@ function alternarProducto(index, producto) {
         btnComprar.textContent = 'Añadir';
         btnComprar.classList.remove('retirar');
     }
-    
+
     actualizarInventarioVisual();
 }
 
@@ -143,7 +143,7 @@ function alternarProducto(index, producto) {
 
 function actualizarInventarioVisual() {
     const items = document.querySelectorAll('#inventory-container .item');
-    
+
     items.forEach((item, index) => {
         item.innerHTML = '';
         if (productosEnCesta[index]) {
@@ -168,7 +168,7 @@ function confirmarCompra() {
     productosEnCesta.forEach(item => {
         jugador.anadirObjetoInventario(item.producto);
     });
-    
+
     actualizarEstadoJugador();
     mostrarEscena('scene-3');
 }
@@ -178,11 +178,11 @@ function confirmarCompra() {
 function inicializarEnemigos() {
     const contenedorEnemigos = document.querySelector('#scene-4 .contenedor-enemigos');
     contenedorEnemigos.innerHTML = '';
-    
+
     enemigos.forEach((enemigo) => {
         const enemigoDiv = document.createElement('div');
         enemigoDiv.className = 'enemigo-card';
-        
+
         enemigoDiv.innerHTML = `
             <div class="enemigo-foto">
                 <img src="${enemigo.avatar}" alt="${enemigo.nombre}">
@@ -194,7 +194,7 @@ function inicializarEnemigos() {
                 ${enemigo instanceof Jefe ? `<p class="jefe-tag">¡JEFE! x${enemigo.multiplicadorDano}</p>` : ''}
             </div>
         `;
-        
+
         contenedorEnemigos.appendChild(enemigoDiv);
     });
 }
@@ -206,27 +206,26 @@ function iniciarCombate() {
         mostrarEscenaFinal();
         return;
     }
-    
+
     const enemigo = enemigos[enemigoActual];
     const resultado = combate(enemigo, jugador);
-    
+
     mostrarResultadoCombate(resultado, enemigo);
 }
 
 //Mostrar turnos y resultados:
 
 function mostrarResultadoCombate(resultado, enemigo) {
-   
+
     document.getElementById('img-jugador-batalla').src = jugador.avatar;
     document.getElementById('nombre-jugador-batalla').textContent = jugador.nombre;
     document.getElementById('img-enemigo-batalla').src = enemigo.avatar;
     document.getElementById('nombre-enemigo-batalla').textContent = enemigo.nombre;
-    
-    // Actualizar resultado
+
     const resultadoDiv = document.getElementById('resultado-principal');
     const textoResultado = document.getElementById('texto-resultado');
     const puntosGanados = document.getElementById('puntos-ganados');
-    
+
     if (resultado.victoria) {
         resultadoDiv.className = 'resultado-principal victoria';
         textoResultado.textContent = `Ganador: ${jugador.nombre}`;
@@ -237,40 +236,52 @@ function mostrarResultadoCombate(resultado, enemigo) {
         textoResultado.textContent = 'Has sido derrotado';
         puntosGanados.style.display = 'none';
     }
-    
-    
+
+
     const resumenDiv = document.getElementById('resumen-combate');
-    resumenDiv.innerHTML = generarResumenTurnos(resultado.detallesTurnos);
-    
+    generarResumenTurnos(resultado.listaTurnos, resumenDiv);
+
 
     actualizarBotonBatalla(resultado.victoria);
-    
+
     mostrarEscena('scene-5');
 }
 
-function generarResumenTurnos(turnos) {
-    return turnos.map(turno => {
-        const acciones = turno.acciones.map(accion => {
-            const defensaInfo = accion.defensaAplicada > 0 ? ` (${accion.defensaAplicada} bloqueado)` : '';
-            return `<p><strong>${accion.atacante}</strong> ataca causando <span class="dano">${accion.dano}</span> de daño${defensaInfo}</p>`;
-        }).join('');
-        
-        return `<div class="turno"><strong>Turno ${turno.numero}</strong>${acciones}</div>`;
-    }).join('');
+function generarResumenTurnos(turnos, contenedor) {
+    contenedor.innerHTML = ''; 
+
+    turnos.forEach(turno => {
+        const turnoDiv = document.createElement('div');
+        turnoDiv.className = 'turno';
+
+        turnoDiv.innerHTML = `
+            <h3>Turno ${turno.numero}</h3>
+            <p><strong>${turno.atacante1}</strong> ataca con <span class="dano">${turno.dano1}</span> de daño.</p>
+            <p>Vida restante del Enemigo: <strong>${turno.vidaRestanteEnemigo}</strong></p>
+            
+            ${turno.enemigoRespondio ? `
+                <hr>
+                <p><strong>${turno.atacante2}</strong> contraataca con <span class="dano">${turno.dano2}</span> de daño.</p>
+                <p>Vida restante del Héroe: <strong>${turno.vidaRestanteJugador}</strong></p>
+            ` : ''}
+        `;
+
+        contenedor.appendChild(turnoDiv);
+    });
 }
 
 function actualizarBotonBatalla(victoria) {
     const btn = document.getElementById('btn-accion-batalla');
-    
+
     if (!victoria) {
         btn.textContent = 'Reiniciar';
         btn.className = 'btn-reiniciar';
         btn.onclick = () => location.reload();
         return;
     }
-    
+
     enemigoActual++;
-    
+
     if (enemigoActual < enemigos.length) {
         btn.textContent = 'Continuar';
         btn.className = 'btn-continuar';
@@ -286,20 +297,20 @@ function actualizarBotonBatalla(victoria) {
 
 function mostrarEscenaFinal() {
     const rango = distinguirJugador(jugador.puntos);
-    
+
     document.getElementById('puntos-finales').textContent = `Puntuación final: ${jugador.puntos}`;
-    
+
     const rangoElement = document.getElementById('rango-final');
     rangoElement.textContent = `Rango: ${rango}`;
     rangoElement.className = `rango ${rango.toLowerCase()}`;
-    
+
     mostrarEscena('scene-6');
 }
 
 //Aquí están todos los Listener de los botones:
 
 function configurarEventListeners() {
-   
+
     const btnContinuar1 = document.querySelector('#scene-1 #btn-continuar-1');
     if (btnContinuar1) {
         btnContinuar1.addEventListener('click', () => {
@@ -308,8 +319,8 @@ function configurarEventListeners() {
             mostrarEscena('scene-2');
         });
     }
-    
-   
+
+
     const btnContinuar2 = document.querySelector('#scene-2 #btn-continuar-2');
     if (btnContinuar2) {
         btnContinuar2.addEventListener('click', () => {
@@ -317,7 +328,7 @@ function configurarEventListeners() {
             confirmarCompra();
         });
     }
-    
+
 
     const btnContinuar3 = document.querySelector('#scene-3 #btn-continuar-3');
     if (btnContinuar3) {
@@ -327,7 +338,7 @@ function configurarEventListeners() {
             mostrarEscena('scene-4');
         });
     }
-    
+
 
     const btnContinuar4 = document.querySelector('#scene-4 #btn-continuar-4');
     if (btnContinuar4) {

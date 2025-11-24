@@ -1,6 +1,6 @@
 export class Producto {
 
-    constructor(nombre, imagen, precio, rareza, tipo, bonus) { 
+    constructor(nombre, imagen, precio, rareza, tipo, bonus) {
         this.nombre = nombre;
         this.imagen = imagen;
         this.precio = precio;
@@ -9,13 +9,8 @@ export class Producto {
         this.bonus = bonus;
     }
 
-    /*formatearAtributos() {
-        const precioFormateado = (this.precio / 100)
-        return this.precio = precioFormateado;
-    }*/
-
-    formatearAtributos(precio){
-        return (precio/100);
+    formatearAtributos(precio) {
+        return (precio / 100);
     }
 
     aplicarDescuento(clave, valor, descuento) {
