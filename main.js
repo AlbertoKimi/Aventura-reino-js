@@ -199,7 +199,7 @@ function inicializarEnemigos() {
     });
 }
 
-//Iniciamos los combates:
+//Combates:
 
 function iniciarCombate() {
     if (enemigoActual >= enemigos.length) {
@@ -208,8 +208,36 @@ function iniciarCombate() {
     }
 
     const enemigo = enemigos[enemigoActual];
-    const resultado = combate(enemigo, jugador);
+    
+    /*jugador.vida = jugador.obtenerVidaTotal();*/
 
+    // 1. Obtener referencias
+    const $imgJugador = document.getElementById('img-jugador-batalla');
+    const $imgEnemigo = document.getElementById('img-enemigo-batalla');
+    const $contenedorJugador = $imgJugador.closest('.combatiente');
+    const $contenedorEnemigo = $imgEnemigo.closest('.combatiente');
+    
+    // 2. Mostrar la escena y actualizar imágenes
+    $imgJugador.src = jugador.avatar;
+    $imgEnemigo.src = enemigo.avatar;
+    mostrarEscena('scene-5');
+
+    $contenedorJugador.classList.remove('initial-position');
+    $contenedorEnemigo.classList.remove('initial-position');
+
+    requestAnimationFrame(() => {
+
+        $contenedorJugador.classList.add('initial-position');
+        $contenedorEnemigo.classList.add('initial-position');
+
+        requestAnimationFrame(() => {
+
+            $contenedorJugador.classList.remove('initial-position');
+            $contenedorEnemigo.classList.remove('initial-position');
+        });
+    });
+
+    const resultado = combate(enemigo, jugador);
     mostrarResultadoCombate(resultado, enemigo);
 }
 
@@ -256,13 +284,13 @@ function generarResumenTurnos(turnos, contenedor) {
 
         turnoDiv.innerHTML = `
             <h3>Turno ${turno.numero}</h3>
-            <p><strong>${turno.atacante1}</strong> ataca con <span class="dano">${turno.dano1}</span> de daño.</p>
-            <p>Vida restante del Enemigo: <strong>${turno.vidaRestanteEnemigo}</strong></p>
+            <p><strong>${turno.atacante1}</strong> Ataca con <span class="dano">${turno.dano1}</span> de daño.</p>
+            <p>Vida restante del Enemigo: <span style="color: green; font-weight: bold;">${turno.vidaRestanteEnemigo}</span></p>
             
             ${turno.enemigoRespondio ? `
                 <hr>
-                <p><strong>${turno.atacante2}</strong> contraataca con <span class="dano">${turno.dano2}</span> de daño.</p>
-                <p>Vida restante del Héroe: <strong>${turno.vidaRestanteJugador}</strong></p>
+                <p><strong>${turno.atacante2}</strong> Contraataca con <span class="dano">${turno.dano2}</span> de daño.</p>
+                <p>Vida restante del Héroe: <span style="color: green; font-weight: bold;">${turno.vidaRestanteJugador}</span></p>
             ` : ''}
         `;
 

@@ -42,19 +42,25 @@ header h1 {
 #inventory-container {
     background-color: var(--primary-color);
     display: flex;
-    margin: 8px 20%;
-    padding: 8px;
-    gap: 4px;
+    margin: 4px 20%;
+    padding: 4px;
+    gap: 2px;
 }
 
 .item {
     background-color: var(--secondary-color);
-    border: 2px solid var(--accent-color);
-    width: 100px;
-    height: 100px;
+    border: 1px solid var(--accent-color);
+    width: 70px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.3s ease-out;
+}
+
+.item:hover {
+    transform: scale(1.15);
+    z-index: 10;
 }
 
 .item img {
@@ -67,7 +73,7 @@ header h1 {
 /* =============== MAIN Y SISTEMA DE ESCENAS =============== */
 
 main {
-    padding: 32px;
+    padding: 16px;
     border: 3px solid purple;
     overflow-y: auto;
     overflow-x: hidden;
@@ -84,7 +90,7 @@ main {
     display: flex;
 }
 
-/* =============== ESCENA 1 Y 3 (Estado del jugador) =============== */
+/* --------------- ESCENA 1 Y 3 (Estado del jugador) ------------------ */
 
 #scene-1,
 #scene-3 {
@@ -105,18 +111,18 @@ main {
 #scene-1 .row-1,
 #scene-3 .row-1 {
     border: 3px solid red;
-    flex: 4;
+    flex: 3;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 32px;
-    padding: 32px;
+    padding: 16px;
     background: var(--secondary-color);
 }
 
 .img-container {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     border: 4px solid var(--accent-color);
     border-radius: 10px;
     overflow: hidden;
@@ -136,11 +142,11 @@ main {
 #scene-1 .row-2,
 #scene-3 .row-2 {
     border: 3px solid blue;
-    flex: 5;
+    flex: 3;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    gap: 12px;
+    gap: 8px;
     padding: 16px;
 }
 
@@ -151,7 +157,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 16px;
+    padding: 10px;
 }
 
 .stats p {
@@ -170,7 +176,7 @@ main {
     padding: 16px;
 }
 
-/* =============== ESCENA 2 (Mercado) =============== */
+/* --------------- ESCENA 2 (Mercado) --------------- */
 
 #scene-2 {
     justify-content: center;
@@ -221,7 +227,15 @@ main {
     flex-direction: column;
     align-items: center;
     padding: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+}
+
+.productos:hover {
+    transform: translateY(-5px);
+    /* Movimiento vertical al hacer hover */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+    /* Sombra más fuerte */
 }
 
 .productos.seleccionado {
@@ -230,7 +244,7 @@ main {
 }
 
 .foto {
-    background-color: white;
+
     display: flex;
     width: 150px;
     height: 150px;
@@ -306,7 +320,15 @@ main {
     margin-top: 20px;
 }
 
-/* =============== ESCENA 4 (Enemigos) =============== */
+.btn-continuar:hover,
+.btn-comprar:hover,
+#btn-continuar-1:hover,
+.btn-reiniciar:hover {
+    transform: scale(1.05);
+    /* Escalar ligeramente */
+}
+
+/* ------------------- ESCENA 4 (Enemigos) ------------------- */
 
 #scene-4 {
     justify-content: center;
@@ -389,7 +411,7 @@ main {
     text-align: center;
 }
 
-/* =============== ESCENA 5 (Batallas) =============== */
+/* ---------------- ESCENA 5 (Batallas) --------------------- */
 
 #scene-5 {
     justify-content: center;
@@ -435,7 +457,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap:8px;
+    gap: 8px;
 }
 
 .combatiente img {
@@ -445,13 +467,28 @@ main {
     border: 4px solid var(--accent-color);
     border-radius: 10px;
     background: white;
+    transition: transform 1s ease-out;
+}
+
+.combatiente.jugador-combate.initial-position img,
+.combatiente.enemigo-combate.initial-position img {
+    /* CRÍTICO: Anulamos la transición para que el salto fuera de pantalla sea INSTANTÁNEO */
+    transition: none; 
+}
+
+.combatiente.jugador-combate.initial-position img {
+    transform: translateX(-150vw); /* Trasladar 150% del viewport hacia la izquierda */
+}
+
+.combatiente.enemigo-combate.initial-position img {
+    transform: translateX(150vw); /* Trasladar 150% del viewport hacia la derecha */
 }
 
 .vs-texto {
     font-size: 36px;
     font-weight: bold;
     color: var(--secondary-color);
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .resultado-principal {
@@ -498,8 +535,6 @@ main {
     border-radius: 8px;
     padding: 16px;
     margin-bottom: 16px;
-    max-height: 250px;
-    overflow-y: auto;
 }
 
 .turno {
@@ -531,28 +566,10 @@ main {
 
 .btn-container {
     text-align: center;
-    margin-top: 16px;
+    margin-top: 20px;
 }
 
-.resumen-combate::-webkit-scrollbar {
-    width: 8px;
-}
-
-.resumen-combate::-webkit-scrollbar-track {
-    background: var(--secondary-color);
-    border-radius: 4px;
-}
-
-.resumen-combate::-webkit-scrollbar-thumb {
-    background: var(--accent-color);
-    border-radius: 4px;
-}
-
-.resumen-combate::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-color);
-}
-
-/* =============== ESCENA 6 (Final) =============== */
+/* ------------------- ESCENA 6 (Ranking) ----------------------- */
 
 #scene-6 {
     justify-content: center;
