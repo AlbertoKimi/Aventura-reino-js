@@ -169,6 +169,7 @@ function confirmarCompra() {
         jugador.anadirObjetoInventario(item.producto);
     });
 
+    jugador.vida = jugador.obtenerVidaTotal();
     actualizarEstadoJugador();
     mostrarEscena('scene-3');
 }
@@ -208,15 +209,13 @@ function iniciarCombate() {
     }
 
     const enemigo = enemigos[enemigoActual];
-    
-    /*jugador.vida = jugador.obtenerVidaTotal();*/
 
     // 1. Obtener referencias
     const $imgJugador = document.getElementById('img-jugador-batalla');
     const $imgEnemigo = document.getElementById('img-enemigo-batalla');
     const $contenedorJugador = $imgJugador.closest('.combatiente');
     const $contenedorEnemigo = $imgEnemigo.closest('.combatiente');
-    
+
     // 2. Mostrar la escena y actualizar imágenes
     $imgJugador.src = jugador.avatar;
     $imgEnemigo.src = enemigo.avatar;
@@ -246,9 +245,11 @@ function iniciarCombate() {
 function mostrarResultadoCombate(resultado, enemigo) {
 
     document.getElementById('img-jugador-batalla').src = jugador.avatar;
-    document.getElementById('nombre-jugador-batalla').textContent = jugador.nombre;
+    document.getElementById('nombre-jugador-batalla').textContent = "Héroe:" + jugador.nombre;
+    document.getElementById('vida-jugador-batalla').textContent = "Vida: "+ jugador.obtenerVidaTotal();
     document.getElementById('img-enemigo-batalla').src = enemigo.avatar;
-    document.getElementById('nombre-enemigo-batalla').textContent = enemigo.nombre;
+    document.getElementById('nombre-enemigo-batalla').textContent = "Enemigo: " + enemigo.nombre;
+    document.getElementById('vida-enemigo-batalla').textContent = "Vida: " + enemigo.puntosVida;
 
     const resultadoDiv = document.getElementById('resultado-principal');
     const textoResultado = document.getElementById('texto-resultado');
@@ -276,7 +277,7 @@ function mostrarResultadoCombate(resultado, enemigo) {
 }
 
 function generarResumenTurnos(turnos, contenedor) {
-    contenedor.innerHTML = ''; 
+    contenedor.innerHTML = '';
 
     turnos.forEach(turno => {
         const turnoDiv = document.createElement('div');
@@ -285,12 +286,13 @@ function generarResumenTurnos(turnos, contenedor) {
         turnoDiv.innerHTML = `
             <h3>Turno ${turno.numero}</h3>
             <p><strong>${turno.atacante1}</strong> Ataca con <span class="dano">${turno.dano1}</span> de daño.</p>
-            <p>Vida restante del Enemigo: <span style="color: green; font-weight: bold;">${turno.vidaRestanteEnemigo}</span></p>
+            <p>Vida restante del Enemigo: <span class="positivo">${turno.vidaRestanteEnemigo}</span></p>
             
             ${turno.enemigoRespondio ? `
                 <hr>
                 <p><strong>${turno.atacante2}</strong> Contraataca con <span class="dano">${turno.dano2}</span> de daño.</p>
-                <p>Vida restante del Héroe: <span style="color: green; font-weight: bold;">${turno.vidaRestanteJugador}</span></p>
+                <p>El héroe mitiga <span class="positivo">${jugador.obtenerDefensaTotal()}</span> del ataque del enemigo.</p>
+                <p>Vida restante del Héroe: <span class="positivo">${turno.vidaRestanteJugador}</span></p>
             ` : ''}
         `;
 

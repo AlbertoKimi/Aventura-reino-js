@@ -2,7 +2,7 @@ import { puntosBaseVictoria } from '../Utilies-constantes/Constantes.js';
 import { Jefe } from '../Clases/Jefe.js';
 
 export function combate(enemigoOriginal, jugador) {
-   
+
     const enemigo = new enemigoOriginal.constructor(
         enemigoOriginal.nombre,
         enemigoOriginal.avatar,
@@ -11,8 +11,7 @@ export function combate(enemigoOriginal, jugador) {
         enemigoOriginal.multiplicadorDano
     );
 
-    jugador.vida = jugador.obtenerVidaTotal();
-
+  
     const ataqueJugador = jugador.obtenerAtaqueTotal();
     const defensaJugador = jugador.obtenerDefensaTotal();
 
@@ -20,6 +19,8 @@ export function combate(enemigoOriginal, jugador) {
     let contadorTurnos = 1;
 
     while (jugador.vida > 0 && enemigo.puntosVida > 0) {
+
+        console.log("turno en el que estamos: " + contadorTurnos)
 
         let datosTurno = {
             numero: contadorTurnos,
@@ -35,18 +36,28 @@ export function combate(enemigoOriginal, jugador) {
         enemigo.recibirDano(ataqueJugador);
         datosTurno.vidaRestanteEnemigo = enemigo.puntosVida;
 
+        console.log("La vida del jugador es: " + datosTurno.vidaRestanteJugador)
+        console.log("La vida del enemigo es: " + datosTurno.vidaRestanteEnemigo)
+
         if (enemigo.puntosVida > 0) {
             datosTurno.enemigoRespondio = true;
             datosTurno.atacante2 = enemigo.nombre;
 
             const ataqueEnemigo = enemigo.obtenerDanoReal();
-            const danoRecibido = Math.max(0, ataqueEnemigo - defensaJugador);
+            const nuevaVida = (jugador.vida + defensaJugador) - ataqueEnemigo;
+            /*const danoRecibido = Math.max(0, ataqueEnemigo - defensaJugador);*/
 
-            jugador.vida -= danoRecibido;
+            jugador.vida = Math.max(0,nuevaVida);
             if (jugador.vida < 0) jugador.vida = 0;
 
-            datosTurno.dano2 = danoRecibido;
+            datosTurno.dano2 = ataqueEnemigo;
             datosTurno.vidaRestanteJugador = jugador.vida;
+            
+
+            console.log("La vida del jugador es: " + datosTurno.vidaRestanteJugador)
+            console.log("La vida del enemigo es: " + datosTurno.vidaRestanteEnemigo)
+
+
         }
 
         listaTurnos.push(datosTurno);
@@ -63,7 +74,7 @@ export function combate(enemigoOriginal, jugador) {
     return {
         victoria: victoria,
         puntosGanados: puntos,
-        listaTurnos: listaTurnos 
+        listaTurnos: listaTurnos
     };
 }
 

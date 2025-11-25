@@ -181,6 +181,7 @@ main {
 #scene-2 {
     justify-content: center;
     align-items: flex-start;
+    height: auto;
 }
 
 #contenedor-escena2 {
@@ -233,9 +234,8 @@ main {
 
 .productos:hover {
     transform: translateY(-5px);
-    /* Movimiento vertical al hacer hover */
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-    /* Sombra más fuerte */
+
 }
 
 .productos.seleccionado {
@@ -416,7 +416,7 @@ main {
 #scene-5 {
     justify-content: center;
     align-items: flex-start;
-    padding-top: 20px;
+    height: auto;
 }
 
 #scene-5-container {
@@ -428,10 +428,10 @@ main {
     max-width: 700px;
 }
 
-#scene-5-container h2 {
+#scene-5-container>h2 {
+    margin-bottom: 16px;
     color: black;
     font-size: 24px;
-    margin-bottom: 16px;
     text-align: center;
     padding-left: 8px;
 }
@@ -472,16 +472,16 @@ main {
 
 .combatiente.jugador-combate.initial-position img,
 .combatiente.enemigo-combate.initial-position img {
-    /* CRÍTICO: Anulamos la transición para que el salto fuera de pantalla sea INSTANTÁNEO */
-    transition: none; 
+
+    transition: none;
 }
 
 .combatiente.jugador-combate.initial-position img {
-    transform: translateX(-150vw); /* Trasladar 150% del viewport hacia la izquierda */
+    transform: translateX(-150vw);
 }
 
 .combatiente.enemigo-combate.initial-position img {
-    transform: translateX(150vw); /* Trasladar 150% del viewport hacia la derecha */
+    transform: translateX(150vw);
 }
 
 .vs-texto {
@@ -504,13 +504,13 @@ main {
 }
 
 .resultado-principal.derrota {
+
     background: rgba(208, 64, 38, 0.3);
     border: 3px solid var(--danger-color);
 }
 
 .resultado-principal h2 {
     font-size: 24px;
-    margin-bottom: 8px;
     padding: 0;
     text-align: center;
 }
@@ -564,9 +564,15 @@ main {
     font-weight: bold;
 }
 
+.positivo {
+    color: green;
+    font-weight: bold;
+}
+
 .btn-container {
     text-align: center;
     margin-top: 20px;
+    margin-bottom: 16px;
 }
 
 /* ------------------- ESCENA 6 (Ranking) ----------------------- */
