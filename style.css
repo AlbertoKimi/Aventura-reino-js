@@ -31,20 +31,27 @@ header {
     border: 3px solid var(--primary-color);
     display: flex;
     justify-content: center;
-    background-color: var(--primary-color);
+    background-image: url("./Imagenes/footer.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 8px;
 }
 
 header h1 {
-    color: var(--secondary-color);
+    color: rgb(0 46 171);
     padding: 16px;
+    background-color: #ffffffde;
+    border-radius: 16px;
 }
 
 #inventory-container {
     background-color: var(--primary-color);
     display: flex;
     margin: 4px 20%;
-    padding: 4px;
-    gap: 2px;
+    padding: 8px;
+    gap: 8px;
+    border-radius: 16px;
 }
 
 .item {
@@ -56,6 +63,7 @@ header h1 {
     align-items: center;
     justify-content: center;
     transition: transform 0.3s ease-out;
+    border-radius: 16px;
 }
 
 .item:hover {

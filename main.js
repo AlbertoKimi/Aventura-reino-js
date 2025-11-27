@@ -17,14 +17,15 @@ let enemigoActual = 0;
 
 function inicializarJuego() {
 
-    jugador = new Jugador("Nyxarius", "./Imagenes/Jugador-Batalla.png", 100);
+    jugador = new Jugador("Nyxarius", "./Imagenes/Prota-armado.png", 100);
 
     // Crear enemigos
     enemigos = [
-        new Enemigo("Guerrero", "./Imagenes/guerrero.png", 15, 50),
-        new Enemigo("Dragón", "./Imagenes/dragon.jpg", 25, 80),
-        new Enemigo("Bruja", "./Imagenes/bruja.jpg", 40, 150, 1.5),
-        new Jefe("Ángel Caído", "./Imagenes/angel.png", 40, 150, 1.5)
+        new Enemigo("Mecalobo", "./Imagenes/Enemigos/Lobo.png", 10, 50),
+        new Enemigo("Nenji", "./Imagenes/Enemigos/guerrero.png", 15, 60),
+        new Enemigo("Dragón", "./Imagenes/Enemigos/Dragon.png", 25, 100),
+        new Enemigo("Symercy", "./Imagenes/Enemigos/Maga.png", 35, 150),
+        new Jefe("Xasper", "./Imagenes/Enemigos/Enemigo-final.png", 40, 250, 1.2)
     ];
 
     enemigoActual = 0;
