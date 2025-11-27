@@ -15,7 +15,7 @@ export const lista_Productos = [
     new Producto("Capa del erudito", "Imagenes/Defensa/Capa.png", 2500, "Epica", "Armadura", 30),
     new Producto("Guantes del Lobo", "Imagenes/Defensa/Guantes-lobo.png", 2900, "Epica", "Armadura", 37),
     new Producto("Amuleto del todopoderoso", "Imagenes/Defensa/Amuleto.png", 4500, "Legendaria", "Armadura", 44),
-    new Producto("Cinturón de Wukong", "Imagenes/Defensa/Cinturon.png", 5900, "Legendaria", "Armadura", 48),
+    new Producto("Cinturón de Wukong", "Imagenes/Defensa/Cinturon.png", 5200, "Legendaria", "Armadura", 48),
 
     new Producto("Kunai", "Imagenes/Ataque/Kunai.png", 500, "Comun", "Arma", 9),
     new Producto("Escopeta mortal", "Imagenes/Ataque/Escopeta.png", 1300, "Rara", "Arma", 18),

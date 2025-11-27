@@ -1,7 +1,7 @@
 import { Jugador } from './Clases/Jugador.js';
 import { Enemigo } from './Clases/Enemigo.js';
 import { Jefe } from './Clases/Jefe.js';
-import { descuentoFijo, opcionesRarezas } from './Utilies-constantes/Constantes.js';
+import { descuentoFijo, opcionesRarezas, tipos } from './Utilies-constantes/Constantes.js';
 import { mostrarEscena, obtenerElementoAleatorio, clonarProductos } from './Utilies-constantes/Utilies.js';
 import { combate } from './Módulos/Batalla.js';
 import { distinguirJugador } from './Módulos/Ranking.js';
@@ -69,14 +69,14 @@ function inicializarMercado() {
     const contenedorProductos = document.querySelector('#scene-2 .fila1');
     contenedorProductos.innerHTML = '';
 
-    productos.forEach((producto, index) => {
+    productos.forEach((producto) => {
 
         const precioFinal = producto.aplicarDescuento("rareza", rarezaAleatoria, descuentoFijo);
         const tieneDescuento = producto.rareza === rarezaAleatoria; //Esto es como un if: si rareza es igual a rarezaAleatoria es true, si no false 
 
         const productoDiv = document.createElement('div');
         productoDiv.className = 'productos';
-        productoDiv.dataset.index = index;
+  
 
         productoDiv.innerHTML = `
             <div class="foto">
@@ -93,7 +93,7 @@ function inicializarMercado() {
                 </p>
             </div>
             <div>
-                <button class="btn-comprar" data-index="${index}">Añadir</button>
+                <button class="btn-comprar" data-nombre="${producto.nombre}">Añadir</button>
             </div>
         `;
 
@@ -101,7 +101,7 @@ function inicializarMercado() {
 
 
         const btnComprar = productoDiv.querySelector('.btn-comprar');
-        btnComprar.addEventListener('click', () => alternarProducto(index, producto));
+        btnComprar.addEventListener('click', () => alternarProducto(producto, productoDiv, btnComprar));
     });
 
     if (rarezaAleatoria) {
@@ -116,15 +116,23 @@ function inicializarMercado() {
 /**
  * Alterna la selección de un producto
  */
-function alternarProducto(index, producto) {
-    const productoDiv = document.querySelector(`.productos[data-index="${index}"]`);
-    const btnComprar = productoDiv.querySelector('.btn-comprar');
+function alternarProducto(producto, productoDiv, btnComprar) {
+  
+    const indexEnCesta = productosEnCesta.findIndex(p => p.nombre === producto.nombre);
 
-    const indexEnCesta = productosEnCesta.findIndex(p => p.index === index);
-
+    //He puesto una restricción de que solamente se pueda comprar un objeto legendario por atributo (consumible,ataque o defensa)
     if (indexEnCesta === -1) {
-        // Añadir a la cesta
-        productosEnCesta.push({ index, producto });
+        if (producto.rareza === "Legendaria") {
+            const legendario = producto.tipo;
+            const yaHayLegendaria = productosEnCesta.some(item => item.rareza === "Legendaria" && item.tipo === legendario);
+
+            if (yaHayLegendaria) {
+                alert('Solamente puedes comprar un objeto legendario por atributo');
+                return;
+            }
+        }
+        // Añadir a la cesta 
+        productosEnCesta.push(producto);
         productoDiv.classList.add('seleccionado');
         btnComprar.textContent = 'Retirar';
         btnComprar.classList.add('retirar');
@@ -148,8 +156,8 @@ function actualizarInventarioVisual() {
         item.innerHTML = '';
         if (productosEnCesta[index]) {
             const img = document.createElement('img');
-            img.src = productosEnCesta[index].producto.imagen;
-            img.alt = productosEnCesta[index].producto.nombre;
+            img.src = productosEnCesta[index].imagen;
+            img.alt = productosEnCesta[index].nombre;
             item.appendChild(img);
         }
     });
@@ -165,8 +173,8 @@ function limpiarInventario() {
 //Confirmación de la compra
 
 function confirmarCompra() {
-    productosEnCesta.forEach(item => {
-        jugador.anadirObjetoInventario(item.producto);
+    productosEnCesta.forEach(producto => {
+        jugador.anadirObjetoInventario(producto);
     });
 
     jugador.vida = jugador.obtenerVidaTotal();
