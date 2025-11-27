@@ -24,7 +24,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* =============== HEADER Y FOOTER =============== */
+/* ------------ HEADER, FOOTER, MAIN Y ESCENAS ---------------- */
 
 footer,
 header {
@@ -69,8 +69,6 @@ header h1 {
     object-fit: contain;
     padding: 4px;
 }
-
-/* =============== MAIN Y SISTEMA DE ESCENAS =============== */
 
 main {
     padding: 16px;
@@ -325,7 +323,6 @@ main {
 #btn-continuar-1:hover,
 .btn-reiniciar:hover {
     transform: scale(1.05);
-    /* Escalar ligeramente */
 }
 
 /* ------------------- ESCENA 4 (Enemigos) ------------------- */
@@ -628,7 +625,7 @@ main {
     color: var(--primary-color);
 }
 
-/* =============== BOTONES GENERALES =============== */
+/* ------------ BOTONES -------------- */
 
 .btn-continuar,
 #continuar {
@@ -670,7 +667,7 @@ main {
     transform: scale(1.05);
 }
 
-/* =============== RESPONSIVE =============== */
+/* --------------- RESPONSIVE ------------ */
 
 @media (width < 1400px) {
     #scene-2 .fila1 {
@@ -703,7 +700,6 @@ main {
         height: 120px;
     }
 
-    /* Batallas responsive */
     #scene-5-container {
         max-width: 95%;
     }

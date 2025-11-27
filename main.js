@@ -88,8 +88,8 @@ function inicializarMercado() {
                 <p>Bonus: +${producto.bonus}</p>
                 <p>Rareza: ${producto.rareza}</p>
                 <p class="precio ${tieneDescuento ? 'con-descuento' : ''}">
-                    ${tieneDescuento ? `<span class="precio-tachado">${producto.formatearAtributos(producto.precio)}€</span> ` : ''}
-                    ${producto.formatearAtributos(precioFinal)}€
+                    ${tieneDescuento ? `<span class="precio-tachado">${producto.formatearAtributos(producto.precio)} Ryō</span> ` : ''}
+                    ${producto.formatearAtributos(precioFinal)} Ryō
                 </p>
             </div>
             <div>
@@ -246,7 +246,7 @@ function mostrarResultadoCombate(resultado, enemigo) {
 
     document.getElementById('img-jugador-batalla').src = jugador.avatar;
     document.getElementById('nombre-jugador-batalla').textContent = "Héroe:" + jugador.nombre;
-    document.getElementById('vida-jugador-batalla').textContent = "Vida: "+ jugador.obtenerVidaTotal();
+    document.getElementById('vida-jugador-batalla').textContent = "Vida: " + jugador.obtenerVidaTotal();
     document.getElementById('img-enemigo-batalla').src = enemigo.avatar;
     document.getElementById('nombre-enemigo-batalla').textContent = "Enemigo: " + enemigo.nombre;
     document.getElementById('vida-enemigo-batalla').textContent = "Vida: " + enemigo.puntosVida;
@@ -333,6 +333,14 @@ function mostrarEscenaFinal() {
     const rangoElement = document.getElementById('rango-final');
     rangoElement.textContent = `Rango: ${rango}`;
     rangoElement.className = `rango ${rango.toLowerCase()}`;
+
+    if (typeof confetti === 'function') {
+        confetti({
+            particleCount: 300,
+            spread: 90,
+            origin: { y: 0.8 } // Por dónde dispara los confettis en la pantalla
+        });
+    }
 
     mostrarEscena('scene-6');
 }
