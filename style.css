@@ -970,6 +970,33 @@ main {
         margin-top: 10px;
         margin-bottom: 8px;
     }
+
+    #escena-6-contenedor {
+        padding: 24px 16px;
+        border: 2px solid var(--color-acento-1);
+        margin-bottom: 16px;
+    }
+
+    .contenedor-final h2 {
+        font-size: 40px;
+        margin-bottom: 14px;
+    }
+
+    .resultado-final {
+        padding: 24px;
+        margin-bottom: 10px;
+        border: 2px solid var(--color-acento-1);
+    }
+
+    .puntos-finales {
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+
+    .rango {
+        font-size: 24px;
+        padding: 8px;
+    }
 }
 
 @media (width <=360px) {
