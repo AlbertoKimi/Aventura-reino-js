@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aventura en el Reino de JS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -16,17 +17,17 @@
   <main>
     <!-- ESCENA 1: Inicio -->
 
-    <div id="scene-1" class="scene active">
-      <div id="scene-1-container">
-        <div class="row-1">
-          <div class="img-container">
+    <div id="escena-1" class="escena activa">
+      <div id="escena-1-contenedor">
+        <div class="fila-1">
+          <div class="img-contenedor">
             <img src="./Imagenes/Protagonista.png" alt="jugador">
           </div>
           <div class="info-jugador">
             <h2 class="nombre-jugador">Héroe</h2>
           </div>
         </div>
-        <div class="row-2">
+        <div class="fila-2">
           <div class="stats">
             <p class="stat-ataque">Ataque: 0</p>
           </div>
@@ -40,7 +41,7 @@
             <p class="stat-puntos">Puntos: 0</p>
           </div>
         </div>
-        <div class="row-3">
+        <div class="fila-3">
           <button id="btn-continuar-1" class="btn-continuar">Ir al Mercado</button>
         </div>
       </div>
@@ -48,11 +49,11 @@
 
     <!-- ESCENA 2: Mercado -->
 
-    <div class="scene" id="scene-2">
+    <div class="escena" id="escena-2">
       <div id="contenedor-escena2">
         <h2>Mercado</h2>
         <div class="fila1"></div>
-        <div class="controles-mercado">
+        <div class="contenedor-boton-comprar">
           <button id="btn-continuar-2" class="btn-continuar">Confirmar compra</button>
         </div>
       </div>
@@ -60,17 +61,17 @@
 
     <!-- ESCENA 3: Actualizar datos jugador-->
 
-    <div id="scene-3" class="scene">
-      <div id="scene-3-container">
-        <div class="row-1">
-          <div class="img-container">
+    <div id="escena-3" class="escena">
+      <div id="escena-3-contenedor">
+        <div class="fila-1">
+          <div class="img-contenedor">
             <img src="./Imagenes/Protagonista.png" alt="jugador">
           </div>
           <div class="info-jugador">
             <h2 class="nombre-jugador">Héroe</h2>
           </div>
         </div>
-        <div class="row-2">
+        <div class="fila-2">
           <div class="stats">
             <p class="stat-ataque">Ataque: 0</p>
           </div>
@@ -84,7 +85,7 @@
             <p class="stat-puntos">Puntos: 0</p>
           </div>
         </div>
-        <div class="row-3">
+        <div class="fila-3">
           <button id="btn-continuar-3" class="btn-continuar">Ver Enemigos</button>
         </div>
       </div>
@@ -92,11 +93,11 @@
 
     <!-- ESCENA 4: Enemigos -->
 
-    <div id="scene-4" class="scene">
-      <div id="scene-4-container">
+    <div id="escena-4" class="escena">
+      <div id="escena-4-contenedor">
         <h2>Tus enemigos</h2>
         <div class="contenedor-enemigos"></div>
-        <div class="controles-enemigos">
+        <div class="contenedor-boton-enemigos">
           <button id="btn-continuar-4" class="btn-continuar">Comenzar Batallas</button>
         </div>
       </div>
@@ -104,44 +105,40 @@
 
     <!-- ESCENA 5: Batallas -->
 
-    <div id="scene-5" class="scene">
-      <div id="scene-5-container">
+    <div id="escena-5" class="escena">
+      <div id="escena-5-contenedor">
         <h2>Combates</h2>
-        <div class="resultado-batalla">
-          <div class="combatientes">
-            <div class="combatiente jugador-combate">
-              <img id="img-jugador-batalla" src="" alt="Jugador">
-              <p id="nombre-jugador-batalla" class="nombre-combatiente"></p>
-              <p id="vida-jugador-batalla" class="nombre-combatiente"></p>
-            </div>
-            <div class="vs-texto">VS</div>
-            <div class="combatiente enemigo-combate">
-              <img id="img-enemigo-batalla" src="" alt="Enemigo">
-              <p id="nombre-enemigo-batalla" class="nombre-combatiente"></p>
-              <p id="vida-enemigo-batalla" class="nombre-combatiente"></p>
-            </div>
+        <div class="combatientes">
+          <div class="combatiente jugador-combate">
+            <img id="img-jugador-batalla" src="" alt="Jugador">
+            <p id="nombre-jugador-batalla" class="nombre-combatiente"></p>
+            <p id="vida-jugador-batalla" class="nombre-combatiente"></p>
           </div>
-
-          <div id="resultado-principal" class="resultado-principal">
-            <h2 id="texto-resultado"></h2>
-            <p id="puntos-ganados" class="puntos-batalla"></p>
+          <div class="vs-texto">VS</div>
+          <div class="combatiente enemigo-combate">
+            <img id="img-enemigo-batalla" src="" alt="Enemigo">
+            <p id="nombre-enemigo-batalla" class="nombre-combatiente"></p>
+            <p id="vida-enemigo-batalla" class="nombre-combatiente"></p>
           </div>
-
-          <div class="btn-container">
-            <button id="btn-accion-batalla" class="btn-continuar">Continuar</button>
-          </div>
-
-          <div id="resumen-combate" class="resumen-combate"></div>
-
-
         </div>
+
+        <div id="resultado-principal" class="resultado-principal">
+          <h2 id="texto-resultado"></h2>
+          <p id="puntos-ganados" class="puntos-batalla"></p>
+        </div>
+
+        <div class="btn-contenedor">
+          <button id="btn-accion-batalla" class="btn-continuar">Continuar</button>
+        </div>
+
+        <div id="resumen-combate" class="resumen-combate"></div>
       </div>
     </div>
 
     <!-- ESCENA 6: Ranking -->
 
-    <div id="scene-6" class="scene">
-      <div id="scene-6-container">
+    <div id="escena-6" class="escena">
+      <div id="escena-6-contenedor">
         <div class="contenedor-final">
           <h2>¡Aventura completada!</h2>
           <div class="resultado-final">
@@ -155,7 +152,7 @@
   </main>
 
   <footer>
-    <div id="inventory-container">
+    <div id="inventario-contenedor">
       <div class="item"></div>
       <div class="item"></div>
       <div class="item"></div>
@@ -165,9 +162,7 @@
     </div>
   </footer>
 
-  <script src="
-https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js
-"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
   <script type="module" src="main.js"></script>
 </body>
 

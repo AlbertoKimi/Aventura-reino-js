@@ -21,17 +21,17 @@ function inicializarJuego() {
 
     // Crear enemigos
     enemigos = [
-        new Enemigo("Mecalobo", "./Imagenes/Enemigos/Lobo.png", 10, 50),
-        new Enemigo("Nenji", "./Imagenes/Enemigos/guerrero.png", 15, 60),
-        new Enemigo("Dragón", "./Imagenes/Enemigos/Dragon.png", 25, 100),
-        new Enemigo("Symercy", "./Imagenes/Enemigos/Maga.png", 35, 150),
-        new Jefe("Xasper", "./Imagenes/Enemigos/Enemigo-final.png", 40, 250, 1.2)
+        new Enemigo("Mecalobo", "./Imagenes/Enemigos/Lobo.png", 10, 100),
+        new Enemigo("Nenji", "./Imagenes/Enemigos/guerrero.png", 20, 200),
+        new Enemigo("Dragón", "./Imagenes/Enemigos/Dragon.png", 25, 250),
+        new Enemigo("Symercy", "./Imagenes/Enemigos/Maga.png", 35, 350),
+        new Jefe("Xasper", "./Imagenes/Enemigos/Enemigo-final.png", 50, 500, 1.2)
     ];
 
     enemigoActual = 0;
     productosEnCesta = [];
 
-    mostrarEscena('scene-1');
+    mostrarEscena('escena-1');
     actualizarEstadoJugador();
 
     limpiarInventario();
@@ -40,16 +40,16 @@ function inicializarJuego() {
 // Actualizar los datos del jugador
 
 function actualizarEstadoJugador() {
-    const scenes = ['scene-1', 'scene-3'];
+    const escenas = ['escena-1', 'escena-3'];
 
-    scenes.forEach(sceneId => {
-        const scene = document.getElementById(sceneId);
-        if (scene) {
-            const nombreElement = scene.querySelector('.nombre-jugador');
-            const ataqueElement = scene.querySelector('.stat-ataque');
-            const defensaElement = scene.querySelector('.stat-defensa');
-            const vidaElement = scene.querySelector('.stat-vida');
-            const puntosElement = scene.querySelector('.stat-puntos');
+    escenas.forEach(escenaId => {
+        const escena = document.getElementById(escenaId);
+        if (escena) {
+            const nombreElement = escena.querySelector('.nombre-jugador');
+            const ataqueElement = escena.querySelector('.stat-ataque');
+            const defensaElement = escena.querySelector('.stat-defensa');
+            const vidaElement = escena.querySelector('.stat-vida');
+            const puntosElement = escena.querySelector('.stat-puntos');
 
             if (nombreElement) nombreElement.textContent = jugador.nombre;
             if (ataqueElement) ataqueElement.textContent = `Ataque: ${jugador.obtenerAtaqueTotal()}`;
@@ -67,7 +67,7 @@ function inicializarMercado() {
     const rarezaAleatoria = obtenerElementoAleatorio(opcionesRarezas);
     const productos = clonarProductos();
 
-    const contenedorProductos = document.querySelector('#scene-2 .fila1');
+    const contenedorProductos = document.querySelector('#escena-2 .fila1');
     contenedorProductos.innerHTML = '';
 
     productos.forEach((producto) => {
@@ -77,7 +77,7 @@ function inicializarMercado() {
 
         const productoDiv = document.createElement('div');
         productoDiv.className = 'productos';
-  
+
 
         productoDiv.innerHTML = `
             <div class="foto">
@@ -118,11 +118,17 @@ function inicializarMercado() {
  * Alterna la selección de un producto
  */
 function alternarProducto(producto, productoDiv, btnComprar) {
-  
+
     const indexEnCesta = productosEnCesta.findIndex(p => p.nombre === producto.nombre);
 
     //He puesto una restricción de que solamente se pueda comprar un objeto legendario por atributo (consumible,ataque o defensa)
     if (indexEnCesta === -1) {
+
+        if (productosEnCesta.length >= 6) {
+            alert('¡Inventario lleno! Solo puedes comprar 6 productos.');
+            return;
+        }
+
         if (producto.rareza === "Legendaria") {
             const legendario = producto.tipo;
             const yaHayLegendaria = productosEnCesta.some(item => item.rareza === "Legendaria" && item.tipo === legendario);
@@ -151,15 +157,26 @@ function alternarProducto(producto, productoDiv, btnComprar) {
 //Actualizar footer
 
 function actualizarInventarioVisual() {
-    const items = document.querySelectorAll('#inventory-container .item');
+    const items = document.querySelectorAll('#inventario-contenedor .item');
 
     items.forEach((item, index) => {
+        const hayImagen = item.querySelector('img') !== null;
         item.innerHTML = '';
         if (productosEnCesta[index]) {
             const img = document.createElement('img');
             img.src = productosEnCesta[index].imagen;
             img.alt = productosEnCesta[index].nombre;
             item.appendChild(img);
+
+            if (!hayImagen) {
+                item.classList.add('item-añadido');
+                setTimeout(() => {
+                    item.classList.remove('item-añadido');
+                }, 1500);
+            }
+        } else {
+            item.classList.remove('item-añadido');
+
         }
     });
 }
@@ -167,7 +184,7 @@ function actualizarInventarioVisual() {
 //Limpiar inventario:
 
 function limpiarInventario() {
-    const items = document.querySelectorAll('#inventory-container .item');
+    const items = document.querySelectorAll('#inventario-contenedor .item');
     items.forEach(item => item.innerHTML = '');
 }
 
@@ -180,18 +197,18 @@ function confirmarCompra() {
 
     jugador.vida = jugador.obtenerVidaTotal();
     actualizarEstadoJugador();
-    mostrarEscena('scene-3');
+    mostrarEscena('escena-3');
 }
 
 //Escena enemigos:
 
 function inicializarEnemigos() {
-    const contenedorEnemigos = document.querySelector('#scene-4 .contenedor-enemigos');
+    const contenedorEnemigos = document.querySelector('#escena-4 .contenedor-enemigos');
     contenedorEnemigos.innerHTML = '';
 
     enemigos.forEach((enemigo) => {
         const enemigoDiv = document.createElement('div');
-        enemigoDiv.className = 'enemigo-card';
+        enemigoDiv.className = 'enemigo-tarjeta';
 
         enemigoDiv.innerHTML = `
             <div class="enemigo-foto">
@@ -219,31 +236,26 @@ function iniciarCombate() {
 
     const enemigo = enemigos[enemigoActual];
 
-    // 1. Obtener referencias
-    const $imgJugador = document.getElementById('img-jugador-batalla');
-    const $imgEnemigo = document.getElementById('img-enemigo-batalla');
-    const $contenedorJugador = $imgJugador.closest('.combatiente');
-    const $contenedorEnemigo = $imgEnemigo.closest('.combatiente');
+    const imgJugador = document.getElementById('img-jugador-batalla');
+    const imgEnemigo = document.getElementById('img-enemigo-batalla');
+    const contenedorJugador = document.querySelector('.combatiente.jugador-combate');
+    const contenedorEnemigo = document.querySelector('.combatiente.enemigo-combate');
 
-    // 2. Mostrar la escena y actualizar imágenes
-    $imgJugador.src = jugador.avatar;
-    $imgEnemigo.src = enemigo.avatar;
-    mostrarEscena('scene-5');
+    imgJugador.src = jugador.avatar;
+    imgEnemigo.src = enemigo.avatar;
+    mostrarEscena('escena-5');
 
-    $contenedorJugador.classList.remove('initial-position');
-    $contenedorEnemigo.classList.remove('initial-position');
+    contenedorJugador.classList.add('posicion-Inicial');
+    contenedorEnemigo.classList.add('posicion-Inicial');
 
     requestAnimationFrame(() => {
 
-        $contenedorJugador.classList.add('initial-position');
-        $contenedorEnemigo.classList.add('initial-position');
+        //requestAnimationFrame es una función que dice al navegador que ejecute una función antes del repintado de la pantalla
 
-        requestAnimationFrame(() => {
-
-            $contenedorJugador.classList.remove('initial-position');
-            $contenedorEnemigo.classList.remove('initial-position');
-        });
+        contenedorJugador.classList.remove('posicion-Inicial');
+        contenedorEnemigo.classList.remove('posicion-Inicial');
     });
+
 
     const resultado = combate(enemigo, jugador);
     mostrarResultadoCombate(resultado, enemigo);
@@ -254,7 +266,7 @@ function iniciarCombate() {
 function mostrarResultadoCombate(resultado, enemigo) {
 
     document.getElementById('img-jugador-batalla').src = jugador.avatar;
-    document.getElementById('nombre-jugador-batalla').textContent = "Héroe:" + jugador.nombre;
+    document.getElementById('nombre-jugador-batalla').textContent = "Héroe: " + jugador.nombre;
     document.getElementById('vida-jugador-batalla').textContent = "Vida: " + jugador.obtenerVidaTotal();
     document.getElementById('img-enemigo-batalla').src = enemigo.avatar;
     document.getElementById('nombre-enemigo-batalla').textContent = "Enemigo: " + enemigo.nombre;
@@ -282,7 +294,7 @@ function mostrarResultadoCombate(resultado, enemigo) {
 
     actualizarBotonBatalla(resultado.victoria);
 
-    mostrarEscena('scene-5');
+    mostrarEscena('escena-5');
 }
 
 function generarResumenTurnos(turnos, contenedor) {
@@ -300,7 +312,10 @@ function generarResumenTurnos(turnos, contenedor) {
             ${turno.enemigoRespondio ? `
                 <hr>
                 <p><strong>${turno.atacante2}</strong> Contraataca con <span class="dano">${turno.dano2}</span> de daño.</p>
-                <p>El héroe mitiga <span class="positivo">${jugador.obtenerDefensaTotal()}</span> del ataque del enemigo.</p>
+                <p>Defensa inicial del héroe: <span class="positivo">${turno.defensaInicial}</span></p>
+                <p>Daño absorbido por la defensa: <span class="positivo">${turno.danoAbsorbido}</span></p>
+                ${turno.danoRealVida > 0 ? `<p>Daño que recibe el héroe: <span class="dano">${turno.danoRealVida}</span></p>` : ''}
+                <p>Defensa después del ataque: <span class="${turno.defensaFinal > 0 ? 'positivo' : 'dano'}">${turno.defensaFinal}</span></p>
                 <p>Vida restante del Héroe: <span class="positivo">${turno.vidaRestanteJugador}</span></p>
             ` : ''}
         `;
@@ -351,24 +366,24 @@ function mostrarEscenaFinal() {
         });
     }
 
-    mostrarEscena('scene-6');
+    mostrarEscena('escena-6');
 }
 
 //Aquí están todos los Listener de los botones:
 
 function configurarEventListeners() {
 
-    const btnContinuar1 = document.querySelector('#scene-1 #btn-continuar-1');
+    const btnContinuar1 = document.querySelector('#escena-1 #btn-continuar-1');
     if (btnContinuar1) {
         btnContinuar1.addEventListener('click', () => {
             console.log('Botón continuar 1 presionado');
             inicializarMercado();
-            mostrarEscena('scene-2');
+            mostrarEscena('escena-2');
         });
     }
 
 
-    const btnContinuar2 = document.querySelector('#scene-2 #btn-continuar-2');
+    const btnContinuar2 = document.querySelector('#escena-2 #btn-continuar-2');
     if (btnContinuar2) {
         btnContinuar2.addEventListener('click', () => {
             console.log('Botón continuar 2 presionado');
@@ -377,17 +392,17 @@ function configurarEventListeners() {
     }
 
 
-    const btnContinuar3 = document.querySelector('#scene-3 #btn-continuar-3');
+    const btnContinuar3 = document.querySelector('#escena-3 #btn-continuar-3');
     if (btnContinuar3) {
         btnContinuar3.addEventListener('click', () => {
             console.log('Botón continuar 3 presionado');
             inicializarEnemigos();
-            mostrarEscena('scene-4');
+            mostrarEscena('escena-4');
         });
     }
 
 
-    const btnContinuar4 = document.querySelector('#scene-4 #btn-continuar-4');
+    const btnContinuar4 = document.querySelector('#escena-4 #btn-continuar-4');
     if (btnContinuar4) {
         btnContinuar4.addEventListener('click', () => {
             console.log('Botón continuar 4 presionado');

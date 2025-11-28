@@ -11,53 +11,78 @@ export function combate(enemigoOriginal, jugador) {
         enemigoOriginal.multiplicadorDano
     );
 
-  
     const ataqueJugador = jugador.obtenerAtaqueTotal();
-    const defensaJugador = jugador.obtenerDefensaTotal();
-
+    
+    let defensaActualJugador = jugador.obtenerDefensaTotal();
+    
     const listaTurnos = [];
     let contadorTurnos = 1;
 
     while (jugador.vida > 0 && enemigo.puntosVida > 0) {
 
-        console.log("turno en el que estamos: " + contadorTurnos)
+        console.log(`\n=== TURNO ${contadorTurnos} ===`);
+        console.log(`Defensa actual del jugador: ${defensaActualJugador}`);
 
         let datosTurno = {
             numero: contadorTurnos,
             atacante1: jugador.nombre,
             dano1: ataqueJugador,
+            defensaInicial: defensaActualJugador,
+            defensaFinal: defensaActualJugador,
             vidaRestanteEnemigo: 0,
             enemigoRespondio: false,
             atacante2: "",
             dano2: 0,
-            vidaRestanteJugador: 0
+            danoAbsorbido: 0,
+            danoRealVida: 0,
+            vidaRestanteJugador: jugador.vida
         };
 
         enemigo.recibirDano(ataqueJugador);
         datosTurno.vidaRestanteEnemigo = enemigo.puntosVida;
 
-        console.log("La vida del jugador es: " + datosTurno.vidaRestanteJugador)
-        console.log("La vida del enemigo es: " + datosTurno.vidaRestanteEnemigo)
+        console.log(`${jugador.nombre} ataca con ${ataqueJugador} de daño`);
+        console.log(`Vida restante del enemigo: ${enemigo.puntosVida}`);
 
         if (enemigo.puntosVida > 0) {
             datosTurno.enemigoRespondio = true;
             datosTurno.atacante2 = enemigo.nombre;
-
-            const ataqueEnemigo = enemigo.obtenerDanoReal();
-            const nuevaVida = (jugador.vida + defensaJugador) - ataqueEnemigo;
-            /*const danoRecibido = Math.max(0, ataqueEnemigo - defensaJugador);*/
-
-            jugador.vida = Math.max(0,nuevaVida);
-            if (jugador.vida < 0) jugador.vida = 0;
-
-            datosTurno.dano2 = ataqueEnemigo;
-            datosTurno.vidaRestanteJugador = jugador.vida;
             
+            const ataqueEnemigo = enemigo.obtenerDanoReal();
+            datosTurno.dano2 = ataqueEnemigo;
 
-            console.log("La vida del jugador es: " + datosTurno.vidaRestanteJugador)
-            console.log("La vida del enemigo es: " + datosTurno.vidaRestanteEnemigo)
+            console.log(`${enemigo.nombre} contraataca con ${ataqueEnemigo} de daño`);
 
+            if (defensaActualJugador > 0) {
 
+                const danoAbsorbido = Math.min(ataqueEnemigo, defensaActualJugador);
+                const danoRestante = ataqueEnemigo - danoAbsorbido;
+                
+                defensaActualJugador = Math.max(0, defensaActualJugador - ataqueEnemigo);
+                
+                if (danoRestante > 0) {
+                    jugador.vida = Math.max(0, jugador.vida - danoRestante);
+                    datosTurno.danoRealVida = danoRestante;
+                } else {
+                    datosTurno.danoRealVida = 0;
+                }
+                
+                datosTurno.danoAbsorbido = danoAbsorbido;
+                
+            } else {
+
+                datosTurno.danoAbsorbido = 0;
+                datosTurno.danoRealVida = ataqueEnemigo;
+                jugador.vida = Math.max(0, jugador.vida - ataqueEnemigo);
+            }
+
+            datosTurno.defensaFinal = defensaActualJugador;
+            datosTurno.vidaRestanteJugador = jugador.vida;
+
+            console.log(`Daño absorbido por defensa: ${datosTurno.danoAbsorbido}`);
+            console.log(`Daño recibido en vida: ${datosTurno.danoRealVida}`);
+            console.log(`Defensa final: ${defensaActualJugador}`);
+            console.log(`Vida restante del jugador: ${jugador.vida}`);
         }
 
         listaTurnos.push(datosTurno);
@@ -66,15 +91,18 @@ export function combate(enemigoOriginal, jugador) {
 
     const victoria = jugador.vida > 0;
     let puntos = 0;
+    
     if (victoria) {
         puntos = calcularPuntos(enemigo);
         jugador.sumarPuntos(puntos);
+        
     }
 
     return {
         victoria: victoria,
         puntosGanados: puntos,
-        listaTurnos: listaTurnos
+        listaTurnos: listaTurnos,
+        defensaFinalJugador: defensaActualJugador
     };
 }
 
