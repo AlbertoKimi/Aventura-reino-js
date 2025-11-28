@@ -1,6 +1,14 @@
 import { puntosBaseVictoria } from '../Utilies-constantes/Constantes.js';
 import { Jefe } from '../Clases/Jefe.js';
 
+/**
+ * Simula un combate por turnos entre el jugador y un enemigo.
+ * El jugador ataca primero, el enemigo contraataca. La defensa absorbe daño.
+ * * @param {Enemigo|Jefe} enemigoOriginal Instancia del enemigo a clonar y usar en el combate.
+ * @param {Jugador} jugador Instancia del jugador.
+ * @returns {{victoria: boolean, puntosGanados: number, listaTurnos: Array<Object>, defensaFinalJugador: number}} Resultado del combate.
+ */
+
 export function combate(enemigoOriginal, jugador) {
 
     const enemigo = new enemigoOriginal.constructor(

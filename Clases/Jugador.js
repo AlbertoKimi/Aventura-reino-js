@@ -1,6 +1,16 @@
 import { Producto } from './Producto.js';
 
+/**
+ * Clase que representa al jugador (héroe) en el juego.
+ */
+
 export class Jugador {
+
+    /**
+     * @param {string} nombre Nombre del jugador.
+     * @param {string} avatar Ruta de la imagen del jugador.
+     * @param {number} vidaBase Vida máxima base del jugador (por defecto 100).
+     */
 
     constructor(nombre, avatar, vidaBase = 100) {
         this.nombre = nombre;
@@ -10,6 +20,12 @@ export class Jugador {
         this.vida = vidaBase;
         this.vidaMaxima = vidaBase;
     }
+
+    /**
+     * Añade un nuevo Producto al inventario del jugador.
+     * Crea un clon para evitar referencias al objeto original del mercado.
+     * @param {Producto} producto Objeto Producto a añadir.
+     */
 
     anadirObjetoInventario(producto) {
 
@@ -24,9 +40,19 @@ export class Jugador {
         this.inventario.push(productoClonado);
     }
 
+    /**
+     * Aumenta la puntuación total del jugador.
+     * @param {number} puntosGanados Puntos a sumar.
+     */
+
     sumarPuntos(puntosGanados) {
         this.puntos += puntosGanados;
     }
+
+    /**
+     * Calcula el ataque total del jugador sumando el bonus de todos los ítems de tipo "Arma".
+     * @returns {number} El valor total de ataque.
+     */
 
     obtenerAtaqueTotal() {
 
@@ -40,6 +66,11 @@ export class Jugador {
         return ataqueTotal;
     }
 
+    /**
+     * Calcula la defensa total del jugador sumando el bonus de todos los ítems de tipo "Armadura".
+     * @returns {number} El valor total de defensa.
+     */
+
     obtenerDefensaTotal() {
 
         let defensaTotal = 0;
@@ -51,6 +82,11 @@ export class Jugador {
         }
         return defensaTotal;
     }
+
+    /**
+     * Calcula la vida total (máxima) del jugador sumando la vida base y el bonus de todos los ítems de tipo "Consumible".
+     * @returns {number} El valor total de vida máxima.
+     */
 
     obtenerVidaTotal() {
 

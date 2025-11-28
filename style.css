@@ -5,7 +5,7 @@
 }
 
 :root {
-/* =============== COLORES =============== */
+/* -------------- COLORES ------------ */
     --color-primario: #1a1f3a;
     --color-secundario: #e8f0f2;
     --color-terciario: #8ce9fa;
@@ -17,19 +17,19 @@
     --color-exito: #00ff88;
     --color-fallido: #ff3366;
 
-    /* =============== FUENTES =============== */
+    /* ------------- FUENTES -------------- */
     --font-titulos: 'Orbitron', sans-serif;
     --font-resto-texto: 'Arial', sans-serif;
 
-    /* =============== TAMAÑOS DE FUENTE (NUEVOS) =============== */
+    /* ------------- TAMAÑOS DE FUENTE ------------- */
     --font-size-h1: 32px;
     --font-size-h2: 28px;
     --font-size-h3: 24px;
-    --font-size-stats-lg: 20px; /* Para stats grandes en E1/E3 */
-    --font-size-base: 16px; /* Texto estándar */
-    --font-size-botones: 14px; /* Un poco más pequeño que 16px */
+    --font-size-stats-lg: 20px; 
+    --font-size-base: 16px; 
+    --font-size-botones: 14px; 
     
-    /* =============== SOMBRAS (NUEVAS) =============== */
+    /* --------------- SOMBRAS ----------- */
     --shadow-base: 0 4px 10px rgba(0, 0, 0, 0.5);
     --shadow-producto-hover: 0 8px 15px rgba(255, 150, 0, 0.6);
     --shadow-boton-hover: 0 8px 25px rgba(255, 150, 0, 0.7);
@@ -410,7 +410,7 @@ main {
 
 .btn-comprar.retirar {
     background-color: var(--color-fallido);
-    color: var(--color-secundario);
+    color: var(--color-primario);
     border-color: var(--color-fallido);
 }
 

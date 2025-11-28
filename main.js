@@ -13,7 +13,9 @@ let productosEnCesta = [];
 let enemigos = [];
 let enemigoActual = 0;
 
-//Iniciamos el juego
+/**
+ * Inicializa las clases principales (Jugador, Enemigos) y comienza el juego en la primera escena.
+ */
 
 function inicializarJuego() {
 
@@ -37,7 +39,10 @@ function inicializarJuego() {
     limpiarInventario();
 }
 
-// Actualizar los datos del jugador
+/**
+ * Actualiza la visualización de las estadísticas actuales del jugador (Ataque, Defensa, Vida, Puntos)
+ * en las escenas de estado del jugador (escena-1 y escena-3).
+ */
 
 function actualizarEstadoJugador() {
     const escenas = ['escena-1', 'escena-3'];
@@ -60,7 +65,10 @@ function actualizarEstadoJugador() {
     });
 }
 
-//Inicializamos el mercado
+/**
+ * Inicializa la Escena del Mercado (escena-2).
+ * Selecciona una rareza aleatoria para aplicar un descuento a todos los productos de esa rareza.
+ */
 
 function inicializarMercado() {
 
@@ -115,13 +123,17 @@ function inicializarMercado() {
 }
 
 /**
- * Alterna la selección de un producto
+ * Añade o retira un producto de la cesta de la compra (productosEnCesta).
+ * Aplica restricciones: máximo 6 productos en total y solo un objeto legendario por tipo (Arma, Armadura, Consumible).
+ * @param {Producto} producto El producto seleccionado/deseleccionado.
+ * @param {HTMLElement} productoDiv El div que representa el producto en el mercado.
+ * @param {HTMLElement} btnComprar El botón de "Añadir"/"Retirar".
  */
+
 function alternarProducto(producto, productoDiv, btnComprar) {
 
     const indexEnCesta = productosEnCesta.findIndex(p => p.nombre === producto.nombre);
 
-    //He puesto una restricción de que solamente se pueda comprar un objeto legendario por atributo (consumible,ataque o defensa)
     if (indexEnCesta === -1) {
 
         if (productosEnCesta.length >= 6) {
@@ -138,13 +150,13 @@ function alternarProducto(producto, productoDiv, btnComprar) {
                 return;
             }
         }
-        // Añadir a la cesta 
+        
         productosEnCesta.push(producto);
         productoDiv.classList.add('seleccionado');
         btnComprar.textContent = 'Retirar';
         btnComprar.classList.add('retirar');
     } else {
-        // Quitar de la cesta
+        
         productosEnCesta.splice(indexEnCesta, 1);
         productoDiv.classList.remove('seleccionado');
         btnComprar.textContent = 'Añadir';
@@ -154,7 +166,9 @@ function alternarProducto(producto, productoDiv, btnComprar) {
     actualizarInventarioVisual();
 }
 
-//Actualizar footer
+/**
+ * Actualiza visualmente los íconos de los productos seleccionados en el footer (inventario-contenedor).
+ */
 
 function actualizarInventarioVisual() {
     const items = document.querySelectorAll('#inventario-contenedor .item');
@@ -181,14 +195,20 @@ function actualizarInventarioVisual() {
     });
 }
 
-//Limpiar inventario:
+/**
+ * Limpia todos los espacios visuales de íconos en el footer.
+ */
 
 function limpiarInventario() {
     const items = document.querySelectorAll('#inventario-contenedor .item');
     items.forEach(item => item.innerHTML = '');
 }
 
-//Confirmación de la compra
+/**
+ * Confirma la compra: transfiere los productos de la cesta al inventario permanente del jugador.
+ * Restablece la vida del jugador a la vida máxima total (incluidos los bonus).
+ * Pasa a la escena de actualización de datos (escena-3).
+ */
 
 function confirmarCompra() {
     productosEnCesta.forEach(producto => {
@@ -200,7 +220,9 @@ function confirmarCompra() {
     mostrarEscena('escena-3');
 }
 
-//Escena enemigos:
+/**
+ * Inicializa y renderiza la Escena de Enemigos (escena-4), mostrando las tarjetas de los enemigos.
+ */
 
 function inicializarEnemigos() {
     const contenedorEnemigos = document.querySelector('#escena-4 .contenedor-enemigos');
@@ -226,7 +248,10 @@ function inicializarEnemigos() {
     });
 }
 
-//Combates:
+/**
+ * Inicia el combate contra el enemigo actual.
+ * Muestra la escena de combate (escena-5), aplica animación de entrada y llama a la lógica de combate.
+ */
 
 function iniciarCombate() {
     if (enemigoActual >= enemigos.length) {
@@ -261,7 +286,11 @@ function iniciarCombate() {
     mostrarResultadoCombate(resultado, enemigo);
 }
 
-//Mostrar turnos y resultados:
+/**
+ * Muestra los resultados principales del combate y genera el resumen de turnos.
+ * @param {Object} resultado Objeto de resultado retornado por la función `combate`.
+ * @param {Enemigo|Jefe} enemigo La instancia del enemigo que se combatió (original, no clonada).
+ */
 
 function mostrarResultadoCombate(resultado, enemigo) {
 
@@ -297,6 +326,12 @@ function mostrarResultadoCombate(resultado, enemigo) {
     mostrarEscena('escena-5');
 }
 
+/**
+ * Genera y muestra visualmente el resumen detallado de cada turno del combate.
+ * @param {Array<Object>} turnos Lista de objetos de turno generados por `combate`.
+ * @param {HTMLElement} contenedor El elemento DOM donde se renderizará el resumen.
+ */
+
 function generarResumenTurnos(turnos, contenedor) {
     contenedor.innerHTML = '';
 
@@ -324,6 +359,12 @@ function generarResumenTurnos(turnos, contenedor) {
     });
 }
 
+/**
+ * Configura el botón de acción después del combate.
+ * Si es derrota, establece "Reiniciar". Si es victoria, establece "Continuar" o "Ver resultados" si es el último enemigo.
+ * @param {boolean} victoria Indica si el jugador ganó el combate actual.
+ */
+
 function actualizarBotonBatalla(victoria) {
     const btn = document.getElementById('btn-accion-batalla');
 
@@ -347,7 +388,11 @@ function actualizarBotonBatalla(victoria) {
     }
 }
 
-// Ranking: 
+/**
+ * Muestra la escena final (escena-6).
+ * Calcula el rango del jugador basado en sus puntos y lo muestra.
+ * Activa la animación de confeti.
+ */ 
 
 function mostrarEscenaFinal() {
     const rango = distinguirJugador(jugador.puntos);
@@ -369,7 +414,9 @@ function mostrarEscenaFinal() {
     mostrarEscena('escena-6');
 }
 
-//Aquí están todos los Listener de los botones:
+/**
+ * Configura todos los Event Listeners para los botones de navegación entre escenas.
+ */
 
 function configurarEventListeners() {
 
@@ -411,7 +458,10 @@ function configurarEventListeners() {
     }
 }
 
-//Función para iniciar el juego: 
+/**
+ * Función principal para arrancar el juego.
+ * Llama a las funciones de inicialización y configuración de eventos.
+ */ 
 
 function iniciar() {
     console.log('Inicializando juego...');
