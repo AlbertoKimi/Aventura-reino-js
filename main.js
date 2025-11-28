@@ -24,7 +24,7 @@ function inicializarJuego() {
     // Crear enemigos
     enemigos = [
         new Enemigo("Mecalobo", "./Imagenes/Enemigos/Lobo.png", 10, 100),
-        new Enemigo("Nenji", "./Imagenes/Enemigos/guerrero.png", 20, 200),
+        new Enemigo("Nenji", "./Imagenes/Enemigos/Guerrero.png", 20, 200),
         new Enemigo("Dragón", "./Imagenes/Enemigos/Dragon.png", 25, 250),
         new Enemigo("Symercy", "./Imagenes/Enemigos/Maga.png", 35, 350),
         new Jefe("Xasper", "./Imagenes/Enemigos/Enemigo-final.png", 50, 500, 1.2)
