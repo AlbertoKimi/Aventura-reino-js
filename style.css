@@ -5,7 +5,7 @@
 }
 
 :root {
-/* -------------- COLORES ------------ */
+    /* -------------- COLORES ------------ */
     --color-primario: #1a1f3a;
     --color-secundario: #e8f0f2;
     --color-terciario: #8ce9fa;
@@ -25,15 +25,15 @@
     --font-size-h1: 32px;
     --font-size-h2: 28px;
     --font-size-h3: 24px;
-    --font-size-stats-lg: 20px; 
-    --font-size-base: 16px; 
-    --font-size-botones: 14px; 
-    
+    --font-size-stats-lg: 20px;
+    --font-size-base: 16px;
+    --font-size-botones: 14px;
+
     /* --------------- SOMBRAS ----------- */
     --shadow-base: 0 4px 10px rgba(0, 0, 0, 0.5);
     --shadow-producto-hover: 0 8px 15px rgba(255, 150, 0, 0.6);
     --shadow-boton-hover: 0 8px 25px rgba(255, 150, 0, 0.7);
-    
+
 }
 
 html,
@@ -72,15 +72,19 @@ header h1 {
     font-size: var(--font-size-h1);
 }
 
-h2,h3,.nombre-combatiente,.nombre-jugador,.stats {
+h2,
+h3,
+.nombre-combatiente,
+.nombre-jugador,
+.stats {
     font-family: var(--font-titulos);
 }
 
-h2{
+h2 {
     font-size: var(--font-size-h2);
 }
 
-h3{
+h3 {
     font-size: var(--font-size-h3);
 }
 
@@ -694,7 +698,7 @@ main {
 }
 
 .contenedor-final h2 {
-    
+
     color: var(--color-secundario);
     margin-bottom: 32px;
 }
@@ -733,7 +737,8 @@ main {
 
 /* ------------ BOTONES -------------- */
 
-.btn-continuar, .btn-reiniciar,
+.btn-continuar,
+.btn-reiniciar,
 #continuar {
     background: var(--color-apoyo-naranja);
     color: #0a0e27;
@@ -749,7 +754,8 @@ main {
     box-shadow: var(--shadow-boton-hover);
 }
 
-.btn-continuar:hover, .btn-reiniciar:hover,
+.btn-continuar:hover,
+.btn-reiniciar:hover,
 #continuar:hover {
     background: var(--color-hover-botones);
     transform: translateY(-5px);
@@ -769,17 +775,76 @@ main {
     }
 }
 
-@media (width < 768px) {
+@media (width <=720px) {
+    header h1 {
+        font-size: var(--font-size-stats-lg);
+    }
+
     #inventario-contenedor {
-        margin: 8px 10%;
+        margin: 8px 6%;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
     }
 
     .item {
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
     }
+
+main {
+        padding: 8px;
+    }
+
+    #escena-1-contenedor,
+    #escena-3-contenedor {
+        border: 3px solid var(--color-primario);
+    }
+
+    #escena-1 .fila-1,
+    #escena-3 .fila-1 {
+        padding: 10px;
+        gap: 12px;
+    }
+
+    .img-contenedor {
+        width: 120px;
+        height: 120px;
+        border: 2px solid var(--color-apoyo-naranja);
+    }
+
+    .info-jugador h2 {
+        font-size: 20px;
+    }
+
+    #escena-1 .fila-2,
+    #escena-3 .fila-2 {
+        gap: 6px;
+        padding: 10px;
+    }
+
+    .stats {
+        padding: 6px;
+        border: 2px solid var(--color-acento-1);
+    }
+
+    .stats p {
+        font-size: 14px;
+    }
+
+    #escena-1 .fila-3,
+    #escena-3 .fila-3 {
+        padding: 10px;
+    }
+
+    .btn-continuar,
+    .btn-reiniciar,
+    #continuar {
+        padding: 10px 16px;
+        font-size: 11px;
+        border: 3px solid #0a0e27;
+        letter-spacing: 1px;
+    }
+
 
     #escena-2 .fila1 {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -821,19 +886,276 @@ main {
     .turno {
         padding: 8px;
     }
-}
 
-@media (width < 640px) {
-    header h1 {
-        font-size: 20px;
+    #escena-5-contenedor>h2 {
+        font-size: 16px;
+        margin-bottom: 8px;
+        padding-left: 0;
     }
 
-    .stats p {
+    .combatientes {
+        padding: 8px;
+        margin-bottom: 10px;
+    }
+
+    .vs-texto {
+        font-size: 18px;
+        margin: 6px 0;
+    }
+
+    .combatiente img {
+        width: 200px;
+        height: 200px;
+        border: 2px solid var(--color-acento-1);
+    }
+
+    .nombre-combatiente {
+        font-size: 16px;
+    }
+
+    .resultado-principal {
+        padding: 8px;
+        margin-bottom: 8px;
+        border: 2px solid;
+    }
+
+    .resultado-principal h2 {
+        font-size: 16px;
+        margin-bottom: 4px;
+    }
+
+    .puntos-batalla {
+        font-size: 11px;
+    }
+
+    .resumen-combate {
+        padding: 8px;
+        margin-bottom: 8px;
+        max-height: 200px;
+        border: 2px solid var(--color-acento-1);
+        overflow-y: auto;
+    }
+
+    .turno {
+        padding: 6px;
+        margin-bottom: 6px;
+        border-left: 2px solid var(--color-acento-2);
+    }
+
+    .turno h3 {
+        font-size: 16px;
+        margin-bottom: 4px;
+    }
+
+    .turno p {
+        font-size: 14px;
+        margin: 2px 0;
+        line-height: 1.3;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .turno strong {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    .turno hr {
+        margin: 4px 0;
+        border: none;
+        border-top: 1px solid var(--color-acento-1);
+    }
+
+    .btn-contenedor {
+        margin-top: 10px;
+        margin-bottom: 8px;
+    }
+}
+
+@media (width <=360px) {
+
+    header h1 {
+        font-size: var(--font-size-base);
+    }
+
+    #inventario-contenedor {
+        margin: 4px 2%;
+        padding: 4px;
+        gap: 4px;
+        border-radius: 12px;
+        border: 2px solid var(--color-apoyo-naranja);
+    }
+
+    .item {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        border: 2px solid var(--color-primario);
+    }
+
+    main {
+        padding: 8px;
+    }
+
+    #escena-1-contenedor,
+    #escena-3-contenedor {
+        border: 3px solid var(--color-primario);
+    }
+
+    #escena-1 .fila-1,
+    #escena-3 .fila-1 {
+        padding: 10px;
+        gap: 12px;
+    }
+
+    .img-contenedor {
+        width: 90px;
+        height: 90px;
+        border: 2px solid var(--color-apoyo-naranja);
+    }
+
+    .info-jugador h2 {
         font-size: 18px;
     }
 
-    #contenedor-escena2 h2,
-    #escena-4-contenedor h2 {
-        font-size: 24px;
+    #escena-1 .fila-2,
+    #escena-3 .fila-2 {
+        gap: 6px;
+        padding: 10px;
     }
+
+    .stats {
+        padding: 6px;
+        border: 2px solid var(--color-acento-1);
+    }
+
+    .stats p {
+        font-size: 14px;
+    }
+
+    #escena-1 .fila-3,
+    #escena-3 .fila-3 {
+        padding: 10px;
+    }
+
+    .btn-continuar,
+    .btn-reiniciar,
+    #continuar {
+        padding: 10px 16px;
+        font-size: 11px;
+        border: 3px solid #0a0e27;
+        letter-spacing: 1px;
+    }
+
+    #escena-5-contenedor>h2 {
+        font-size: 16px;
+        margin-bottom: 8px;
+        padding-left: 0;
+    }
+
+    .combatientes {
+        padding: 8px;
+        margin-bottom: 10px;
+    }
+
+    .vs-texto {
+        font-size: 18px;
+        margin: 6px 0;
+    }
+
+    .combatiente img {
+        width: 100px;
+        height: 100px;
+        border: 2px solid var(--color-acento-1);
+    }
+
+    .nombre-combatiente {
+        font-size: 10px;
+    }
+
+    .resultado-principal {
+        padding: 8px;
+        margin-bottom: 8px;
+        border: 2px solid;
+    }
+
+    .resultado-principal h2 {
+        font-size: 16px;
+        margin-bottom: 4px;
+    }
+
+    .puntos-batalla {
+        font-size: 11px;
+    }
+
+    .resumen-combate {
+        padding: 8px;
+        margin-bottom: 8px;
+        max-height: 200px;
+        border: 2px solid var(--color-acento-1);
+        overflow-y: auto;
+    }
+
+    .turno {
+        padding: 6px;
+        margin-bottom: 6px;
+        border-left: 2px solid var(--color-acento-2);
+    }
+
+    .turno h3 {
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    .turno p {
+        font-size: 10px;
+        margin: 2px 0;
+        line-height: 1.3;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .turno strong {
+        font-size: 10px;
+        margin-bottom: 4px;
+    }
+
+    .turno hr {
+        margin: 4px 0;
+        border: none;
+        border-top: 1px solid var(--color-acento-1);
+    }
+
+    .btn-contenedor {
+        margin-top: 10px;
+        margin-bottom: 8px;
+    }
+
+    #escena-6-contenedor {
+        padding: 16px 10px;
+        border: 2px solid var(--color-acento-1);
+        margin-bottom: 16px;
+    }
+
+    .contenedor-final h2 {
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+
+    .resultado-final {
+        padding: 12px;
+        margin-bottom: 10px;
+        border: 2px solid var(--color-acento-1);
+    }
+
+    .puntos-finales {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+
+    .rango {
+        font-size: 20px;
+        padding: 8px;
+    }
+
 }
