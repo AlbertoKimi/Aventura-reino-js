@@ -38,7 +38,7 @@ export class Producto {
      * @param {string} clave Atributo del producto para comprobar el descuento ("rareza" o "tipo").
      * @param {string} valor Valor del atributo a comprobar.
      * @param {number} descuento Porcentaje de descuento a aplicar (ej. 20 para 20%).
-     * @returns {number} El precio final redondeado.
+     * @returns {Producto} Retorna un clon del producto con el precio descontado.
      */
 
     aplicarDescuento(clave, valor, descuento) {
@@ -50,7 +50,14 @@ export class Producto {
             precioConDescuento = this.precio * (1 - descuento / 100);
         }
 
-        return Math.round(precioConDescuento);
+        return new Producto (
+            this.nombre,
+            this.imagen,
+            Math.round(precioConDescuento),
+            this.rareza,
+            this.tipo,
+            this.bonus
+        )
 
     }
 }

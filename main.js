@@ -5,6 +5,7 @@ import { descuentoFijo, opcionesRarezas, tipos } from './Utilies-constantes/Cons
 import { mostrarEscena, obtenerElementoAleatorio, clonarProductos } from './Utilies-constantes/Utilies.js';
 import { combate } from './Módulos/Batalla.js';
 import { distinguirJugador } from './Módulos/Ranking.js';
+import { aplicarDescuento } from './Módulos/Mercado.js';
 
 // Variables globales
 
@@ -67,20 +68,30 @@ function actualizarEstadoJugador() {
 
 /**
  * Inicializa la Escena del Mercado (escena-2).
- * Selecciona una rareza aleatoria para aplicar un descuento a todos los productos de esa rareza.
+ * Selecciona una rareza aleatoria para aplicar los descuentos de esa rareza a los productos, crea las tarjetas 
+ * con esos productos descontados y las añade
  */
 
 function inicializarMercado() {
 
     const rarezaAleatoria = obtenerElementoAleatorio(opcionesRarezas);
-    const productos = clonarProductos();
+    const productosBase = clonarProductos();
+
+    const preciosBase = new Map();
+    productosBase.forEach(p => {
+        preciosBase.set(p.nombre, p.precio)
+    });
+
+    const productosDescontados = aplicarDescuento(rarezaAleatoria, descuentoFijo);
 
     const contenedorProductos = document.querySelector('#escena-2 .fila1');
     contenedorProductos.innerHTML = '';
 
-    productos.forEach((producto) => {
+    productosDescontados.forEach((producto) => {
 
-        const precioFinal = producto.aplicarDescuento("rareza", rarezaAleatoria, descuentoFijo);
+        const nombreProducto = producto.nombre;
+        const precioOrigen = preciosBase.get(nombreProducto);
+        const precioFinal = producto.precio;
         const tieneDescuento = producto.rareza === rarezaAleatoria; //Esto es como un if: si rareza es igual a rarezaAleatoria es true, si no false 
 
         const productoDiv = document.createElement('div');
@@ -97,7 +108,7 @@ function inicializarMercado() {
                 <p>Bonus: +${producto.bonus}</p>
                 <p>Rareza: ${producto.rareza}</p>
                 <p class="precio ${tieneDescuento ? 'con-descuento' : ''}">
-                    ${tieneDescuento ? `<span class="precio-tachado">${producto.formatearAtributos(producto.precio)} Ryō</span> ` : ''}
+                    ${tieneDescuento ? `<span class="precio-tachado">${producto.formatearAtributos(precioOrigen)} Ryō</span> ` : ''}
                     ${producto.formatearAtributos(precioFinal)} Ryō
                 </p>
             </div>
@@ -150,13 +161,13 @@ function alternarProducto(producto, productoDiv, btnComprar) {
                 return;
             }
         }
-        
+
         productosEnCesta.push(producto);
         productoDiv.classList.add('seleccionado');
         btnComprar.textContent = 'Retirar';
         btnComprar.classList.add('retirar');
     } else {
-        
+
         productosEnCesta.splice(indexEnCesta, 1);
         productoDiv.classList.remove('seleccionado');
         btnComprar.textContent = 'Añadir';
@@ -392,7 +403,7 @@ function actualizarBotonBatalla(victoria) {
  * Muestra la escena final (escena-6).
  * Calcula el rango del jugador basado en sus puntos y lo muestra.
  * Activa la animación de confeti.
- */ 
+ */
 
 function mostrarEscenaFinal() {
     const rango = distinguirJugador(jugador.puntos);
@@ -461,7 +472,7 @@ function configurarEventListeners() {
 /**
  * Función principal para arrancar el juego.
  * Llama a las funciones de inicialización y configuración de eventos.
- */ 
+ */
 
 function iniciar() {
     console.log('Inicializando juego...');
