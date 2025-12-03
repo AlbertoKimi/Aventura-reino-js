@@ -15,9 +15,27 @@
   </header>
 
   <main>
+
+    <!--ESCENA FORMULARIO-->
+
+    <div id="escena-0" class="escena activa">
+      <div id="escena-0-contenedor">
+        <div class="contenedor-form">
+          <h2>Bienvenido al Reino JS</h2>
+          <form id="sesion">
+            <label for="Inicio-juego" id="label-inicio">Introduzca el nombre del Héroe</label>
+            <input type="text" name="heroe" id="heroe">
+            <div class="fila-0">
+              <button id="btn-continuar-0" class="btn-continuar">Enviar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
     <!-- ESCENA 1: Inicio -->
 
-    <div id="escena-1" class="escena activa">
+    <div id="escena-1" class="escena">
       <div id="escena-1-contenedor">
         <div class="fila-1">
           <div class="img-contenedor">
@@ -52,6 +70,33 @@
     <div class="escena" id="escena-2">
       <div id="contenedor-escena2">
         <h2>Mercado</h2>
+
+        <div id="dinero">
+          <p class="stat-dinero"></p>
+        </div>
+
+        <form id="form-filtros" class="formulario-filtros">
+          <div class="filtro-grupo">
+            <label for="filtro-rareza">Filtrar por rareza:</label>
+            <select id="filtro-rareza" name="rareza">
+              <option value="todas">Todas</option>
+              <option value="Comun">Común</option>
+              <option value="Rara">Rara</option>
+              <option value="Epica">Épica</option>
+              <option value="Legendaria">Legendaria</option>
+            </select>
+          </div>
+          <div class="filtro-grupo">
+            <label for="filtro-nombre">Buscar por nombre:</label>
+            <input type="text" id="filtro-nombre" name="nombre" placeholder="Escribe el nombre...">
+          </div>
+          <button type="button" id="btn-limpiar-filtros" class="btn-limpiar">Limpiar filtros</button>
+
+          <div id="coste-total-cesta">
+            <p>Coste Total: 0 Ryō</p>
+          </div>
+        </form>
+
         <div class="fila1"></div>
         <div class="contenedor-boton-comprar">
           <button id="btn-continuar-2" class="btn-continuar">Confirmar compra</button>
@@ -145,7 +190,11 @@
             <p id="puntos-finales" class="puntos-finales"></p>
             <p id="rango-final" class="rango"></p>
           </div>
-          <button class="btn-reiniciar" onclick="location.reload()">Jugar de nuevo</button>
+          <div id="historial-puntuaciones"></div>
+          <div class="contenedor-botones-final">
+            <button class="btn-reiniciar" id="btn-mismo-nombre">Volver a jugar</button>
+            <button class="btn-reiniciar" id="btn-otro-nombre">Nueva Partida</button>
+          </div>
         </div>
       </div>
     </div>

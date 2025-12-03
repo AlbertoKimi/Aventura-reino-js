@@ -194,6 +194,53 @@ main {
     display: flex;
 }
 
+/* --------------- ESCENA 0 (Nombre Jugador) ------------------ */
+
+#escena-0 {
+    justify-content: center;
+    align-items: center;
+}
+
+#escena-0-contenedor {
+    background-color: var(--color-primario);
+    border: 3px solid var(--color-acento-1);
+    border-radius: 10px;
+    padding: 48px;
+    text-align: center;
+}
+
+.contenedor-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-secundario);
+    border: 3px solid var(--color-acento-1);
+    border-radius: 10px;
+    padding: 32px;
+}
+
+#label-inicio {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+}
+
+.fila-0 {
+    margin-top: 16px;
+}
+
+#heroe {
+
+    padding: 8px;
+    width: 230px;
+}
+
+#label-inicio {
+    font-size: var(--font-resto-texto);
+    color: var(--color-primario);
+}
+
 /* --------------- ESCENA 1 Y 3 (Estado del jugador) ------------------ */
 
 #escena-1,
@@ -304,6 +351,33 @@ main {
     margin-bottom: 20px;
 }
 
+#dinero {
+    display: flex;
+    height: 50px;
+    width: 180px;
+    background: var(--color-secundario);
+    color: var(--color-primario);
+    font-size: var(--font-size-base);
+    font-family: var(--font-resto-texto);
+    font-weight: bold;
+    padding: 16px;
+    margin-bottom: 16px;
+    border: 3px solid var(--color-acento-1);
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+#coste-total-cesta {
+    width: 100%;
+    text-align: center;
+    margin-top: 6px;
+    color: var(--color-primario);
+    font-size: var(--font-size-base);
+    font-family: var(--font-resto-texto);
+    font-weight: bold;
+}
+
 .mensaje-descuento {
     background-color: var(--color-apoyo-naranja);
     color: var(--color-primario);
@@ -316,7 +390,8 @@ main {
 
 #escena-2 .fila1 {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, 300px);
+    justify-content: center;
     gap: 20px;
     margin-bottom: 24px;
     width: 100%;
@@ -428,6 +503,95 @@ main {
 #btn-continuar-1:hover,
 .btn-reiniciar:hover {
     transform: scale(1.05);
+}
+
+.formulario-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-end;
+    justify-content: center;
+    background-color: var(--color-secundario);
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 3px solid var(--color-acento-1);
+}
+
+.filtro-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 200px;
+}
+
+.filtro-grupo label {
+    color: var(--color-primario);
+    font-weight: bold;
+    font-size: var(--font-size-botones);
+    text-transform: uppercase;
+}
+
+#filtro-rareza,
+#filtro-nombre {
+    padding: 10px;
+    border: 3px solid var(--color-primario);
+    border-radius: 8px;
+    background-color: var(--color-terciario);
+    color: var(--color-primario);
+    font-size: var(--font-size-botones);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#filtro-rareza:hover,
+#filtro-nombre:hover {
+    border-color: var(--color-apoyo-naranja);
+    box-shadow: 0 2px 8px rgba(255, 150, 0, 0.4);
+}
+
+#filtro-rareza:focus,
+#filtro-nombre:focus {
+    outline: none;
+    border-color: var(--color-acento-2);
+    box-shadow: 0 0 10px rgba(123, 47, 247, 0.5);
+}
+
+#filtro-nombre {
+    cursor: text;
+}
+
+.btn-limpiar {
+    background-color: var(--color-fallido);
+    color: var(--color-primario);
+    border: 3px solid var(--color-primario);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: var(--font-size-botones);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    height: fit-content;
+}
+
+.btn-limpiar:hover {
+    background-color: #ff5588;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 51, 102, 0.6);
+}
+
+.mensaje-sin-resultados {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--color-fallido);
+    font-size: var(--font-size-stats-lg);
+    font-weight: bold;
+    padding: 40px;
+    background-color: var(--color-secundario);
+    border: 3px solid var(--color-fallido);
+    border-radius: 10px;
 }
 
 /* ------------------- ESCENA 4 (Enemigos) ------------------- */
@@ -688,6 +852,7 @@ main {
 #escena-6 {
     justify-content: center;
     align-items: center;
+    height: auto;
 }
 
 #escena-6-contenedor {
@@ -767,12 +932,97 @@ main {
     transform: translateY(-1px);
 }
 
+/* --------------- TABLA DINÁMICA --------------*/
+
+#historial-puntuaciones {
+    margin-top: 20px;
+    margin-bottom: 24px;
+    /* Espacio antes de los botones */
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: auto;
+}
+
+#historial-puntuaciones h3 {
+    color: var(--color-terciario);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    font-size: var(--font-size-stats-lg);
+}
+
+#historial-puntuaciones table {
+    width: 100%;
+    min-width: 340px;
+    border-collapse: collapse;
+    background-color: var(--color-secundario);
+    border: 3px solid var(--color-apoyo-naranja);
+    border-radius: 8px;
+    overflow: hidden;
+    /* Para que el border-radius se aplique bien */
+    box-shadow: var(--shadow-base);
+}
+
+#historial-puntuaciones th,
+#historial-puntuaciones td {
+    padding: 8px 10px;
+    text-align: left;
+    color: var(--color-primario);
+    font-size: var(--font-size-botones);
+}
+
+#historial-puntuaciones th {
+    background-color: var(--color-terciario);
+    font-family: var(--font-titulos);
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--color-apoyo-naranja);
+}
+
+#historial-puntuaciones tbody tr:nth-child(even) {
+    background-color: #e0e8eb;
+    /* Color de fondo ligero para filas pares */
+}
+
+#historial-puntuaciones tbody tr:hover {
+    background-color: var(--color-hover-botones);
+    /* Resaltar fila al pasar el ratón */
+    cursor: default;
+    transition: background-color 0.3s ease;
+}
+
+/* Estilos especiales para el rango */
+#historial-puntuaciones .rango.veterano {
+    color: var(--color-acento-2);
+    /* Morado */
+    font-weight: bold;
+}
+
+#historial-puntuaciones .rango.novato {
+    color: var(--color-apoyo-naranja);
+    /* Naranja */
+    font-weight: bold;
+}
+
+.contenedor-botones-final {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+}
+
 
 /* --------------- RESPONSIVE ------------ */
 
 @media (width < 1400px) {
     #escena-2 .fila1 {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    #escena-6 {
+        height: auto;
     }
 }
 
@@ -792,7 +1042,7 @@ main {
         height: 70px;
     }
 
-main {
+    main {
         padding: 8px;
     }
 
@@ -972,10 +1222,14 @@ main {
         margin-bottom: 8px;
     }
 
+    #escena-6 {
+        height: auto;
+    }
+
     #escena-6-contenedor {
         padding: 24px 16px;
         border: 2px solid var(--color-acento-1);
-        margin-bottom: 16px;
+
     }
 
     .contenedor-final h2 {
@@ -997,6 +1251,12 @@ main {
     .rango {
         font-size: 24px;
         padding: 8px;
+    }
+
+    .contenedor-botones-final button {
+        width: 100%;
+        max-width: 280px;
+        margin-top: 8px;
     }
 }
 
@@ -1159,10 +1419,14 @@ main {
         margin-bottom: 8px;
     }
 
+    #escena-6 {
+        height: auto;
+    }
+
     #escena-6-contenedor {
-        padding: 16px 10px;
+        padding: 16px 8px;
         border: 2px solid var(--color-acento-1);
-        margin-bottom: 16px;
+        width: 100%;
     }
 
     .contenedor-final h2 {
@@ -1184,6 +1448,27 @@ main {
     .rango {
         font-size: 20px;
         padding: 8px;
+    }
+
+    #historial-puntuaciones {
+        margin-top: 16px;
+        margin-bottom: 16px;
+        /* El overflow-x: auto ya se definió antes, lo cual es clave */
+    }
+
+    .contenedor-botones-final {
+        gap: 8px;
+        /* Reducir el espacio entre botones */
+        flex-direction: column;
+        /* Forzamos la disposición vertical */
+        align-items: center;
+    }
+
+    .contenedor-botones-final button {
+        width: 100%;
+        max-width: 280px;
+        margin: 0;
+        /* Quitamos márgenes si los hay */
     }
 
 }
