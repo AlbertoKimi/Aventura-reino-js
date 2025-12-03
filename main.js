@@ -336,10 +336,10 @@ function inicializarMercado() {
     const selectRareza = document.getElementById('filtro-rareza');
     const btnLimpiar = document.getElementById('btn-limpiar-filtros');
 
-    form.addEventListener('submit', (e) => {
+    /*form.addEventListener('submit', (e) => {
         e.preventDefault();
         aplicarFiltros(rarezaAleatoria, preciosBase);
-    });
+    });*/
 
     inputNombre.addEventListener('input', () => {
         aplicarFiltros(rarezaAleatoria, preciosBase);
