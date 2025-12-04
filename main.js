@@ -443,7 +443,7 @@ function mostrarEscenaFinal() {
     const puntos_finales = jugador.puntos + dinero_sobrante;
     const rango = distinguirJugador(puntos_finales);
 
-    guardarDatosFinales();
+    guardarDatosFinales(rango);
 
     document.getElementById('puntos-finales').textContent = `Puntuación final: ${puntos_finales}`;
 
@@ -452,7 +452,7 @@ function mostrarEscenaFinal() {
     rangoElement.className = `rango ${rango.toLowerCase()}`;
 
     const historial = obtenerPuntuacionesHistoricas();
-    console.log("Este es el historial de puntuaciones: " , historial);
+    console.log("Este es el historial de puntuaciones: ", historial);
 
     if (typeof confetti === 'function') {
         confetti({
@@ -558,13 +558,39 @@ function guardarDatosFinales(rango) {
     const nuevaPuntuacion = {
         nombre: jugador.nombre,
         puntos: jugador.puntos,
-        rango: dinero_sobrante,
+        dinero: dinero_sobrante,
+        rango : rango
     };
 
     const historico = obtenerPuntuacionesHistoricas();
     historico.push(nuevaPuntuacion);
 
 }
+
+/*function generarPuntuaciones(puntuaciones) {
+
+    if (puntuaciones.length === 0) {
+        contenedorTabla.innerHTML = '<p>No hay partidas anteriores registradas.</p>';
+        return;
+    }
+
+    puntuaciones.forEach(partida => {
+        return ""
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+            <td>${partida.nombre}</td>
+            <td>${partida.puntos}</td>
+            <td>${partida.rango}</td>
+            <td>${partida.fecha}</td>
+        `;
+        tbody.appendChild(fila);
+    });
+
+    const titulo = document.createElement('h3');
+    titulo.textContent = 'Historial de Puntuaciones';
+    contenedorTabla.appendChild(titulo);
+    contenedorTabla.appendChild(tabla);
+}*/
 
 
 
