@@ -14,6 +14,7 @@ let productosEnCesta = [];
 let enemigos = [];
 let enemigoActual = 0;
 let dinero_sobrante = 0;
+const LS_KEY_PUNTUACIONES = 'puntuacionesHistoricas';
 
 /**
  * Inicializa las clases principales (Jugador, Enemigos) y comienza el juego en la primera escena.
