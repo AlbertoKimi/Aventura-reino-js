@@ -99,4 +99,19 @@ export class Jugador {
         }
         return this.vidaMaxima + vidaSumada;
     }
+
+    descontarDinero(cantidad) {
+        if (this.monedero >= cantidad) {
+            this.monedero -= cantidad;
+            return true;
+        }
+        return false;
+    }
+
+    obtenerCostoTotal(listaProductos) {
+        
+        return listaProductos.reduce((total, producto) => {
+            return total + producto.formatearAtributos(producto.precio)
+        }, 0);
+    }
 }
