@@ -12,14 +12,16 @@ export class Jugador {
      * @param {number} vidaBase Vida máxima base del jugador (por defecto 100).
      */
 
-    constructor(nombre, avatar, vidaBase = 100) {
+    constructor(nombre, avatar, vidaBase = 100, dineroInicial = 500) {
         this.nombre = nombre;
         this.avatar = avatar;
         this.puntos = 0;
         this.inventario = [];
         this.vida = vidaBase;
         this.vidaMaxima = vidaBase;
+        this.monedero = dineroInicial;
     }
+
 
     /**
      * Añade un nuevo Producto al inventario del jugador.
