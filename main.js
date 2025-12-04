@@ -449,6 +449,9 @@ function mostrarEscenaFinal() {
     rangoElement.textContent = `Rango: ${rango}`;
     rangoElement.className = `rango ${rango.toLowerCase()}`;
 
+    const historial = obtenerPuntuacionesHistoricas();
+    console.log("Este es el historial de puntuaciones: " , historial);
+
     if (typeof confetti === 'function') {
         confetti({
             particleCount: 300,
