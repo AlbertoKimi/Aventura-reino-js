@@ -366,3 +366,158 @@ function mostrarPersonajesLocales(contenedor) {
    - Validar que la API devuelva datos correctos
    - Cachear personajes si se recarga la página
 */
+
+
+/**
+ * Carga los datos de enemigos desde una API y crea instancias de la clase Enemigos.
+ * @returns {Promise<Enemigos[]>} Una promesa que resuelve con un array de instancias de Enemigos.
+ */
+async function cargarEnemigosDesdeAPI() {
+    const API_URL_ENEMIGOS = 'https://tudominio.com/api/enemigos'; // RUTA DE TU API
+    try {
+        const response = await fetch(API_URL_ENEMIGOS);
+
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+
+        const datosEnemigos = await response.json();
+
+        // Mapear los datos JSON a instancias de la clase Enemigos
+        return datosEnemigos.map(
+            ({ nombre, avatar, nivelAtaque, puntosVida, experiencia }) =>
+                new Enemigos(nombre, avatar, nivelAtaque, puntosVida, experiencia)
+        );
+
+    } catch (error) {
+        console.error("Error al cargar enemigos desde la API:", error);
+        // Opcional: Devolver un array vacío o datos de respaldo
+        return [];
+    }
+}
+
+/**
+ * Carga los datos de jefes desde una API y crea instancias de la clase Jefes.
+ * @returns {Promise<Jefes[]>} Una promesa que resuelve con un array de instancias de Jefes.
+ */
+async function cargarJefesDesdeAPI() {
+    const API_URL_JEFES = 'https://tudominio.com/api/jefes'; 
+    try {
+        const response = await fetch(API_URL_JEFES);
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+        const datosJefes = await response.json();
+
+        // Mapear los datos JSON a instancias de la clase Jefes
+        return datosJefes.map(
+            ({ nombre, avatar, nivelAtaque, puntosVida, experiencia, multiplicadorDanio }) =>
+                new Jefes(nombre, avatar, nivelAtaque, puntosVida, experiencia, multiplicadorDanio)
+        );
+
+    } catch (error) {
+        console.error("Error al cargar jefes desde la API:", error);
+        return [];
+    }
+}
+
+
+/**
+ * Carga los datos de productos desde una API y crea instancias de la clase Producto.
+ * @returns {Promise<Producto[]>} Una promesa que resuelve con un array de instancias de Producto.
+ */
+async function cargarProductosDesdeAPI() {
+    const API_URL_PRODUCTOS = 'https://tudominio.com/api/productos'; 
+    try {
+        const response = await fetch(API_URL_PRODUCTOS);
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+        const datosProductos = await response.json();
+
+        // Mapear los datos JSON a instancias de la clase Producto
+        return datosProductos.map(
+            ({ nombre, imagen, precio, rareza, tipo, bonus }) =>
+                new Producto(nombre, imagen, precio, rareza, tipo, bonus)
+        );
+
+    } catch (error) {
+        console.error("Error al cargar productos desde la API:", error);
+        return [];
+    }
+}
+
+
+/**
+ * Carga los datos de personajes seleccionables desde una API.
+ * @returns {Promise<Object[]>} Una promesa que resuelve con el array de objetos de personaje.
+ */
+async function cargarPersonajesDesdeAPI() {
+    const API_URL_PERSONAJES = 'https://tudominio.com/api/personajes';
+    try {
+        const response = await fetch(API_URL_PERSONAJES);
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+        // Devuelve el array de objetos tal cual (son las 'personajesBase')
+        return await response.json(); 
+    } catch (error) {
+        console.error("Error al cargar personajes desde la API:", error);
+        return [];
+    }
+}
+// // NUEVAS VARIABLES GLOBALES (Se inicializarán en inicializarEstado)
+// /** @type {Producto[]} */
+// let productos = []; // Ahora se carga por API
+// /** @type {Enemigos[]} */
+// let enemigosTotal = []; // Ahora se carga por API
+// /** @type {Jefes[]} */
+// let jefesTotal = [];    // Ahora se carga por API
+// /** @type {Object[]} */
+// let personajesBase = [];
+
+
+// /**
+//  * Reinicia el estado del juego y carga todos los datos iniciales de la API.
+//  */
+// async function inicializarEstado() { // <--- AHORA ES ASÍNCRONA
+//     // 1. Cargar todos los datos de la API simultáneamente
+//     const [nuevosEnemigos, nuevosJefes, nuevosProductos, nuevosPersonajesBase] = await Promise.all([
+//         cargarEnemigosDesdeAPI(),
+//         cargarJefesDesdeAPI(),
+//         cargarProductosDesdeAPI(),
+//         cargarPersonajesDesdeAPI()
+//     ]);
+
+//     // 2. Asignar los resultados a las variables globales
+//     enemigosTotal = nuevosEnemigos;
+//     jefesTotal = nuevosJefes;
+//     productos = nuevosProductos;
+//     personajesBase = nuevosPersonajesBase;
+    
+//     // 3. Continuar con la lógica del juego una vez que los datos están cargados
+//     jugador = new Jugador('Cacharro', 'imagenes/personaje.png', 0, 100, 10, 5);
+//     pintarSelectorPersonaje();
+    
+//     const btnScene0 = document.getElementById('btn-scene-0');
+//     if (btnScene0) {
+//         btnScene0.textContent = 'Comenzar Aventura';
+//         btnScene0.disabled = true;
+//     }
+//     inventario = [];
+//     rarezaOferta = rarezasPosibles[Math.floor(Math.random() * rarezasPosibles.length)];
+//     pintarMercado(); // Llama a pintarMercado con los nuevos 'productos'
+//     cargarOpcionesFiltro();
+//     saldoActual = MONEDAS_INICIALES;
+//     costoTotalCarrito = 0;
+//     actualizarUIMercado();
+    
+//     // Crear la ronda con los enemigos y jefes cargados
+//     rondaEnemigos = crearEquipoBatalla(enemigosTotal, jefesTotal, 4, 2); 
+    
+//     // ... resto del código de inicialización
+// }
+
+// // Llamar a la función al inicio del script:
+// inicializarEstado();
+
