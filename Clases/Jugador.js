@@ -67,7 +67,7 @@ export class Jugador {
                 ataqueTotal += item.bonus;
             }
         }
-        return ataqueTotal;
+        return ataqueTotal + this.ataque;
     }
 
     /**
@@ -84,7 +84,7 @@ export class Jugador {
                 defensaTotal += item.bonus;
             }
         }
-        return defensaTotal;
+        return defensaTotal + this.defensa;
     }
 
     /**

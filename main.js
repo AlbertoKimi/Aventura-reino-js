@@ -14,6 +14,7 @@ let productosEnCesta = [];
 let enemigos = [];
 let enemigoActual = 0;
 let dinero_sobrante = 0;
+let puntos_finales = 0;
 const LS_KEY_PUNTUACIONES = 'puntuacionesHistoricas';
 
 /**
@@ -35,9 +36,11 @@ function inicializarJuego() {
 
     enemigoActual = 0;
     productosEnCesta = [];
+    puntos_finales = 0;
+    dinero_sobrante = 0;
 
     mostrarEscena('escena-1');
-    actualizarEstadoJugador();
+    actualizarEstadoJugador1();
 
     limpiarInventario();
 }
@@ -47,8 +50,32 @@ function inicializarJuego() {
  * en las escenas de estado del jugador (escena-1 y escena-3).
  */
 
+function actualizarEstadoJugador1() {
+    const escenas = ['escena-1'];
+
+    escenas.forEach(escenaId => {
+        const escena = document.getElementById(escenaId);
+        if (escena) {
+            const nombreElement = escena.querySelector('.nombre-jugador');
+            const ataqueElement = escena.querySelector('.stat-ataque');
+            const defensaElement = escena.querySelector('.stat-defensa');
+            const vidaElement = escena.querySelector('.stat-vida');
+            const puntosElement = escena.querySelector('.stat-puntos');
+
+            if (nombreElement) nombreElement.textContent = jugador.nombre;
+            if (ataqueElement) ataqueElement.textContent = `Ataque: ${jugador.ataque}`;
+            if (defensaElement) defensaElement.textContent = `Defensa: ${jugador.defensa}`;
+            if (vidaElement) vidaElement.textContent = `Vida: ${jugador.obtenerVidaTotal()}`;
+            if (puntosElement) puntosElement.textContent = `Puntos: ${jugador.puntos}`;
+        }
+    });
+}
+
+
 function actualizarEstadoJugador() {
-    const escenas = ['escena-1', 'escena-3'];
+    const escenas = ['escena-3'];
+    console.log(jugador.ataque);
+    console.log(jugador.defensa);  
 
     escenas.forEach(escenaId => {
         const escena = document.getElementById(escenaId);
@@ -440,7 +467,7 @@ function actualizarBotonBatalla(victoria) {
  */
 
 function mostrarEscenaFinal() {
-    const puntos_finales = jugador.puntos + dinero_sobrante;
+    puntos_finales = jugador.puntos + dinero_sobrante;
     const rango = distinguirJugador(puntos_finales);
 
     guardarDatosFinales(rango);
@@ -451,8 +478,6 @@ function mostrarEscenaFinal() {
     rangoElement.textContent = `Rango: ${rango}`;
     rangoElement.className = `rango ${rango.toLowerCase()}`;
 
-    const historial = obtenerPuntuacionesHistoricas();
-    console.log("Este es el historial de puntuaciones: ", historial);
 
     if (typeof confetti === 'function') {
         confetti({
@@ -476,28 +501,34 @@ function configurarEventListeners() {
     const inputAtaque = document.getElementById('ataque');
     const inputDefensa = document.getElementById('defensa');
     const inputVida = document.getElementById('vida');
-    const numeroA = inputAtaque.value;
-    const numeroD = inputDefensa.value;
-    const numeroV = inputVida.value;
     const regexNombre = /^[A-Z][a-z]{0,19}$/;
 
     if (formSesion) {
         formSesion.addEventListener('submit', (e) => {
             e.preventDefault();
             const nombreHeroe = inputHeroe.value.trim();
+            const numeroA = parseInt(inputAtaque.value);
+            const numeroD = parseInt(inputDefensa.value);
+            const numeroV = parseInt(inputVida.value);
+            const suma = numeroA + numeroD + numeroV;
             if (!nombreHeroe) {
                 alert("Introduce un nombre para el héroe");
                 return;
             } else if (!regexNombre.test(nombreHeroe)) {
                 alert("Nombre no válido. Vuelve a probar");
                 return;
-            } else if ((numeroA + numeroD + numeroV) > 110) {
-                alert("El ataque, la vida y la defensa no puede superar 110");
+            } else if (suma > 110) {
+                alert("La suma del ataque,la defensa y la vida no pueden superar 110");
+                return;
+            } else if ((numeroA || numeroD) < 0){
+                alert("El ataque o la defensa no puede ser menor que 0")
             }
 
             jugador.nombre = nombreHeroe;
+            jugador.ataque = numeroA;
+            jugador.defensa = numeroD;
+            jugador.vida = numeroV;
             inicializarJuego();
-            console.log(inputAtaque.value);
             mostrarEscena('escena-1');
         });
     }
@@ -538,6 +569,16 @@ function configurarEventListeners() {
             iniciarCombate();
         });
     }
+
+    const btnContinuar5 = document.querySelector('#escena-6 #btn-continuar-5');
+    if (btnContinuar5) {
+        btnContinuar5.addEventListener('click', () => {
+            console.log('Botón continuar 5 presionado');
+            const historial = obtenerPuntuacionesHistoricas();
+            console.log("Este es el historial de puntuaciones: ", historial);
+
+        });
+    }
 }
 
 //Obtener las puntuaciones
@@ -557,42 +598,21 @@ function obtenerPuntuacionesHistoricas() {
 function guardarDatosFinales(rango) {
     const nuevaPuntuacion = {
         nombre: jugador.nombre,
-        puntos: jugador.puntos,
+        puntos: puntos_finales,
         dinero: dinero_sobrante,
-        rango : rango
+        rango: rango
     };
 
     const historico = obtenerPuntuacionesHistoricas();
     historico.push(nuevaPuntuacion);
 
-}
-
-/*function generarPuntuaciones(puntuaciones) {
-
-    if (puntuaciones.length === 0) {
-        contenedorTabla.innerHTML = '<p>No hay partidas anteriores registradas.</p>';
-        return;
+    try {
+        localStorage.setItem(LS_KEY_PUNTUACIONES, JSON.stringify(historico));
+    } catch (e) {
+        console.error("Error al escribir en localStorage:", e);
     }
 
-    puntuaciones.forEach(partida => {
-        return ""
-        const fila = document.createElement('tr');
-        fila.innerHTML = `
-            <td>${partida.nombre}</td>
-            <td>${partida.puntos}</td>
-            <td>${partida.rango}</td>
-            <td>${partida.fecha}</td>
-        `;
-        tbody.appendChild(fila);
-    });
-
-    const titulo = document.createElement('h3');
-    titulo.textContent = 'Historial de Puntuaciones';
-    contenedorTabla.appendChild(titulo);
-    contenedorTabla.appendChild(tabla);
-}*/
-
-
+}
 
 /**
  * Función principal para arrancar el juego.
