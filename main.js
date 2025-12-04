@@ -74,6 +74,9 @@ function actualizarEstadoJugador() {
 
 function inicializarMercado() {
 
+    const dineroElement = document.getElementById('dinero');
+    if (dineroElement) dineroElement.textContent = `Dinero: ${jugador.monedero} Ryō`;
+
     const rarezaAleatoria = obtenerElementoAleatorio(opcionesRarezas);
     const productosBase = clonarProductos();
 
