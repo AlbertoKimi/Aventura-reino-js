@@ -12,10 +12,12 @@ export class Jugador {
      * @param {number} vidaBase Vida máxima base del jugador (por defecto 100).
      */
 
-    constructor(nombre, avatar, vidaBase = 100, dineroInicial = 500) {
+    constructor(nombre, avatar, ataque = 0, defensa = 0, vidaBase = 100, dineroInicial = 500) {
         this.nombre = nombre;
         this.avatar = avatar;
         this.puntos = 0;
+        this.ataque = ataque;
+        this.defensa = defensa;
         this.inventario = [];
         this.vida = vidaBase;
         this.vidaMaxima = vidaBase;
@@ -111,7 +113,7 @@ export class Jugador {
     }
 
     obtenerCostoTotal(listaProductos) {
-        
+
         return listaProductos.reduce((total, producto) => {
             return total + producto.formatearAtributos(producto.precio)
         }, 0);

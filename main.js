@@ -13,6 +13,7 @@ let jugador = new Jugador("", "./Imagenes/Prota-armado.png", 100, 500);
 let productosEnCesta = [];
 let enemigos = [];
 let enemigoActual = 0;
+let dinero_sobrante = 0;
 
 /**
  * Inicializa las clases principales (Jugador, Enemigos) y comienza el juego en la primera escena.
@@ -233,6 +234,11 @@ function confirmarCompra() {
     jugador.vida = jugador.obtenerVidaTotal();
     actualizarEstadoJugador();
     mostrarEscena('escena-3');
+    dinero_sobrante = jugador.monedero - actualizarCosteCesta()
+    console.log(dinero_sobrante);
+
+    return dinero_sobrante;
+
 }
 
 //Actualizar el valor de la cesta
@@ -245,10 +251,12 @@ function actualizarCosteCesta() {
     if (costeElement) {
         costeElement.textContent = `Coste Total: ${costeTotal} Ryō`;
     }
-    
+
     if (dineroElement) {
         dineroElement.textContent = `Dinero: ${jugador.monedero} Ryō`;
     }
+
+    return costeTotal;
 }
 
 /**
@@ -354,6 +362,11 @@ function mostrarResultadoCombate(resultado, enemigo) {
 
     actualizarBotonBatalla(resultado.victoria);
 
+
+    dinero_sobrante += enemigo.moneda;
+    console.log(dinero_sobrante);
+
+
     mostrarEscena('escena-5');
 }
 
@@ -426,9 +439,10 @@ function actualizarBotonBatalla(victoria) {
  */
 
 function mostrarEscenaFinal() {
-    const rango = distinguirJugador(jugador.puntos);
+    const puntos_finales = jugador.puntos + dinero_sobrante;
+    const rango = distinguirJugador(puntos_finales);
 
-    document.getElementById('puntos-finales').textContent = `Puntuación final: ${jugador.puntos}`;
+    document.getElementById('puntos-finales').textContent = `Puntuación final: ${puntos_finales}`;
 
     const rangoElement = document.getElementById('rango-final');
     rangoElement.textContent = `Rango: ${rango}`;
@@ -456,6 +470,9 @@ function configurarEventListeners() {
     const inputAtaque = document.getElementById('ataque');
     const inputDefensa = document.getElementById('defensa');
     const inputVida = document.getElementById('vida');
+    const numeroA = inputAtaque.value;
+    const numeroD = inputDefensa.value;
+    const numeroV = inputVida.value;
     const regexNombre = /^[A-Z][a-z]{0,19}$/;
 
     if (formSesion) {
@@ -468,12 +485,13 @@ function configurarEventListeners() {
             } else if (!regexNombre.test(nombreHeroe)) {
                 alert("Nombre no válido. Vuelve a probar");
                 return;
-            } /*else if(int(inputAtaque)+int(inputDefensa)+int(inputVida)>110){
-                alert("La suma del ataque, la defansa y la vida no pueden ser mayor a 110")
-            }*/
+            } else if ((numeroA + numeroD + numeroV) > 110) {
+                alert("El ataque, la vida y la defensa no puede superar 110");
+            }
 
             jugador.nombre = nombreHeroe;
             inicializarJuego();
+            console.log(inputAtaque.value);
             mostrarEscena('escena-1');
         });
     }

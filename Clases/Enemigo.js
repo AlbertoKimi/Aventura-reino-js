@@ -17,6 +17,7 @@ export class Enemigo {
         this.avatar = avatar;
         this.nivelAtaque = nivelAtaque;
         this.puntosVida = puntosVida;
+        this.moneda=5
     }
 
     /**
