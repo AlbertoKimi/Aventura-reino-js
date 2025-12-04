@@ -20,7 +20,7 @@ let enemigoActual = 0;
 
 function inicializarJuego() {
 
-    jugador = new Jugador("Nyxarius", "./Imagenes/Prota-armado.png", 100);
+    /*jugador = new Jugador("Nyxarius", "./Imagenes/Prota-armado.png", 100);*/
 
     // Crear enemigos
     enemigos = [
@@ -430,6 +430,28 @@ function mostrarEscenaFinal() {
  */
 
 function configurarEventListeners() {
+
+    const formSesion = document.getElementById('sesion');
+    const inputHeroe = document.getElementById('heroe');
+    const regexNombre = /^[A-Z][a-z]{0,9}$/;
+
+    if (formSesion) {
+        formSesion.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nombreHeroe = inputHeroe.value.trim();
+            if (!nombreHeroe) {
+                alert("Introduce un nombre para el héroe");
+                return;
+            } else if(!regexNombre.test(nombreHeroe)){
+                alert("Nombre no válido. Vuelve a probar");
+                return;
+            }
+
+            jugador.nombre = nombreHeroe;
+            inicializarJuego();
+            mostrarEscena('escena-1');
+        });
+    }
 
     const btnContinuar1 = document.querySelector('#escena-1 #btn-continuar-1');
     if (btnContinuar1) {
