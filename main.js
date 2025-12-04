@@ -9,7 +9,7 @@ import { aplicarDescuento } from './Módulos/Mercado.js';
 
 // Variables globales
 
-let jugador;
+let jugador = new Jugador("", "./Imagenes/Prota-armado.png", 100, 500);
 let productosEnCesta = [];
 let enemigos = [];
 let enemigoActual = 0;
@@ -433,7 +433,10 @@ function configurarEventListeners() {
 
     const formSesion = document.getElementById('sesion');
     const inputHeroe = document.getElementById('heroe');
-    const regexNombre = /^[A-Z][a-z]{0,9}$/;
+    const inputAtaque = document.getElementById('ataque');
+    const inputDefensa = document.getElementById('defensa');
+    const inputVida = document.getElementById('vida');
+    const regexNombre = /^[A-Z][a-z]{0,19}$/;
 
     if (formSesion) {
         formSesion.addEventListener('submit', (e) => {
@@ -442,9 +445,11 @@ function configurarEventListeners() {
             if (!nombreHeroe) {
                 alert("Introduce un nombre para el héroe");
                 return;
-            } else if(!regexNombre.test(nombreHeroe)){
+            } else if (!regexNombre.test(nombreHeroe)) {
                 alert("Nombre no válido. Vuelve a probar");
                 return;
+            } else if(int(inputAtaque)+int(inputDefensa)+int(inputVida)>110){
+                alert("La suma del ataque, la defansa y la vida no pueden ser mayor a 110")
             }
 
             jugador.nombre = nombreHeroe;
