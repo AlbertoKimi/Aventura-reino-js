@@ -443,6 +443,8 @@ function mostrarEscenaFinal() {
     const puntos_finales = jugador.puntos + dinero_sobrante;
     const rango = distinguirJugador(puntos_finales);
 
+    guardarDatosFinales();
+
     document.getElementById('puntos-finales').textContent = `Puntuación final: ${puntos_finales}`;
 
     const rangoElement = document.getElementById('rango-final');
