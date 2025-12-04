@@ -448,9 +448,9 @@ function configurarEventListeners() {
             } else if (!regexNombre.test(nombreHeroe)) {
                 alert("Nombre no válido. Vuelve a probar");
                 return;
-            } else if(int(inputAtaque)+int(inputDefensa)+int(inputVida)>110){
+            } /*else if(int(inputAtaque)+int(inputDefensa)+int(inputVida)>110){
                 alert("La suma del ataque, la defansa y la vida no pueden ser mayor a 110")
-            }
+            }*/
 
             jugador.nombre = nombreHeroe;
             inicializarJuego();
