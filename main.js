@@ -534,6 +534,44 @@ function configurarEventListeners() {
     }
 }
 
+//Obtener las puntuaciones
+
+function obtenerPuntuacionesHistoricas() {
+    try {
+        const data = localStorage.getItem(LS_KEY_PUNTUACIONES);
+        return data ? JSON.parse(data) : [];
+    } catch (e) {
+        console.error("Error al leer localStorage:", e);
+        return [];
+    }
+}
+
+//Guardar los datos finales
+
+function guardarDatosFinales(rango) {
+    const nuevaPuntuacion = {
+        nombre: jugador.nombre,
+        puntos: jugador.puntos,
+        rango: rango,
+        fecha: new Date().toLocaleString()
+    };
+
+    const historico = obtenerPuntuacionesHistoricas();
+    historico.push(nuevaPuntuacion);
+    try {
+        localStorage.setItem(LS_KEY_PUNTUACIONES, JSON.stringify(historico));
+    } catch (e) {
+        console.error("Error al escribir en localStorage:", e);
+    }
+
+    const datosCookie = JSON.stringify({
+        nombre: jugador.nombre,
+        puntos: jugador.puntos,
+        rango: rango
+    });
+    setCookie(COOKIE_NAME, datosCookie, 7); // Guardar por 7 días
+}
+
 /**
  * Función principal para arrancar el juego.
  * Llama a las funciones de inicialización y configuración de eventos.
