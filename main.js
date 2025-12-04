@@ -498,7 +498,7 @@ function configurarEventListeners() {
 
 function iniciar() {
     console.log('Inicializando juego...');
-    inicializarJuego();
+    /*inicializarJuego();*/
     configurarEventListeners();
     console.log('Juego inicializado correctamente');
 }
