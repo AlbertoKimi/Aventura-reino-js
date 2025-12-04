@@ -75,7 +75,7 @@ function actualizarEstadoJugador1() {
 function actualizarEstadoJugador() {
     const escenas = ['escena-3'];
     console.log(jugador.ataque);
-    console.log(jugador.defensa);  
+    console.log(jugador.defensa);
 
     escenas.forEach(escenaId => {
         const escena = document.getElementById(escenaId);
@@ -255,6 +255,21 @@ function limpiarInventario() {
  */
 
 function confirmarCompra() {
+    const costeTotal = jugador.obtenerCostoTotal(productosEnCesta);
+
+    if (productosEnCesta.length > 0 && jugador.monedero < costeTotal) {
+        alert('¡No tienes suficiente Ryō para completar esta compra!');
+        return;
+    }
+
+    if (costeTotal > 0) {
+        const transaccionExitosa = jugador.descontarDinero(costeTotal);
+        if (!transaccionExitosa) {
+            alert('Error en la transacción. Dinero insuficiente.');
+            return;
+        }
+    }
+
     productosEnCesta.forEach(producto => {
         jugador.anadirObjetoInventario(producto);
     });
@@ -520,7 +535,7 @@ function configurarEventListeners() {
             } else if (suma > 110) {
                 alert("La suma del ataque,la defensa y la vida no pueden superar 110");
                 return;
-            } else if ((numeroA || numeroD) < 0){
+            } else if ((numeroA || numeroD) < 0) {
                 alert("El ataque o la defensa no puede ser menor que 0")
             }
 
