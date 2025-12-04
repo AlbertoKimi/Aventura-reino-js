@@ -178,6 +178,7 @@ function alternarProducto(producto, productoDiv, btnComprar) {
     }
 
     actualizarInventarioVisual();
+    actualizarCosteCesta();
 }
 
 /**
@@ -232,6 +233,22 @@ function confirmarCompra() {
     jugador.vida = jugador.obtenerVidaTotal();
     actualizarEstadoJugador();
     mostrarEscena('escena-3');
+}
+
+//Actualizar el valor de la cesta
+
+function actualizarCosteCesta() {
+    const costeTotal = jugador.obtenerCostoTotal(productosEnCesta);
+    const costeElement = document.getElementById('coste-total-cesta');
+    const dineroElement = document.querySelector('#escena-2 .stat-dinero');
+
+    if (costeElement) {
+        costeElement.textContent = `Coste Total: ${costeTotal} Ryō`;
+    }
+    
+    if (dineroElement) {
+        dineroElement.textContent = `Dinero: ${jugador.monedero} Ryō`;
+    }
 }
 
 /**

@@ -281,6 +281,14 @@ main {
 
 /* --------------- ESCENA 2 (Mercado) --------------- */
 
+#dinero{
+    color:var(--color-secundario);
+}
+
+#coste-total-cesta{
+    color:var(--color-secundario);
+}
+
 #escena-2 {
     justify-content: center;
     align-items: flex-start;
