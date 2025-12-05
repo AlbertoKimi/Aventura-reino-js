@@ -283,12 +283,12 @@ main {
 
 /* --------------- ESCENA 2 (Mercado) --------------- */
 
-#dinero{
-    color:var(--color-secundario);
+#dinero {
+    color: var(--color-secundario);
 }
 
-#coste-total-cesta{
-    color:var(--color-secundario);
+#coste-total-cesta {
+    color: var(--color-secundario);
 }
 
 #escena-2 {
@@ -802,7 +802,7 @@ main {
         height: 70px;
     }
 
-main {
+    main {
         padding: 8px;
     }
 
@@ -1195,6 +1195,7 @@ main {
         font-size: 20px;
         padding: 8px;
     }
+}
 
 /* -------------- EXAMEN ------------------ */
 #escena-7 {
@@ -1210,41 +1211,56 @@ main {
     text-align: center;
 }
 
-.contenedor-bolsa {
-    width: 80px;
-    height: 80px;
-    border-radius: 16px;
-    overflow: hidden;
-    background-color: var(--color-secundario);
-    border: 3px solid var(--color-apoyo-naranja);
-}
 
-.contenedor-bolsa img {
+.bolsa img {
     width: 80px;
+    transition: transform 1s ease-out;
 
 }
 
-/*.bolsa{
+@keyframes mover {
+  from {
+    transform: translateX(-150vw);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
 
-    display: flex;
+.bolsa {
+    transform: mover;
+    display: inline-block;
     position: relative;
     align-items: center;
     flex-direction: column;
     align-content: center;
     justify-content: center;
-}*/
-
-.bolsa img{
-    position: relative;
-    width: 80px;
+    transition: transform 1s ease-out;
 }
 
-.bolsa p{
+.bolsa p {
+    color: var(--color-primario);
     position: absolute;
+    margin-top: 50px;
     margin-left: 25px;
-    margin-top: 50px;}
+}
+
+
 
 #tabla {
+    background-color: var(--color-secundario);
+    margin-top: 20px;
+    margin-bottom: 24px;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: auto;
+    padding: 48px;
+}
+
+
+#escena-7 #tabla table {
     width: 100%;
     min-width: 340px;
     border-collapse: collapse;
@@ -1253,17 +1269,22 @@ main {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: var(--shadow-base);
-    gap: 8px;
+    border-radius: 8px;
 }
 
-th,td {
+#tabla thead tr {
+    background-color: var(--color-hover-botones);
+}
+
+#tabla th,
+#tabla td {
     padding: 8px 10px;
     text-align: left;
     color: var(--color-primario);
     font-size: var(--font-size-botones);
 }
 
-th {
+#tabla th {
     background-color: var(--color-terciario);
     font-family: var(--font-titulos);
     font-weight: bold;
@@ -1271,5 +1292,7 @@ th {
     border-bottom: 2px solid var(--color-apoyo-naranja);
 }
 
-
+#tabla tr {
+    background-color: var(--color-hover-botones);
 }
+
