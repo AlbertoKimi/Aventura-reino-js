@@ -188,6 +188,8 @@ main {
     display: none;
     height: 100%;
     width: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
 .escena.activa {
@@ -1195,23 +1197,79 @@ main {
     }
 
 /* -------------- EXAMEN ------------------ */
+#escena-7 {
+    justify-content: center;
+    align-items: center;
+}
 
-.bolsa{
-    
+#escena-7-contenedor {
+    background-color: var(--color-primario);
+    border: 3px solid var(--color-acento-1);
+    border-radius: 10px;
+    padding: 48px;
+    text-align: center;
+}
+
+.contenedor-bolsa {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: var(--color-secundario);
+    border: 3px solid var(--color-apoyo-naranja);
+}
+
+.contenedor-bolsa img {
+    width: 80px;
+
+}
+
+/*.bolsa{
+
     display: flex;
     position: relative;
-    /* margin-left: -2%; */
     align-items: center;
     flex-direction: column;
     align-content: center;
     justify-content: center;
-}
+}*/
 
 .bolsa img{
+    position: relative;
     width: 80px;
 }
 
 .bolsa p{
     position: absolute;
+    margin-left: 25px;
+    margin-top: 50px;}
+
+#tabla {
+    width: 100%;
+    min-width: 340px;
+    border-collapse: collapse;
+    background-color: var(--color-secundario);
+    border: 3px solid var(--color-apoyo-naranja);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-base);
+    gap: 8px;
 }
+
+th,td {
+    padding: 8px 10px;
+    text-align: left;
+    color: var(--color-primario);
+    font-size: var(--font-size-botones);
+}
+
+th {
+    background-color: var(--color-terciario);
+    font-family: var(--font-titulos);
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--color-apoyo-naranja);
+}
+
+
 }
