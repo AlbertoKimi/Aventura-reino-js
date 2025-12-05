@@ -40,7 +40,7 @@ function inicializarJuego() {
     dinero_sobrante = 0;
 
     mostrarEscena('escena-1');
-    actualizarEstadoJugador1();
+    actualizarEstadoJugador();
 
     limpiarInventario();
 }
@@ -50,7 +50,7 @@ function inicializarJuego() {
  * en las escenas de estado del jugador (escena-1 y escena-3).
  */
 
-function actualizarEstadoJugador1() {
+/*function actualizarEstadoJugador1() {
     const escenas = ['escena-1'];
 
     escenas.forEach(escenaId => {
@@ -69,11 +69,12 @@ function actualizarEstadoJugador1() {
             if (puntosElement) puntosElement.textContent = `Puntos: ${jugador.puntos}`;
         }
     });
-}
+}*/
 
 
-function actualizarEstadoJugador() {
-    const escenas = ['escena-3'];
+function actualizarEstadoJugador() { //No hace falta repetir la función porque al sumarle el ataque, defensa y vida a esos cálculos ahí se incluye el primer cambio con el formulario
+    /*const escenas = ['escena-3'];*/
+    const escenas = ['escena-1','escena-3']; //he vuelto a añadir la escena 1 en el array
     console.log(jugador.ataque);
     console.log(jugador.defensa);
 
@@ -277,8 +278,9 @@ function confirmarCompra() {
     jugador.vida = jugador.obtenerVidaTotal();
     actualizarEstadoJugador();
     mostrarEscena('escena-3');
-    dinero_sobrante = jugador.monedero - actualizarCosteCesta()
-    console.log(dinero_sobrante);
+    /*dinero_sobrante = jugador.monedero - actualizarCosteCesta();*/
+    dinero_sobrante = jugador.monedero; //Al hacer la comprobación, ya restaba el dinero al monedero por lo que solamente debo poner jugador.monedero
+    console.log("El dinero sobrante es: ", dinero_sobrante);
 
     return dinero_sobrante;
 
@@ -536,13 +538,21 @@ function configurarEventListeners() {
                 alert("La suma del ataque,la defensa y la vida no pueden superar 110");
                 return;
             } else if ((numeroA || numeroD) < 0) {
-                alert("El ataque o la defensa no puede ser menor que 0")
+                alert("El ataque o la defensa no puede ser menor que 0");
+                return;
+            }else if((numeroA & numeroD)>10){   //Me faltaban esas 2 últimas condiciones
+                alert("El ataque o la defensa no pueden ser mayores que 10")
+                return;
+            } else if(numeroV<100){
+                alert("La vida no puede ser menor que 100")
+                return;
             }
 
             jugador.nombre = nombreHeroe;
             jugador.ataque = numeroA;
             jugador.defensa = numeroD;
-            jugador.vida = numeroV;
+            /*jugador.vida = numeroV;*/
+            jugador.vidaMaxima = numeroV; //Cambio de vida a vidaMáxima
             inicializarJuego();
             mostrarEscena('escena-1');
         });

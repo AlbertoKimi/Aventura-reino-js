@@ -1194,4 +1194,24 @@ main {
         padding: 8px;
     }
 
+/* -------------- EXAMEN ------------------ */
+
+.bolsa{
+    
+    display: flex;
+    position: relative;
+    /* margin-left: -2%; */
+    align-items: center;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
+.bolsa img{
+    width: 80px;
+}
+
+.bolsa p{
+    position: absolute;
+}
 }
