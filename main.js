@@ -39,7 +39,7 @@ function inicializarJuego() {
     puntos_finales = 0;
     dinero_sobrante = 0;
 
-    mostrarEscena('escena-7');
+    mostrarEscena('escena-1');
     actualizarEstadoJugador();
 
     limpiarInventario();
@@ -554,7 +554,7 @@ function configurarEventListeners() {
             /*jugador.vida = numeroV;*/
             jugador.vidaMaxima = numeroV; //Cambio de vida a vidaMáxima
             inicializarJuego();
-            mostrarEscena('escena-7');
+            mostrarEscena('escena-1');
         });
     }
 
