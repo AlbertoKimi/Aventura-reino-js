@@ -436,9 +436,9 @@ function actualizarBotonBatalla(victoria) {
     const btn = document.getElementById('btn-accion-batalla');
 
     if (!victoria) {
-        btn.textContent = 'Reiniciar';
+        btn.textContent = 'Ver resultados';
         btn.className = 'btn-reiniciar';
-        btn.onclick = () => location.reload();
+        btn.onclick = () => mostrarEscenaFinal();
         return;
     }
 
@@ -490,6 +490,13 @@ function mostrarEscenaFinal() {
  */
 
 function configurarEventListeners() {
+
+    const formSesion = document.getElementById('sesion');
+    const inputHeroe = document.getElementById('heroe');
+    const inputAtaque = document.getElementById('ataque');
+    const inputDefensa = document.getElementById('defensa');
+    const inputVida = document.getElementById('vida');
+    const regexNombre = /^[A-Z][a-z]{0,19}$/;
 
     function manejarEnvioFormulario(e) {
         e.preventDefault();
