@@ -50,31 +50,10 @@ function inicializarJuego() {
  * en las escenas de estado del jugador (escena-1 y escena-3).
  */
 
-/*function actualizarEstadoJugador1() {
-    const escenas = ['escena-1'];
 
-    escenas.forEach(escenaId => {
-        const escena = document.getElementById(escenaId);
-        if (escena) {
-            const nombreElement = escena.querySelector('.nombre-jugador');
-            const ataqueElement = escena.querySelector('.stat-ataque');
-            const defensaElement = escena.querySelector('.stat-defensa');
-            const vidaElement = escena.querySelector('.stat-vida');
-            const puntosElement = escena.querySelector('.stat-puntos');
+function actualizarEstadoJugador() {
 
-            if (nombreElement) nombreElement.textContent = jugador.nombre;
-            if (ataqueElement) ataqueElement.textContent = `Ataque: ${jugador.ataque}`;
-            if (defensaElement) defensaElement.textContent = `Defensa: ${jugador.defensa}`;
-            if (vidaElement) vidaElement.textContent = `Vida: ${jugador.obtenerVidaTotal()}`;
-            if (puntosElement) puntosElement.textContent = `Puntos: ${jugador.puntos}`;
-        }
-    });
-}*/
-
-
-function actualizarEstadoJugador() { //No hace falta repetir la función porque al sumarle el ataque, defensa y vida a esos cálculos ahí se incluye el primer cambio con el formulario
-    /*const escenas = ['escena-3'];*/
-    const escenas = ['escena-1','escena-3']; //he vuelto a añadir la escena 1 en el array
+    const escenas = ['escena-1', 'escena-3'];
     console.log(jugador.ataque);
     console.log(jugador.defensa);
 
@@ -278,8 +257,7 @@ function confirmarCompra() {
     jugador.vida = jugador.obtenerVidaTotal();
     actualizarEstadoJugador();
     mostrarEscena('escena-3');
-    /*dinero_sobrante = jugador.monedero - actualizarCosteCesta();*/
-    dinero_sobrante = jugador.monedero; //Al hacer la comprobación, ya restaba el dinero al monedero por lo que solamente debo poner jugador.monedero
+    dinero_sobrante = jugador.monedero;
     console.log("El dinero sobrante es: ", dinero_sobrante);
 
     return dinero_sobrante;
@@ -513,49 +491,57 @@ function mostrarEscenaFinal() {
 
 function configurarEventListeners() {
 
-    const formSesion = document.getElementById('sesion');
-    const inputHeroe = document.getElementById('heroe');
-    const inputAtaque = document.getElementById('ataque');
-    const inputDefensa = document.getElementById('defensa');
-    const inputVida = document.getElementById('vida');
-    const regexNombre = /^[A-Z][a-z]{0,19}$/;
+    function manejarEnvioFormulario(e) {
+        e.preventDefault();
 
-    if (formSesion) {
-        formSesion.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const nombreHeroe = inputHeroe.value.trim();
-            const numeroA = parseInt(inputAtaque.value);
-            const numeroD = parseInt(inputDefensa.value);
-            const numeroV = parseInt(inputVida.value);
-            const suma = numeroA + numeroD + numeroV;
-            if (!nombreHeroe) {
-                alert("Introduce un nombre para el héroe");
-                return;
-            } else if (!regexNombre.test(nombreHeroe)) {
-                alert("Nombre no válido. Vuelve a probar");
-                return;
-            } else if (suma > 110) {
-                alert("La suma del ataque,la defensa y la vida no pueden superar 110");
-                return;
-            } else if ((numeroA || numeroD) < 0) {
-                alert("El ataque o la defensa no puede ser menor que 0");
-                return;
-            }else if((numeroA & numeroD)>10){   //Me faltaban esas 2 últimas condiciones
-                alert("El ataque o la defensa no pueden ser mayores que 10")
-                return;
-            } else if(numeroV<100){
-                alert("La vida no puede ser menor que 100")
-                return;
-            }
+        const nombreHeroe = inputHeroe.value.trim();
+        const numeroA = parseInt(inputAtaque.value, 10);
+        const numeroD = parseInt(inputDefensa.value, 10);
+        const numeroV = parseInt(inputVida.value, 10);
 
-            jugador.nombre = nombreHeroe;
-            jugador.ataque = numeroA;
-            jugador.defensa = numeroD;
-            /*jugador.vida = numeroV;*/
-            jugador.vidaMaxima = numeroV; //Cambio de vida a vidaMáxima
+        if (!nombreHeroe) {
+            alert("Introduce un nombre para el héroe");
+            return;
+        } else if (!regexNombre.test(nombreHeroe)) {
+            alert("Nombre no válido. Vuelve a probar");
+            return;
+        }
+
+        if (isNaN(numeroA) || isNaN(numeroD) || isNaN(numeroV)) {
+            alert("Ataque, defensa y vida deben ser números enteros válidos.");
+            return;
+        }
+
+        const suma = numeroA + numeroD + numeroV;
+
+        if (suma > 110) {
+            alert("La suma del ataque,la defensa y la vida no pueden superar 110");
+            return;
+        } else if (numeroA < 0 || numeroD < 0) {
+            alert("El ataque o la defensa no puede ser menor que 0");
+            return;
+        } else if (numeroA > 10 || numeroD > 10) {
+            alert("El ataque o la defensa no pueden ser mayores que 10")
+            return;
+        } else if (numeroV < 100) {
+            alert("La vida no puede ser menor que 100")
+            return;
+        }
+
+        jugador.nombre = nombreHeroe;
+        jugador.ataque = numeroA;
+        jugador.defensa = numeroD;
+        jugador.vidaMaxima = numeroV;
+
+        setTimeout(() => {
             inicializarJuego();
             mostrarEscena('escena-1');
-        });
+        }, 0);
+    }
+
+
+    if (formSesion) {
+        formSesion.addEventListener('submit', manejarEnvioFormulario);
     }
 
     const btnContinuar1 = document.querySelector('#escena-1 #btn-continuar-1');
