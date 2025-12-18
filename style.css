@@ -198,7 +198,75 @@ main {
 
 /* ---------------------- ESCENA FORMUMARIO ----------------------------*/
 
+#escena-0 {
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}
 
+#escena-0-contenedor {
+    background-color: var(--color-primario);
+    border: 3px solid var(--color-acento-1);
+    border-radius: 10px;
+    padding: 48px;
+    text-align: center;
+    width: 100%;
+    max-width: 900px;
+}
+
+.contenedor-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-secundario);
+    border: 3px solid var(--color-acento-1);
+    border-radius: 10px;
+    padding: 32px;
+}
+
+.contenedor-form h2 {
+    margin-bottom: 24px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.form-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-campo label {
+    font-size: var(--font-size-botones);
+    color: var(--color-primario);
+    font-weight: bold;
+    text-align: left;
+}
+
+.form-campo input {
+    padding: 10px;
+    border: 2px solid var(--color-acento-1);
+    border-radius: 8px;
+    font-size: var(--font-size-base);
+    background-color: white;
+    transition: border-color 0.3s ease;
+}
+
+.form-campo input:focus {
+    outline: none;
+    border-color: var(--color-apoyo-naranja);
+}
+
+.fila-0 {
+    margin-top: 8px;
+}
 
 /* --------------- ESCENA 1 Y 3 (Estado del jugador) ------------------ */
 
@@ -457,9 +525,11 @@ main {
     0% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(0.85) rotate(5deg);
     }
+
     100% {
         transform: scale(1) rotate(0deg);
     }
@@ -476,9 +546,11 @@ main {
         transform: translate(0, 0) scale(1);
         opacity: 1;
     }
+
     50% {
         opacity: 0.8;
     }
+
     100% {
         transform: translate(var(--destino-x), var(--destino-y)) scale(0.3);
         opacity: 0;
@@ -852,13 +924,22 @@ main {
     }
 
     #contenedor-escena2 {
-    padding: 10px;
-    width: 100%;
-    max-width: 900px;
-}
+        padding: 10px;
+        width: 100%;
+        max-width: 900px;
+    }
 }
 
 @media (width <=720px) {
+
+    .form-campo label{
+        font-size: 12px;
+    }
+
+    #escena-0-contenedor {
+        padding: 24px;
+    }
+
     header h1 {
         font-size: var(--font-size-stats-lg);
     }
@@ -1084,6 +1165,24 @@ main {
 
 @media (width <=360px) {
 
+    .form-grid {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 16px;
+    flex-direction: column;
+    justify-content: center;
+
+    }
+
+    #escena-0-contenedor {
+        padding: 24px;
+    }
+
+    .contenedor-form {
+        padding: 16px;
+    }
+
     header h1 {
         font-size: var(--font-size-base);
     }
@@ -1291,12 +1390,13 @@ main {
 }
 
 @keyframes mover {
-  from {
-    transform: translateX(-150vw);
-  }
-  to {
-    transform: translateX(0);
-  }
+    from {
+        transform: translateX(-150vw);
+    }
+
+    to {
+        transform: translateX(0);
+    }
 }
 
 .bolsa {
@@ -1367,4 +1467,3 @@ main {
 #tabla tr {
     background-color: var(--color-hover-botones);
 }
-

@@ -24,14 +24,24 @@
         <div class="contenedor-form">
           <h2>Bienvenido al Reino JS</h2>
           <form id="sesion">
-            <label for="Inicio-juego" id="label-inicio">Introduzca el nombre del Héroe</label>
-            <input type="text" name="heroe" id="heroe">
-            <label for="Inicio-juego" id="label-inicio">Introduzca el ataque del Héroe</label>
-            <input type="text" name="ataque" id="ataque" placeholder="0">
-            <label for="Inicio-juego" id="label-inicio">Introduzca la defensa del Héroe</label>
-            <input type="text" name="defensa" id="defensa" placeholder="0">
-            <label for="Inicio-juego" id="label-inicio">Introduzca la vida del Héroe(tiene 100 de base)</label>
-            <input type="text" name="vida" id="vida" placeholder="100">
+            <div class="form-grid">
+              <div class="form-campo">
+                <label for="heroe">Introduzca el nombre del Héroe</label>
+                <input type="text" name="heroe" id="heroe">
+              </div>
+              <div class="form-campo">
+                <label for="vida">Introduzca la vida del Héroe (100 de base)</label>
+                <input type="text" name="vida" id="vida" placeholder="100">
+              </div>
+              <div class="form-campo">
+                <label for="ataque">Introduzca el ataque del Héroe</label>
+                <input type="text" name="ataque" id="ataque" placeholder="0">
+              </div>
+              <div class="form-campo">
+                <label for="defensa">Introduzca la defensa del Héroe</label>
+                <input type="text" name="defensa" id="defensa" placeholder="0">
+              </div>
+            </div>
             <div class="fila-0">
               <button id="btn-continuar-0" class="btn-continuar">Enviar</button>
             </div>
