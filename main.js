@@ -633,7 +633,7 @@ function configurarEventListeners() {
             console.log('Botón continuar 5 presionado');
             const historial = obtenerPuntuacionesHistoricas();
             console.log("Este es el historial de puntuaciones: ", historial);
-
+            
         });
     }
 }
@@ -670,6 +670,55 @@ function guardarDatosFinales(rango) {
     }
 
 }
+
+/**
+ * Genera y muestra la tabla de puntuaciones históricas en la escena final.
+ * @param {Array<Object>} puntuaciones El historial de puntuaciones a mostrar.
+ */
+function generarTablaPuntuaciones(puntuaciones) {
+    const contenedorTabla = document.getElementById('historial-puntuaciones');
+    contenedorTabla.innerHTML = '';
+
+    if (puntuaciones.length === 0) {
+        contenedorTabla.innerHTML = '<p>No hay partidas anteriores registradas.</p>';
+        return;
+    }
+
+    // Ordenar puntos
+    puntuaciones.sort((a, b) => b.puntos - a.puntos);
+
+    const tabla = document.createElement('table');
+    tabla.innerHTML = `
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Puntos</th>
+                <th>Dinero</th>
+                <th>Rango</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    `;
+
+    const tbody = tabla.querySelector('tbody');
+    puntuaciones.forEach(partida => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+            <td>${partida.nombre}</td>
+            <td>${partida.puntos}</td>
+            <td>${partida.dinero_sobrante}</td>
+            <td>${partida.rango}</td>
+        `;
+        tbody.appendChild(fila);
+    });
+
+    const titulo = document.createElement('h3');
+    titulo.textContent = 'Historial de Puntuaciones';
+    contenedorTabla.appendChild(titulo);
+    contenedorTabla.appendChild(tabla);
+}
+
 
 /**
  * Función principal para arrancar el juego.
