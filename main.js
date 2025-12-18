@@ -633,6 +633,8 @@ function configurarEventListeners() {
             console.log('Botón continuar 5 presionado');
             const historial = obtenerPuntuacionesHistoricas();
             console.log("Este es el historial de puntuaciones: ", historial);
+            generarTablaPuntuaciones(historial);
+            mostrarEscena('escena-7');
             
         });
     }
@@ -707,7 +709,7 @@ function generarTablaPuntuaciones(puntuaciones) {
         fila.innerHTML = `
             <td>${partida.nombre}</td>
             <td>${partida.puntos}</td>
-            <td>${partida.dinero_sobrante}</td>
+            <td>${partida.dinero}</td>
             <td>${partida.rango}</td>
         `;
         tbody.appendChild(fila);
