@@ -174,6 +174,8 @@ function alternarProducto(producto, productoDiv, btnComprar) {
             }
         }
 
+        crearAnimacionCompra(btnComprar, productosEnCesta.length);
+
         productosEnCesta.push(producto);
         productoDiv.classList.add('seleccionado');
         btnComprar.textContent = 'Retirar';
@@ -189,6 +191,43 @@ function alternarProducto(producto, productoDiv, btnComprar) {
     actualizarInventarioVisual();
     actualizarCosteCesta();
 }
+
+/**
+ * Crea monedas que vuelan desde el botón hacia el slot específico del inventario
+ * @param {HTMLElement} boton - El botón desde donde salen las monedas
+ * @param {number} slotIndex - Índice del slot de inventario destino (0-5)
+ */
+function crearAnimacionCompra(boton, slotIndex) {
+    // Animar el botón
+    boton.classList.add('comprando');
+    setTimeout(() => boton.classList.remove('comprando'), 600);
+    
+    // Obtener posiciones
+    const rectBoton = boton.getBoundingClientRect();
+    const slotDestino = document.querySelectorAll('#inventario-contenedor .item')[slotIndex];
+    const rectSlot = slotDestino.getBoundingClientRect();
+    
+    // Calcular centro de cada elemento
+    const origenX = rectBoton.left + rectBoton.width / 2;
+    const origenY = rectBoton.top + rectBoton.height / 2;
+    const destinoX = rectSlot.left + rectSlot.width / 2 - origenX;
+    const destinoY = rectSlot.top + rectSlot.height / 2 - origenY;
+    
+    // Crear 6 monedas
+    for (let i = 0; i < 6; i++) {
+        const moneda = document.createElement('i');
+        moneda.className = 'particula-compra fa-solid fa-coins';
+        moneda.style.left = origenX + 'px';
+        moneda.style.top = origenY + 'px';
+        moneda.style.setProperty('--destino-x', `${destinoX + (Math.random() - 0.5) * 40}px`);
+        moneda.style.setProperty('--destino-y', `${destinoY + (Math.random() - 0.5) * 40}px`);
+        moneda.style.animationDelay = `${i * 0.05}s`;
+        
+        document.body.appendChild(moneda);
+        setTimeout(() => moneda.remove(), 1050 + i * 50);
+    }
+}
+
 
 /**
  * Actualiza visualmente los íconos de los productos seleccionados en el footer (inventario-contenedor).
