@@ -932,7 +932,7 @@ main {
 
 @media (width <=720px) {
 
-    .form-campo label{
+    .form-campo label {
         font-size: 12px;
     }
 
@@ -1166,12 +1166,12 @@ main {
 @media (width <=360px) {
 
     .form-grid {
-    display: flex;
-    gap: 16px;
-    width: 100%;
-    margin-bottom: 16px;
-    flex-direction: column;
-    justify-content: center;
+        display: flex;
+        gap: 16px;
+        width: 100%;
+        margin-bottom: 16px;
+        flex-direction: column;
+        justify-content: center;
 
     }
 
@@ -1372,98 +1372,97 @@ main {
 #escena-7 {
     justify-content: center;
     align-items: center;
+    height: auto;
 }
 
 #escena-7-contenedor {
     background-color: var(--color-primario);
     border: 3px solid var(--color-acento-1);
     border-radius: 10px;
-    padding: 48px;
+    padding: 24px;
     text-align: center;
+    width: 1000px;
+    height: 455px;
 }
 
-
-.bolsa img {
-    width: 80px;
-    transition: transform 1s ease-out;
-
-}
-
-@keyframes mover {
-    from {
-        transform: translateX(-150vw);
-    }
-
-    to {
-        transform: translateX(0);
-    }
-}
-
-.bolsa {
-    transform: mover;
-    display: inline-block;
-    position: relative;
-    align-items: center;
+#historial-puntuaciones {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    background-color: var(--color-secundario);
+    border: 1px solid #e5e7eb;
+    border-bottom: none;
+    overflow: auto;
+    height: 280px;
+    display: flex;
     flex-direction: column;
-    align-content: center;
-    justify-content: center;
-    transition: transform 1s ease-out;
 }
 
-.bolsa p {
-    color: var(--color-primario);
-    position: absolute;
-    margin-top: 50px;
-    margin-left: 25px;
-}
-
-
-
-#tabla {
-    background-color: var(--color-secundario);
-    margin-top: 20px;
-    margin-bottom: 24px;
-    width: 100%;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    overflow-x: auto;
-    padding: 48px;
-}
-
-
-#escena-7 #tabla table {
-    width: 100%;
-    min-width: 340px;
+/* Table layout */
+table {
     border-collapse: collapse;
-    background-color: var(--color-secundario);
-    border: 3px solid var(--color-apoyo-naranja);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: var(--shadow-base);
-    border-radius: 8px;
+    width: 100%;
+    table-layout: fixed;
+    /* Ensures consistent column widths */
 }
 
-#tabla thead tr {
-    background-color: var(--color-hover-botones);
+/* Table cells and headers */
+table th,
+table td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #e5e7eb;
 }
 
-#tabla th,
-#tabla td {
-    padding: 8px 10px;
-    text-align: left;
-    color: var(--color-primario);
-    font-size: var(--font-size-botones);
+/* Frozen first column */
+table td:nth-child(1),
+table th:nth-child(1) {
+    background: red;
+    /* Highlighted background for frozen column */
+    position: sticky;
+    left: 0;
+    /* Ensures the column stays on the left */
+    z-index: 5;
+    /* Keeps the column above other cells */
+    color: white;
 }
 
-#tabla th {
-    background-color: var(--color-terciario);
-    font-family: var(--font-titulos);
+/* Add higher z-index for header */
+table th:nth-child(1) {
+    z-index: 6;
+}
+
+/* Sticky header */
+table th {
+    background-color: #1e3a8a;
+    color: white;
+    font-size: 14px;
     font-weight: bold;
-    text-transform: uppercase;
-    border-bottom: 2px solid var(--color-apoyo-naranja);
+    position: sticky;
+    top: 0;
+    /* Makes the header stick to the top */
+    z-index: 2;
+    /* Keeps the header above the table body */
 }
 
-#tabla tr {
-    background-color: var(--color-hover-botones);
+/* Styling for table body */
+table td {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* Zebra striping for rows */
+table tr:nth-child(odd) {
+    background-color: #f9fafb;
+}
+
+/* Hover effect for rows */
+table tr:hover {
+    background-color: rgba(14, 116, 144, 0.1);
+}
+
+/* No data row styling */
+.no-data {
+    text-align: center;
+    font-size: 14px;
+    color: #9ca3af;
 }

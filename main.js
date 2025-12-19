@@ -715,9 +715,6 @@ function generarTablaPuntuaciones(puntuaciones) {
         tbody.appendChild(fila);
     });
 
-    const titulo = document.createElement('h3');
-    titulo.textContent = 'Historial de Puntuaciones';
-    contenedorTabla.appendChild(titulo);
     contenedorTabla.appendChild(tabla);
 }
 
