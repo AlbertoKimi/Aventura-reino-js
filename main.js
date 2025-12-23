@@ -234,7 +234,7 @@ function crearAnimacionCompra(boton, slotIndex) {
 function actualizarMonederoVisual() {
     const monederoTexto = document.getElementById('monedero-texto');
     if (monederoTexto) {
-        monederoTexto.textContent = jugador.monedero;
+        monederoTexto.textContent = Number(jugador.monedero).toFixed(2);
     }
 }
 
@@ -322,7 +322,7 @@ function actualizarCosteCesta() {
     const dineroElement = document.querySelector('#escena-2 .stat-dinero');
 
     if (costeElement) {
-        costeElement.textContent = `Coste Total: ${costeTotal} Ryō`;
+        costeElement.textContent = `Coste Total: ${costeTotal.toFixed(2)} Ryō`;
     }
 
     if (dineroElement) {
@@ -409,7 +409,8 @@ function lanzarAnimacionMonedasVictoria() {
     monedasAntiguas.forEach(m => m.remove());
 
     // Optimiza el renderizado ejecutando la animación justo antes del siguiente repintado del navegador.
-    //window.requestAnimationFrame() me lo ha dado la IA porque a veces si voy más rápido no se ven las monedas y aún así falla a veces.
+    //window.requestAnimationFrame() me lo ha dado la IA porque a veces si voy más rápido no se ven las monedas 
+    // y aún así falla a veces.
     window.requestAnimationFrame(() => {
         const monedasHTML = `
             <img src="./Imagenes/moneda.png" class="moneda-victoria posicion-25" alt="moneda">
@@ -453,7 +454,12 @@ function mostrarResultadoCombate(resultado, enemigo) {
         puntosGanados.style.display = 'block';
 
         lanzarAnimacionMonedasVictoria();
-        
+        jugador.monedero += enemigo.moneda;
+        jugador.monedero = parseFloat(jugador.monedero.toFixed(2));
+        dinero_sobrante= jugador.monedero;
+        console.log(dinero_sobrante);
+        actualizarMonederoVisual();
+
     } else {
         resultadoDiv.className = 'resultado-principal derrota';
         textoResultado.textContent = 'Has sido derrotado';
@@ -464,14 +470,7 @@ function mostrarResultadoCombate(resultado, enemigo) {
     const resumenDiv = document.getElementById('resumen-combate');
     generarResumenTurnos(resultado.listaTurnos, resumenDiv);
 
-
     actualizarBotonBatalla(resultado.victoria);
-
-
-    dinero_sobrante += enemigo.moneda;
-    console.log(dinero_sobrante);
-    actualizarMonederoVisual();
-
 
     mostrarEscena('escena-5');
 }
