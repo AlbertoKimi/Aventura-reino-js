@@ -720,17 +720,27 @@ function guardarDatosFinales(rango) {
  * Genera y muestra la tabla de puntuaciones históricas en la escena final.
  * @param {Array<Object>} puntuaciones El historial de puntuaciones a mostrar.
  */
+
 function generarTablaPuntuaciones(puntuaciones) {
     const contenedorTabla = document.getElementById('historial-puntuaciones');
     contenedorTabla.innerHTML = '';
 
-    if (puntuaciones.length === 0) {
-        contenedorTabla.innerHTML = '<p>No hay partidas anteriores registradas.</p>';
-        return;
-    }
+    const puntuacionesPorDefecto = [
+        { nombre: "Eldarion", puntos: 930, dinero: 485.5, rango: "Veterano" },
+        { nombre: "Morgana", puntos: 895, dinero: 450.2, rango: "Veterano" },
+        { nombre: "Zoran", puntos: 840, dinero: 415.8, rango: "Veterano" },
+        { nombre: "Lyra", puntos: 785, dinero: 390.0, rango: "Novato" },
+        { nombre: "Kael", puntos: 720, dinero: 365.4, rango: "Novato" },
+        { nombre: "Valerius", puntos: 650, dinero: 340.2, rango: "Novato" },
+        { nombre: "Nyx", puntos: 580, dinero: 315.7, rango: "Novato" },
+        { nombre: "Grom", puntos: 510, dinero: 290.1, rango: "Novato" },
+        { nombre: "Silas", puntos: 440, dinero: 260.5, rango: "Novato" },
+        { nombre: "Beren", puntos: 370, dinero: 234.8, rango: "Novato" }
+    ];
 
-    // Ordenar puntos
-    puntuaciones.sort((a, b) => b.puntos - a.puntos);
+    const historialCompleto = [...puntuaciones, ...puntuacionesPorDefecto];
+
+    historialCompleto.sort((a, b) => b.puntos - a.puntos);
 
     const tabla = document.createElement('table');
     tabla.innerHTML = `
@@ -742,13 +752,14 @@ function generarTablaPuntuaciones(puntuaciones) {
                 <th>Rango</th>
             </tr>
         </thead>
-        <tbody>
-        </tbody>
+        <tbody></tbody>
     `;
 
     const tbody = tabla.querySelector('tbody');
-    puntuaciones.forEach(partida => {
+    
+    historialCompleto.forEach(partida => {
         const fila = document.createElement('tr');
+        // Usamos toFixed(2) para que el dinero siempre muestre decimales coherentes
         fila.innerHTML = `
             <td>${partida.nombre}</td>
             <td>${partida.puntos}</td>
