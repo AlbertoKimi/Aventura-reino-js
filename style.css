@@ -1070,6 +1070,42 @@ table tbody tr:hover td:nth-child(1) {
     text-shadow: var(--shadow-base);
 }
 
+/* --- ---------- MONEDAS CAYENDO --------------- */
+
+.moneda-victoria {
+    position: fixed !important;
+    top: -10vh; 
+    width: 60px;
+    height: 60px;
+    z-index: 10000; 
+    pointer-events: none;
+
+    /* Prepara la GPU para que la animación sea fluida y no se bloquee con el scroll
+    will-change me lo ha dado la IA porque tengo problemas con el scroll y si le doy rápido al botón de continuar */
+    will-change: transform, top;
+    
+    animation: caerYRotar 2.5s linear forwards;
+}
+
+.posicion-25 { left: 25%; }
+.posicion-50 { left: 50%; }
+.posicion-75 { left: 75%; }
+
+@keyframes caerYRotar {
+    0% {
+        top: -10vh;
+        transform: translateX(-50%) rotateY(0deg);
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        top: 70vh; 
+        transform: translateX(-50%) rotateY(1080deg);
+        opacity: 0;
+    }
+}
 
 /* --------------- RESPONSIVE ------------ */
 

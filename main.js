@@ -399,6 +399,35 @@ function iniciarCombate() {
 }
 
 /**
+ * Crea y lanza la animación de tres monedas cayendo desde el borde superior
+ * hasta la mitad de la pantalla al ganar una batalla.
+ */
+
+function lanzarAnimacionMonedasVictoria() {
+
+    const monedasAntiguas = document.querySelectorAll('.moneda-victoria'); //Limpio monedas para que no se acumulen
+    monedasAntiguas.forEach(m => m.remove());
+
+    // Optimiza el renderizado ejecutando la animación justo antes del siguiente repintado del navegador.
+    //window.requestAnimationFrame() me lo ha dado la IA porque a veces si voy más rápido no se ven las monedas y aún así falla a veces.
+    window.requestAnimationFrame(() => {
+        const monedasHTML = `
+            <img src="./Imagenes/moneda.png" class="moneda-victoria posicion-25" alt="moneda">
+            <img src="./Imagenes/moneda.png" class="moneda-victoria posicion-50" alt="moneda">
+            <img src="./Imagenes/moneda.png" class="moneda-victoria posicion-75" alt="moneda">
+        `;
+
+        document.body.insertAdjacentHTML('beforeend', monedasHTML);
+
+        // Limpio las monedas después por lo mismo de antes, por problemas de acumulación.
+        setTimeout(() => {
+            const actuales = document.querySelectorAll('.moneda-victoria');
+            actuales.forEach(m => m.remove());
+        }, 2600);
+    });
+}
+
+/**
  * Muestra los resultados principales del combate y genera el resumen de turnos.
  * @param {Object} resultado Objeto de resultado retornado por la función `combate`.
  * @param {Enemigo|Jefe} enemigo La instancia del enemigo que se combatió (original, no clonada).
@@ -422,6 +451,9 @@ function mostrarResultadoCombate(resultado, enemigo) {
         textoResultado.textContent = `Ganador: ${jugador.nombre}`;
         puntosGanados.textContent = `Puntos ganados: ${resultado.puntosGanados}`;
         puntosGanados.style.display = 'block';
+
+        lanzarAnimacionMonedasVictoria();
+        
     } else {
         resultadoDiv.className = 'resultado-principal derrota';
         textoResultado.textContent = 'Has sido derrotado';
