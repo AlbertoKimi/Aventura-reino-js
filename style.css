@@ -355,12 +355,28 @@ main {
 
 /* --------------- ESCENA 2 (Mercado) --------------- */
 
+#contenedor-info-mercado {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    gap: 24px;
+    border: 4px solid var(--color-acento-1);
+}
+
 #dinero {
-    color: var(--color-secundario);
+    color: var(--color-primario);
+    font-weight: bold;
+    font-size: var(--font-size-stats-lg);
 }
 
 #coste-total-cesta {
-    color: var(--color-secundario);
+    color: var(--color-primario);
+    font-weight: bold;
+    font-size: var(--font-size-stats-lg);
 }
 
 #escena-2 {
@@ -915,6 +931,145 @@ main {
     transform: translateY(-1px);
 }
 
+/* -------------- EXAMEN ------------------ */
+#escena-7 {
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}
+
+#escena-7-contenedor {
+    background-color: var(--color-primario);
+    border: 3px solid var(--color-acento-1);
+    border-radius: 10px;
+    padding: 24px;
+    text-align: center;
+    width: 1000px;
+    height: 455px;
+}
+
+#escena-7-contenedor h3 {
+    color: var(--color-secundario);
+    margin-bottom: 16px;
+}
+
+#historial-puntuaciones {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    background-color: var(--color-secundario);
+    border: 1px solid #e5e7eb;
+    border-bottom: none;
+    overflow: auto;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+table th,
+table td {
+    padding: 8px;
+    text-align: center;
+    border: 2px solid var(--color-primario);
+}
+
+/*table td:nth-child(1),*/
+table th:nth-child(1) {
+    background: var(--color-hover-botones);
+    position: sticky;
+    left: 0;
+    z-index: 5;
+    color: var(--color-primario);
+}
+
+table th:nth-child(1) {
+    z-index: 6;
+}
+
+table th {
+    background-color: var(--color-hover-botones);
+    color: var(--color-primario);
+    font-size: 14px;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+table td {
+    font-size: 14px;
+    color: var(--color-primario);
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: var(--color-acento-1);
+}
+
+table tbody tr:nth-child(odd) td:nth-child(1) {
+    background-color: var(--color-acento-1);
+}
+
+table tbody tr:nth-child(even) {
+    background-color: var(--color-terciario);
+}
+
+table tbody tr:nth-child(even) td:nth-child(1) {
+    background-color: var(--color-terciario);
+}
+
+table tbody tr:hover,
+table tbody tr:hover td:nth-child(1) {
+    background-color: var(--color-hover-botones);
+    cursor: pointer;
+}
+
+.no-data {
+    text-align: center;
+    font-size: 14px;
+    color: #9ca3af;
+}
+
+/* -------------------- MONEDERO ---------------------*/
+
+.monedero {
+    position: fixed;
+    left: 2vw;
+    bottom: 1vh;
+    background-image: url("./Imagenes/monedero.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 12px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 105px;
+    min-height: 105px;
+    transform: translateX(-250px);
+    animation: deslizarMonedero 0.8s ease-out forwards;
+}
+
+@keyframes deslizarMonedero {
+    to {
+        transform: translateX(0);
+    }
+}
+
+#monedero-texto {
+
+    margin-top: 16px;
+    font-size: var(--font-size-base);
+    color: var(--color-primario);
+    font-weight: bold;
+    font-family: var(--font-titulos);
+    text-shadow: var(--shadow-base);
+}
+
 
 /* --------------- RESPONSIVE ------------ */
 
@@ -955,9 +1110,9 @@ main {
         height: 70px;
     }
 
-    main {
+    /*main {
         padding: 8px;
-    }
+    }*/
 
     #escena-1-contenedor,
     #escena-3-contenedor {
@@ -1016,6 +1171,10 @@ main {
 
     .productos {
         padding: 12px;
+    }
+
+    div .productos{
+        width: 200px;
     }
 
     .foto {
@@ -1366,103 +1525,27 @@ main {
         font-size: 20px;
         padding: 8px;
     }
+
+    .monedero {
+        min-width: 80px;
+        min-height: 80px;
+        padding: 8px 8px;
+    }
+
+    #monedero-texto {
+        font-size: 12px;
+    }
+
+    div .productos{
+        width: 250px;
+    }
+
+    p.mensaje-descuento{
+        text-align: center;
+    }
+
+    div#dinero, div#coste-total-cesta{
+        font-size: 14px;
+    }
 }
 
-/* -------------- EXAMEN ------------------ */
-#escena-7 {
-    justify-content: center;
-    align-items: center;
-    height: auto;
-}
-
-#escena-7-contenedor {
-    background-color: var(--color-primario);
-    border: 3px solid var(--color-acento-1);
-    border-radius: 10px;
-    padding: 24px;
-    text-align: center;
-    width: 1000px;
-    height: 455px;
-}
-
-#historial-puntuaciones {
-    margin-top: 24px;
-    margin-bottom: 16px;
-    background-color: var(--color-secundario);
-    border: 1px solid #e5e7eb;
-    border-bottom: none;
-    overflow: auto;
-    height: 280px;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Table layout */
-table {
-    border-collapse: collapse;
-    width: 100%;
-    table-layout: fixed;
-    /* Ensures consistent column widths */
-}
-
-/* Table cells and headers */
-table th,
-table td {
-    padding: 8px;
-    text-align: center;
-    border: 1px solid #e5e7eb;
-}
-
-/* Frozen first column */
-table td:nth-child(1),
-table th:nth-child(1) {
-    background: red;
-    /* Highlighted background for frozen column */
-    position: sticky;
-    left: 0;
-    /* Ensures the column stays on the left */
-    z-index: 5;
-    /* Keeps the column above other cells */
-    color: white;
-}
-
-/* Add higher z-index for header */
-table th:nth-child(1) {
-    z-index: 6;
-}
-
-/* Sticky header */
-table th {
-    background-color: #1e3a8a;
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-    position: sticky;
-    top: 0;
-    /* Makes the header stick to the top */
-    z-index: 2;
-    /* Keeps the header above the table body */
-}
-
-/* Styling for table body */
-table td {
-    font-size: 14px;
-    color: #6b7280;
-}
-
-/* Zebra striping for rows */
-table tr:nth-child(odd) {
-    background-color: #f9fafb;
-}
-
-/* Hover effect for rows */
-table tr:hover {
-    background-color: rgba(14, 116, 144, 0.1);
-}
-
-/* No data row styling */
-.no-data {
-    text-align: center;
-    font-size: 14px;
-    color: #9ca3af;
-}

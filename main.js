@@ -40,6 +40,7 @@ function inicializarJuego() {
     dinero_sobrante = 0;
 
     mostrarEscena('escena-1');
+    actualizarMonederoVisual();
     actualizarEstadoJugador();
 
     limpiarInventario();
@@ -201,18 +202,18 @@ function crearAnimacionCompra(boton, slotIndex) {
     // Animar el botón
     boton.classList.add('comprando');
     setTimeout(() => boton.classList.remove('comprando'), 600);
-    
+
     // Obtener posiciones
     const rectBoton = boton.getBoundingClientRect();
     const slotDestino = document.querySelectorAll('#inventario-contenedor .item')[slotIndex];
     const rectSlot = slotDestino.getBoundingClientRect();
-    
+
     // Calcular centro de cada elemento
     const origenX = rectBoton.left + rectBoton.width / 2;
     const origenY = rectBoton.top + rectBoton.height / 2;
     const destinoX = rectSlot.left + rectSlot.width / 2 - origenX;
     const destinoY = rectSlot.top + rectSlot.height / 2 - origenY;
-    
+
     // Crear 6 monedas
     for (let i = 0; i < 6; i++) {
         const moneda = document.createElement('i');
@@ -222,9 +223,18 @@ function crearAnimacionCompra(boton, slotIndex) {
         moneda.style.setProperty('--destino-x', `${destinoX + (Math.random() - 0.5) * 40}px`);
         moneda.style.setProperty('--destino-y', `${destinoY + (Math.random() - 0.5) * 40}px`);
         moneda.style.animationDelay = `${i * 0.05}s`;
-        
+
         document.body.appendChild(moneda);
         setTimeout(() => moneda.remove(), 1050 + i * 50);
+    }
+}
+/** Actualiza visualmente el monedero del jugador en el footer.
+ */
+
+function actualizarMonederoVisual() {
+    const monederoTexto = document.getElementById('monedero-texto');
+    if (monederoTexto) {
+        monederoTexto.textContent = jugador.monedero;
     }
 }
 
@@ -287,6 +297,7 @@ function confirmarCompra() {
             alert('Error en la transacción. Dinero insuficiente.');
             return;
         }
+        actualizarMonederoVisual();
     }
 
     productosEnCesta.forEach(producto => {
@@ -427,6 +438,7 @@ function mostrarResultadoCombate(resultado, enemigo) {
 
     dinero_sobrante += enemigo.moneda;
     console.log(dinero_sobrante);
+    actualizarMonederoVisual();
 
 
     mostrarEscena('escena-5');
@@ -635,7 +647,7 @@ function configurarEventListeners() {
             console.log("Este es el historial de puntuaciones: ", historial);
             generarTablaPuntuaciones(historial);
             mostrarEscena('escena-7');
-            
+
         });
     }
 }
@@ -728,6 +740,7 @@ function iniciar() {
     console.log('Inicializando juego...');
     /*inicializarJuego();*/
     configurarEventListeners();
+    actualizarMonederoVisual();
     console.log('Juego inicializado correctamente');
 }
 
