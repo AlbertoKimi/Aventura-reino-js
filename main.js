@@ -759,7 +759,7 @@ function generarTablaPuntuaciones(puntuaciones) {
     
     historialCompleto.forEach(partida => {
         const fila = document.createElement('tr');
-        // Usamos toFixed(2) para que el dinero siempre muestre decimales coherentes
+
         fila.innerHTML = `
             <td>${partida.nombre}</td>
             <td>${partida.puntos}</td>
