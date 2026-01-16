@@ -436,9 +436,11 @@ main {
     padding: 8px;
     box-shadow: var(--shadow-base);
     transition: all 0.3s ease;
+    animation: movProducto 3s ease-in-out infinite;
 }
 
 .productos:hover {
+    animation-play-state: paused;
     transform: translateY(-5px);
     box-shadow: var(--shadow-producto-hover);
 }
@@ -1616,6 +1618,11 @@ table tbody tr:hover td:nth-child(1) {
 @keyframes flotarEnemigo {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-8px); }
+}
+
+@keyframes movProducto {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -8px; }
 }
 
 .enemigo-tarjeta:nth-child(odd) {
