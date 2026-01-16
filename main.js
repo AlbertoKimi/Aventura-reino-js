@@ -66,8 +66,12 @@ function actualizarEstadoJugador() {
             const defensaElement = escena.querySelector('.stat-defensa');
             const vidaElement = escena.querySelector('.stat-vida');
             const puntosElement = escena.querySelector('.stat-puntos');
+            const imagenJugador = escena.querySelector('.img-contenedor img');
 
-            if (nombreElement) nombreElement.textContent = jugador.nombre;
+            if (nombreElement){
+                nombreElement.textContent = jugador.nombre;
+                imagenJugador.title = jugador.nombre;
+            } 
             if (ataqueElement) ataqueElement.textContent = `Ataque: ${jugador.obtenerAtaqueTotal()}`;
             if (defensaElement) defensaElement.textContent = `Defensa: ${jugador.obtenerDefensaTotal()}`;
             if (vidaElement) vidaElement.textContent = `Vida: ${jugador.obtenerVidaTotal()}`;

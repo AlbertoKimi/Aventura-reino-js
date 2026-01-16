@@ -1625,6 +1625,13 @@ table tbody tr:hover td:nth-child(1) {
     animation-duration: 2.8s;
 }
 
+/*Efecto hover para hacer la imagen del prota en los stats más grande*/
+
+.img-contenedor:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
 /* ---------------- ESCENA 8 (Resumen Inventario) ---------------- */
 
 #escena-8-contenedor {
