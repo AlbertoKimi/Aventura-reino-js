@@ -193,6 +193,7 @@
           </div>
           <button class="btn-reiniciar" onclick="location.reload()">Jugar de nuevo</button>
           <button class="btn-reiniciar" id="btn-continuar-5">Ver Historial</button>
+          <button class="btn-continuar" id="btn-ver-inventario">Ver Inventario Final</button>
         </div>
       </div>
     </div>
@@ -205,6 +206,39 @@
         <div id="historial-puntuaciones" class="historial-partidas"></div>
         <button class="btn-reiniciar" onclick="location.reload()">Jugar de nuevo</button>
       </div>
+    </div>
+
+    <!-- ESCENA 8: Inventario Final -->
+
+    <div id="escena-8" class="escena">
+      <div id="escena-8-contenedor">
+        <h2>Resumen de Compras</h2>
+        
+        <div class="resumen-economico">
+            <div class="dato-eco">
+                <p>Monedero Inicial</p>
+                <span class="cifra">500.00 Ryō</span>
+            </div>
+            <div class="dato-eco">
+                <p>Total Gastado</p>
+                <span id="dato-gastado" class="cifra negativo">0 Ryō</span>
+            </div>
+            <div class="dato-eco">
+                <p>Dinero Final</p>
+                <span id="dato-final" class="cifra positivo">0 Ryō</span>
+            </div>
+        </div>
+
+        <h3>Tus Objetos</h3>
+        <div id="grid-resumen-inventario" class="grid-inventario-final">
+            </div>
+
+        <div class="fila-botones-resumen">
+            <button class="btn-continuar" id="btn-volver-de-inventario">Volver</button>
+        </div>
+      </div>
+    </div>
+      
 
   </main>
 

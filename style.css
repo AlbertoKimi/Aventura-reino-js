@@ -194,6 +194,7 @@ main {
 
 .escena.activa {
     display: flex;
+    animation: aparecerEscena 0.6s ease-out forwards;
 }
 
 /* ---------------------- ESCENA FORMUMARIO ----------------------------*/
@@ -632,6 +633,7 @@ main {
     flex-direction: column;
     align-items: center;
     transition: all 0.3s ease;
+    animation: flotarEnemigo 3s ease-in-out infinite;
 }
 
 .enemigo-tarjeta:hover {
@@ -1584,4 +1586,152 @@ table tbody tr:hover td:nth-child(1) {
         font-size: 14px;
     }
 }
+
+/* ---------- PRÁCTICA PARA RECUPERACIÓN DISEÑO ------------ */
+
+@keyframes aparecerEscena {
+    from {
+        opacity: 0;
+        transform: translateY(20px); /* Un pequeño desplazamiento hacia arriba */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes temblor {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px) rotate(-5deg); }
+    50% { transform: translateX(5px) rotate(5deg); }
+    75% { transform: translateX(-5px) rotate(-5deg); }
+    100% { transform: translateX(0); }
+}
+
+.efecto-dano {
+    animation: temblor 0.4s ease-in-out;
+    border-color: red !important; /* Cambia el borde a rojo */
+}
+
+@keyframes flotarEnemigo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.enemigo-tarjeta:nth-child(odd) {
+    animation-duration: 3.5s;
+}
+.enemigo-tarjeta:nth-child(even) {
+    animation-duration: 2.8s;
+}
+
+/* ---------------- ESCENA 8 (Resumen Inventario) ---------------- */
+
+#escena-8-contenedor {
+    background-color: var(--color-primario);
+    border: 3px solid var(--color-acento-1);
+    border-radius: 10px;
+    padding: 24px;
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 90vh; /* Para evitar que se salga si hay muchos items */
+    overflow-y: auto;
+}
+
+#escena-8 h2 {
+    color: var(--color-secundario);
+    margin-bottom: 24px;
+}
+
+#escena-8 h3 {
+    color: var(--color-acento-1);
+    margin: 20px 0 16px 0;
+    width: 100%;
+    text-align: left;
+    border-bottom: 2px solid var(--color-acento-2);
+    padding-bottom: 8px;
+}
+
+.resumen-economico {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    background-color: var(--color-secundario);
+    padding: 16px;
+    border-radius: 8px;
+    border: 2px solid var(--color-apoyo-naranja);
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.dato-eco {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dato-eco p {
+    color: var(--color-primario);
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.cifra {
+    font-family: var(--font-titulos);
+    font-size: 20px;
+    color: var(--color-primario);
+}
+
+.cifra.negativo { color: var(--color-fallido); }
+.cifra.positivo { color: var(--color-exito); }
+
+.grid-inventario-final {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.item-resumen {
+    background: var(--color-secundario);
+    border: 2px solid var(--color-terciario);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.item-resumen img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 8px;
+}
+
+.item-resumen strong {
+    color: var(--color-primario);
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.item-resumen .precio-pagado {
+    color: var(--color-fallido);
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.fila-botones-resumen {
+    margin-top: auto;
+}
+
+
+
 

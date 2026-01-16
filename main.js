@@ -443,6 +443,22 @@ function mostrarResultadoCombate(resultado, enemigo) {
     document.getElementById('nombre-enemigo-batalla').textContent = "Enemigo: " + enemigo.nombre;
     document.getElementById('vida-enemigo-batalla').textContent = "Vida: " + enemigo.puntosVida;
 
+    const imgJugador = document.getElementById('img-jugador-batalla');
+    const imgEnemigo = document.getElementById('img-enemigo-batalla');
+
+    imgJugador.classList.remove('efecto-dano');
+    imgEnemigo.classList.remove('efecto-dano');
+
+    void imgJugador.offsetWidth; //Para reiniciar la animación instantáneamente
+
+    if (resultado.victoria) {
+       
+        imgEnemigo.classList.add('efecto-dano');
+    } else {
+        
+        imgJugador.classList.add('efecto-dano');
+    }
+
     const resultadoDiv = document.getElementById('resultado-principal');
     const textoResultado = document.getElementById('texto-resultado');
     const puntosGanados = document.getElementById('puntos-ganados');
@@ -568,6 +584,44 @@ function mostrarEscenaFinal() {
 }
 
 /**
+ * Calcula y muestra el resumen de compras e inventario en la escena 8.
+ */
+function mostrarResumenInventario() {
+    // 1. Calcular economía
+    // El costo total se calcula sumando el precio (formateado) de cada item en el inventario
+    const totalGastado = jugador.obtenerCostoTotal(jugador.inventario);
+    
+    document.getElementById('dato-gastado').textContent = `-${totalGastado.toFixed(2)} Ryō`;
+    document.getElementById('dato-final').textContent = `${jugador.monedero.toFixed(2)} Ryō`;
+
+    // 2. Renderizar items
+    const contenedorItems = document.getElementById('grid-resumen-inventario');
+    contenedorItems.innerHTML = ''; // Limpiar contenido previo
+
+    if (jugador.inventario.length === 0) {
+        contenedorItems.innerHTML = '<p style="color:white; text-align:center; width:100%;">No compraste ningún objeto.</p>';
+    } else {
+        jugador.inventario.forEach(producto => {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'item-resumen';
+            
+            // Usamos formatearAtributos para obtener el precio real (dividido por 100)
+            const precioPagado = producto.formatearAtributos(producto.precio);
+
+            itemDiv.innerHTML = `
+                <img src="${producto.imagen}" alt="${producto.nombre}">
+                <p><strong>${producto.nombre}</strong></p>
+                <p class="precio-pagado">-${precioPagado} Ryō</p>
+                <p style="font-size:12px; color:#333;">${producto.tipo}</p>
+            `;
+            contenedorItems.appendChild(itemDiv);
+        });
+    }
+
+    mostrarEscena('escena-8');
+}
+
+/**
  * Configura todos los Event Listeners para los botones de navegación entre escenas.
  */
 
@@ -679,6 +733,22 @@ function configurarEventListeners() {
             generarTablaPuntuaciones(historial);
             mostrarEscena('escena-7');
 
+        });
+    }
+
+    // Botón para ir al Resumen desde la pantalla final (Escena 6)
+    const btnVerInventario = document.getElementById('btn-ver-inventario');
+    if (btnVerInventario) {
+        btnVerInventario.addEventListener('click', () => {
+            mostrarResumenInventario();
+        });
+    }
+
+    // Botón para volver del Resumen a la pantalla final (Escena 8 -> Escena 6)
+    const btnVolverDeInventario = document.getElementById('btn-volver-de-inventario');
+    if (btnVolverDeInventario) {
+        btnVolverDeInventario.addEventListener('click', () => {
+            mostrarEscena('escena-6');
         });
     }
 }
