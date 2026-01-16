@@ -53,6 +53,7 @@ body {
 
 footer,
 header {
+    position: relative;
     display: flex;
     justify-content: center;
     background-image: url("./Imagenes/footer.png");
@@ -1074,10 +1075,10 @@ table tbody tr:hover td:nth-child(1) {
 
 .moneda-victoria {
     position: fixed !important;
-    top: -10vh; 
+    top: -10vh;
     width: 60px;
     height: 60px;
-    z-index: 10000; 
+    z-index: 10000;
     pointer-events: none;
 
     /* Prepara la GPU para que la animación sea fluida y no se bloquee con el scroll
@@ -1087,9 +1088,17 @@ table tbody tr:hover td:nth-child(1) {
     animation: caerYRotar 2.5s linear forwards;
 }
 
-.posicion-25 { left: 25%; }
-.posicion-50 { left: 50%; }
-.posicion-75 { left: 75%; }
+.posicion-25 {
+    left: 25%;
+}
+
+.posicion-50 {
+    left: 50%;
+}
+
+.posicion-75 {
+    left: 75%;
+}
 
 @keyframes caerYRotar {
     0% {
@@ -1097,11 +1106,13 @@ table tbody tr:hover td:nth-child(1) {
         transform: translateX(-50%) rotateY(0deg);
         opacity: 1;
     }
+
     80% {
         opacity: 1;
     }
+
     100% {
-        top: 70vh; 
+        top: 70vh;
         transform: translateX(-50%) rotateY(1080deg);
         opacity: 0;
     }
@@ -1209,7 +1220,7 @@ table tbody tr:hover td:nth-child(1) {
         padding: 12px;
     }
 
-    div .productos{
+    div .productos {
         width: 200px;
     }
 
@@ -1572,16 +1583,85 @@ table tbody tr:hover td:nth-child(1) {
         font-size: 12px;
     }
 
-    div .productos{
+    div .productos {
         width: 250px;
     }
 
-    p.mensaje-descuento{
+    p.mensaje-descuento {
         text-align: center;
     }
 
-    div#dinero, div#coste-total-cesta{
+    div#dinero,
+    div#coste-total-cesta {
         font-size: 14px;
     }
 }
+
+/* ----------RECUPERACIÓN -----------*/
+
+.mensaje {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 8px;
+    padding: 8px;
+    background-color: var(--color-precio-tachado);
+    margin-top: 16px;
+    font-size: 14px;
+    color: var(--color-secundario);
+    font-weight: bold;
+    font-family: var(--font-titulos);
+    text-shadow: var(--shadow-base);
+    max-width: 150px;
+    max-height: 75px;
+    transform: translateY(55px);
+    transition: 0.3s ease;
+}
+
+#mensaje-texto {
+    margin-top: 8px;
+    text-align: center;
+}
+
+.mensaje:hover {
+    transform: translateY(18px);
+}
+
+.estrella {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    width: 200px;
+    height: 40px;
+    background-color: var(--color-secundario);
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.estrellas {
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    width: 20px;
+    height: 20px;
+    background-color: gold;
+    animation: Rotar 5s linear infinite;
+}
+
+@keyframes Rotar {
+    0% {
+       
+        transform:rotate(0deg);
+        
+    }
+
+    100% {
+        transform: rotate(360deg);
+
+    }
+}
+
+
 
