@@ -1632,6 +1632,15 @@ table tbody tr:hover td:nth-child(1) {
     transition: transform 0.3s ease;
 }
 
+@keyframes parpadeo{
+    0%, 100% {opacity: 0;}
+    50% {opacity:1;}
+}
+
+#title span{
+    animation: parpadeo 3s infinite;
+}
+
 /* ---------------- ESCENA 8 (Resumen Inventario) ---------------- */
 
 #escena-8-contenedor {
